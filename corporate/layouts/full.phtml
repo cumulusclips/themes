@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="<?=Language::getLocale()?>">
+<head>
+<title><?=$meta->title?></title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="baseUrl" content="<?=HOST?>" />
+<meta name="themeUrl" content="<?=$this->options->themeUrl?>" />
+<?php $this->writeMeta(); ?>
+<?php Plugin::triggerEvent('theme.head'); ?>
+<link rel="shortcut icon" type="image/x-icon" href="<?=$this->options->themeUrl?>/images/favicon.ico" />
+<link rel="stylesheet" type="text/css" href="<?=$this->options->themeUrl?>/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="<?=$this->options->themeUrl?>/css/main.css" />
+<link rel="stylesheet" type="text/css" href="<?=$this->options->themeUrl?>/css/pages.css" />
+<link rel="stylesheet" type="text/css" href="<?=$this->options->themeUrl?>/css/responsive.css" />
+<?php $this->writeCSS(); ?>
+
+</head>
+<body class="<?=$this->cssHooks()?>">
+<?php Plugin::triggerEvent('theme.body'); ?>
+
+<?php $this->block('header.phtml'); ?>
+
+<div class="container">
+    <div class="row">
+
+        <!-- BEGIN MAIN CONTENT -->
+        <main class="col-md-12">
+            <?=$this->body()?>
+        </main>
+        <!-- END MAIN CONTENT -->
+
+    </div>
+</div>
+
+<?php $this->block('footer.phtml'); ?>
+
+<script type="text/javascript" src="<?=$this->options->themeUrl?>/js/jquery.min.js"></script>
+<script type="text/javascript" src="<?=$this->options->themeUrl?>/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<?=$this->options->themeUrl?>/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?=$this->options->themeUrl?>/js/general.js"></script>
+<?php $this->writeJs(); ?>
+
+</body>
+</html>

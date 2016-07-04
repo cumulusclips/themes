@@ -1,0 +1,46 @@
+<?php $this->SetLayout ('account'); ?>
+
+<h1><?=Language::GetText('message_inbox_header')?></h1>
+
+<?php if ($message): ?>
+    <div class="alert <?=convertAlertToBootstrap($message_type)?>"><?=$message?></div>
+<?php endif; ?>
+
+<?php if (count($messages) > 0): ?>
+
+    <form action="<?=HOST?>/account/message/inbox/" method="post">
+    <table class="table" id="inbox">
+        <thead>
+            <tr>
+                <th><?=Language::GetText('purge')?></th>
+                <th><?=Language::GetText('message_status')?></th>
+                <th class="subject"><?=Language::GetText('subject')?></th>
+                <th><?=Language::GetText('sender')?></th>
+                <th><?=Language::GetText('date')?></th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($messages as $message): ?>
+            <tr>
+                <td><input type="checkbox" name="delete[]" value="<?=$message->messageId?>" /></td>
+                <td><?=$message->status == 'read' ? Language::GetText('read') : Language::GetText('unread')?></td>
+                <td><a href="<?=HOST?>/account/message/read/<?=$message->messageId?>/" title="<?=htmlspecialchars($message->subject)?>"><?=htmlspecialchars($message->subject)?></a></td>
+                <td><?=$message->username?></td>
+                <td><?=date('m/d/Y', strtotime($message->dateCreated))?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+    <div class="row_btn">
+        <input type="hidden" name="submitted" value="TRUE" />
+        <input class="btn btn-primary checkbox-disable confirm" data-checkbox="delete[]" data-node="confirm_purge_messages" type="submit" name="button" value="<?=Language::GetText('purge_button')?>" disabled="disabled" />
+    </div>
+    </form>
+
+    <?=$pagination->Paginate()?>
+
+<?php else: ?>
+    <div class="block">
+        <strong><?=Language::GetText('no_messages')?></strong>
+    </div>
+<?php endif; ?>

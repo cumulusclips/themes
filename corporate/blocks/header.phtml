@@ -1,0 +1,130 @@
+
+<!-- BEGIN NAV -->
+<div class="nav-strip ">
+    <nav class="container">
+
+        <div class="row">
+
+            <div class=" hidden-md hidden-lg col-xs-10">
+                <a class="logo" href="<?=HOST?>/" title="CumulusClips - Free Video Sharing CMS, Video Sharing Script, YouTube Clone Script">CumulusClips - Free Video Sharing CMS, Video Sharing Script, YouTube Clone Script</a>
+            </div>
+
+            <ul class="nav nav-pills nav-left hidden-xs hidden-sm col-md-7">
+                <li class="<?=($this->options->page == 'index') ? 'active' : ''?>"><a href="<?=HOST?>/"><?=Language::GetText('home')?></a></li>
+                <li class="<?=($this->options->page == 'videos') ? 'active' : ''?>"><a href="<?=HOST?>/videos/"><?=Language::GetText('videos')?></a></li>
+                <li class="<?=($this->options->page == 'members') ? 'active' : ''?>"><a href="<?=HOST?>/members/"><?=Language::GetText('members')?></a></li>
+                <?php if ($config->enableUserUploads): ?>
+                    <li class="<?=($this->options->page == 'account_upload') ? 'active' : ''?>"><a href="<?=HOST?>/account/upload/"><?=Language::GetText('upload')?></a></li>
+                <?php endif; ?>
+            </ul>
+
+            <div class="nav-right col-md-5 text-right hidden-xs hidden-sm">
+
+                <?php if ($loggedInUser): ?>
+
+                    <a href="<?=HOST?>/account/" title="<?=Language::GetText('account')?>"><?=Language::GetText('account')?></a>
+                    <?php if ($this->getService('User')->checkPermissions('admin_panel', $loggedInUser)): ?>
+                        <a href="<?=HOST?>/cc-admin/" title="<?=Language::GetText('admin_panel')?>"><?=Language::GetText('admin_panel')?></a>
+                    <?php endif ?>
+                    <a href="<?=HOST?>/logout/" title="<?=Language::GetText('logout')?>"><?=Language::GetText('logout')?></a>
+
+                <?php else: ?>
+                    <a href="<?=HOST?>/login/" title="<?=Language::GetText('login')?>"><?=Language::GetText('login')?></a>
+                    <?php if ($config->enableRegistrations): ?>
+                        <a href="<?=HOST?>/register/" title="<?=Language::GetText('register')?>"><?=Language::GetText('register')?></a>
+                    <?php endif; ?>
+                <?php endif; ?>
+
+                <?php $activeLanguages = Language::getActiveLanguages(); ?>
+                <?php if (count($activeLanguages) > 1): ?>
+
+                    <div class="languages dropdown hidden-xs hidden-sm">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                            <?=Language::getLanguage(true)?>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                        <?php foreach ($activeLanguages as $systemName => $language): ?>
+                            <li><a href="<?=HOST?>/language/set/<?=$systemName?>/"><?=$language->native_name?></a></li>
+                        <?php endforeach; ?>
+                        </ul>
+                    </div>
+
+                <?php endif; ?>
+
+
+            </div>
+
+            <div class="menu-toggle text-right col-xs-2 hidden-md hidden-lg">
+                <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#mobile-menu">
+                    <span class="glyphicon glyphicon-menu-hamburger"></span>
+                </button>
+            </div>
+
+            <!-- BEGIN Mobile/Tablet Menu -->
+            <div class="collapse" id="mobile-menu">
+                <ul>
+                    <li class="<?=($this->options->page == 'index') ? 'active' : ''?>"><a href="<?=HOST?>/"><?=Language::GetText('home')?></a></li>
+                    <li class="<?=($this->options->page == 'videos') ? 'active' : ''?>"><a href="<?=HOST?>/videos/"><?=Language::GetText('videos')?></a></li>
+                    <li class="<?=($this->options->page == 'members') ? 'active' : ''?>"><a href="<?=HOST?>/members/"><?=Language::GetText('members')?></a></li>
+                    <?php if ($config->enableUserUploads): ?>
+                        <li class="<?=($this->options->page == 'account_upload') ? 'active' : ''?>"><a href="<?=HOST?>/account/upload/"><?=Language::GetText('upload')?></a></li>
+                    <?php endif; ?>
+
+                    <?php if ($loggedInUser): ?>
+
+                        <li><a href="<?=HOST?>/account/" title="<?=Language::GetText('account')?>"><?=Language::GetText('account')?></a></li>
+                        <?php if ($this->getService('User')->checkPermissions('admin_panel', $loggedInUser)): ?>
+                            <li><a href="<?=HOST?>/cc-admin/" title="<?=Language::GetText('admin_panel')?>"><?=Language::GetText('admin_panel')?></a></li>
+                        <?php endif ?>
+                        <li><a href="<?=HOST?>/logout/" title="<?=Language::GetText('logout')?>"><?=Language::GetText('logout')?></a></li>
+
+                    <?php else: ?>
+                        <li><a href="<?=HOST?>/login/" title="<?=Language::GetText('login')?>"><?=Language::GetText('login')?></a></li>
+                        <?php if ($config->enableRegistrations): ?>
+                            <li><a href="<?=HOST?>/register/" title="<?=Language::GetText('register')?>"><?=Language::GetText('register')?></a></li>
+                        <?php endif; ?>
+                    <?php endif; ?>
+
+                </ul>
+            </div>
+            <!-- END Mobile/Tablet Menu -->
+
+        </div>
+
+    </nav>
+
+</div>
+<!-- END NAV -->
+
+<!-- BEGIN HEADER -->
+<div class="header-strip">
+    <header class="container">
+        <div class="row">
+
+            <div class="header-left col-md-6 hidden-xs hidden-sm">
+                <a class="logo" href="<?=HOST?>/" title="CumulusClips - Free Video Sharing CMS, Video Sharing Script, YouTube Clone Script">CumulusClips - Free Video Sharing CMS, Video Sharing Script, YouTube Clone Script</a>
+            </div>
+
+            <!-- BEGIN Search Form -->
+            <div class="search-form col-md-offset-2 col-md-4 col-xs-12">
+                <form action="<?=HOST?>/search/" method="post">
+                    <div class="autocomplete-container">
+                        <div class="input-group">
+                            <input placeholder="<?=Language::GetText('search_text')?>" class="form-control" type="text" name="keyword" />
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="submitted_search" value="TRUE" />
+                </form>
+            </div>
+            <!-- END Search Form -->
+
+        </div>
+    </header>
+</div>
+<!-- END HEADER -->

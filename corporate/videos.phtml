@@ -1,0 +1,43 @@
+<?php $this->setLayout('full'); ?>
+
+<h1><?=Language::GetText('videos_header')?></h1>
+<p class="large"><?=Language::GetText('viewing')?>: <?=$sub_header?></p>
+
+<div class="filter-options">
+
+        <div class="dropdown btn-group">
+            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                <?=Language::getText('category')?>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <?php foreach ($category_list as $category): ?>
+                    <li><a href="<?=HOST?>/videos/<?=$category->slug?>/" title="<?=$category->name?>"><?=$category->name?></a></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+
+        <?=Language::getText('sorting')?>:
+        <div class="dropdown btn-group">
+            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                <?=getActiveSorting()?>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="<?=HOST?>/videos/most-recent/"><?=Language::getText('most_recent')?></a></li>
+                <li><a href="<?=HOST?>/videos/most-viewed/"><?=Language::getText('most_viewed')?></a></li>
+                <li><a href="<?=HOST?>/videos/most-discussed/"><?=Language::getText('most_discussed')?></a></li>
+                <li><a href="<?=HOST?>/videos/most-rated/"><?=Language::getText('most_rated')?></a></li>
+            </ul>
+        </div>
+
+</div>
+
+<?php if (!empty ($browse_videos)): ?>
+    <div class="video-list">
+        <?php $this->RepeatingBlock('video.phtml', $browse_videos); ?>
+    </div>
+    <?=$pagination->Paginate()?>
+<?php else: ?>
+    <p><strong><?=Language::GetText('no_videos')?></strong></p>
+<?php endif; ?>

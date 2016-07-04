@@ -1,0 +1,53 @@
+<?php $this->setLayout('account'); ?>
+
+<h1><?=Language::getText('my_videos_header')?></h1>
+        
+<?php if ($message): ?>
+    <div class="alert <?=convertAlertToBootstrap($message_type)?>"><?=$message?></div>
+<?php endif; ?>
+
+<?php if (count($userVideos) > 0): ?>
+    
+    <div class="video-list">
+    <?php foreach($userVideos as $video): ?>
+
+        <div class="video video-large">
+
+            <div class="thumb">
+            <?php if (in_array($video->status, array(VideoMapper::PENDING_CONVERSION, 'processing', VideoMapper::PENDING_APPROVAL))): ?>
+                <img width="240" height="135" src="<?=$this->options->themeUrl?>/images/video_construction.png" />
+            <?php else: ?>
+                <a href="<?=$this->getService('Video')->getUrl($video)?>/" title="<?=$video->title?>">
+                    <span class="glyphicon glyphicon-play"></span>
+                    <img width="240" height="135" src="<?=$config->thumbUrl?>/<?=$video->filename?>.jpg" />
+                </a>
+            <?php endif; ?>
+            </div>
+
+            <div class="info">
+                <span class="glyphicon glyphicon-user"></span><?=$video->username?>
+                <?php if ($video->status == 'approved'): ?>
+                    <span class="duration"><span class="glyphicon glyphicon-time"></span><?=$video->duration?></span>
+                <?php endif; ?>
+            </div>
+
+            <?php if (in_array($video->status, array(VideoMapper::PENDING_CONVERSION, 'processing', VideoMapper::PENDING_APPROVAL))): ?>
+                <p><?=Language::getText($video->status)?> - <?=$video->title?></p>
+            <?php else: ?>
+                <p><a href="<?=VideoService::getUrl($video)?>/" title="<?=$video->title?>"><?=$video->title?></a></p>
+            <?php endif; ?>
+            
+            <div class="actions small">
+                <a href="<?=HOST?>/account/videos/edit/<?=$video->videoId?>/" title="<?=Language::getText('edit_video')?>"><span><?=Language::getText('edit_video')?></a>
+                <a class="pull-right confirm" data-node="confirm_delete_video" href="<?=HOST?>/account/videos/<?=$video->videoId?>/" title="<?=Language::getText('delete_video')?>"><span><?=Language::getText('delete_video')?></a>
+            </div>
+        </div>
+
+    <?php endforeach; ?>
+    </div>
+
+    <?=$pagination->paginate()?>
+
+<?php else: ?>		        
+    <p><?=Language::getText('no_user_videos')?></p>
+<?php endif; ?>

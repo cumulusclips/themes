@@ -1,0 +1,37 @@
+<h1><?=Language::getText('search_header')?></h1>
+
+<p><?=Language::getText('results_for')?>: '<em><?=$cleaned?></em>'</p>
+
+<?php if (!empty($search_videos)): ?>
+
+    <div class="video-list">
+
+    <?php foreach ($search_videos as $video): ?>
+
+        <div class="video media">
+
+            <div class="media-left thumb">
+                <a href="<?=$this->getService('Video')->getUrl($video)?>/" title="<?=$video->title?>">
+                    <span class="glyphicon glyphicon-play"></span>
+                    <img width="240" height="135" src="<?=$config->thumbUrl?>/<?=$video->filename?>.jpg" />
+                </a>
+            </div>
+            <div class="media-body">
+                <p class="media-heading"><a href="<?=$this->getService('Video')->getUrl($video)?>/" title="<?=$video->title?>"><?=$video->title?></a></p>
+                <div class="info">
+                    <?=Language::GetText('by')?>: <a href="<?=HOST?>/members/<?=$video->username?>/" title="<?=$video->username?>"><?=$video->username?></a>
+                    <span class="duration"><span class="glyphicon glyphicon-time"></span><?=$video->duration?></span>
+                    <span class="views"><?=Language::GetText('views')?>:</strong> <?=$video->views?></span>
+                </div>
+                <p><?=Functions::cutOff($video->description, 200)?></p>
+            </div>
+        </div>
+
+    <?php endforeach; ?>
+
+    </div>
+    <?=$pagination->Paginate()?>
+
+<?php else: ?>
+    <p><?=Language::GetText('no_results')?></p>
+<?php endif; ?>

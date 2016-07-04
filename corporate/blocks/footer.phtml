@@ -1,0 +1,56 @@
+
+<!-- BEGIN FOOTER -->
+<div class="footer-container">
+
+
+    <div class="footer-main">
+        <div class="container">
+            <footer class="row">
+                <div class="hidden-xs hidden-sm col-md-3">
+                    <h3><?=Language::getText('about')?></h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis quam, sodales in ante sagittis, varius efficitur mauris.</p>
+                    <address>
+                        123 Main Street<br>
+                        Anytown, USA 10001<br>
+                        <abbr title="Phone">P:</abbr> (123) 456-7890
+                    </address>
+                </div>
+                <div class="footer-links col-xs-12 col-md-6 col-md-offset-3">
+                    <a href="<?=HOST?>/videos/" title="<?=Language::GetText('videos')?>"><?=Language::GetText('videos')?></a> |
+                    <a href="<?=HOST?>/members/" title="<?=Language::GetText('members')?>"><?=Language::GetText('members')?></a> |
+                    <?php if ($config->enableUserUploads): ?>
+                        <a href="<?=HOST?>/account/upload/" title="<?=Language::GetText('upload')?>"><?=Language::GetText('upload')?></a> |
+                    <?php endif; ?>
+                    <a href="<?=HOST?>/contact/" title="<?=Language::GetText('contact')?>"><?=Language::GetText('contact')?></a> |
+                    <a href="<?=HOST?>/video-sitemap.xml" title="<?=Language::GetText('sitemap')?>"><?=Language::GetText('sitemap')?></a>
+                    <?php $activeLanguages = Language::getActiveLanguages(); ?>
+                    <?php if (count($activeLanguages) > 1): ?>
+
+                        <div class="languages dropdown hidden-md hidden-lg">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                <?=Language::getLanguage(true)?>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                            <?php foreach ($activeLanguages as $language): ?>
+                                <li><a href="<?=HOST?>/language/set/<?=$language->system_name?>/"><?=$language->native_name?></a></li>
+                            <?php endforeach; ?>
+                            </ul>
+                        </div>
+
+                    <?php endif; ?>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <div class="footer-sub">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">CumulusClips Corporate Theme | &copy; <?=date('Y')?> Sample Company, All rights reserved</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- END FOOTER -->

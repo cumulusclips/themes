@@ -1,0 +1,635 @@
+/**
+ * Notes
+ * Overall Width: 980px
+ * Adjusted Width: 930px
+ * Left Column: 600px
+ * Right Column: 300px
+ * Space Between Columns: 30px
+ * Padding In White Container: 50px
+ */
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+#wrapper {
+    min-height: 100%;
+}
+
+#retainer {
+    overflow:auto;
+    padding-bottom: 105px;
+}
+
+#main {
+    width: 930px;
+    padding: 30px 25px 25px;
+    overflow: hidden;
+    margin: -5px auto 0;
+}
+.ie9 #main {
+}
+
+#main > .left {
+    width: 600px;
+    margin-right: 30px;
+    float: left;
+}
+
+#main > .right {
+    width: 300px;
+    float: right;
+}
+
+#main > .left > h1,
+#main > h1 {
+    margin-top: 0;
+}
+
+#footer {
+    height: 80px;
+    width: 100%;
+    position: relative;
+    margin-top: -80px;
+    clear:both;
+}
+
+#footer a {
+    margin: 0 30px;
+}
+
+
+
+
+
+/*****
+HEADER
+*****/
+#sub_footer {
+    width: 785px;
+    height: 40px;
+    padding: 30px 25px 10px 170px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#header {
+    height: 120px;
+    width: 100%;
+}
+
+#sub_header {
+    width: 930px;
+    margin: 0 auto;
+    clear: both;
+}
+
+#logo {
+    height: 107px;
+    width: 264px;
+    display: inline-block;
+    margin: 6px 0;
+    float: left;
+}
+
+#header input {
+    display: block;
+    width: 230px;
+    height: 30px;
+    padding: 0 10px;
+    font-size: 14px;
+    font-style: italic;
+    float: right;
+}
+
+#header input.customText {
+    font-style: normal;
+}
+
+#header form {
+    position: relative;
+}
+
+.ui-autocomplete {
+    position: absolute;
+    top: 35px !important;
+    width: 248px !important;
+    z-index: 99;
+    text-align: left;
+}
+
+.ui-autocomplete li {
+    padding: 5px;
+}
+
+.ui-autocomplete .ui-state-focus,
+.ui-autocomplete li:hover {
+}
+
+.ui-autocomplete li:hover {
+    cursor: pointer;
+}
+
+span[role="status"] {
+    display: none;
+}
+
+#header_right {
+    float: right;
+    text-align: right;
+}
+
+#header_right a {
+    line-height: 35px;
+    margin-left: 15px;
+}
+
+
+
+
+
+/******
+NAV BAR
+******/
+
+#nav {
+    width: 100%;
+    height: 45px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+#sub_nav {
+    width: 930px;
+    padding: 0 25px;
+    margin: 0 auto;
+}
+
+#sub_nav:after {
+    content:"";
+    display: block;
+    height: 0;
+    clear: both;
+}
+
+nav a {
+    font-size: 16px;
+    margin-right: 50px;
+    display: inline-block;
+    padding: 0 10px;
+    line-height: 45px;
+    height: 45px;
+}
+
+nav a:hover {
+}
+
+nav {
+    float: left;
+}
+
+#languages {
+    float: right;
+    position: relative;
+}
+
+#languages .active-language {
+    background: url('../images/arrow.png') no-repeat right 7px;
+    padding-right: 12px;
+}
+
+#languages a {
+    font-size: 14px;
+    line-height: 45px;
+}
+
+#languages ul {
+    display: none;
+    position: absolute;
+    text-align: right;
+    padding: 5px 15px;
+    right: 0;
+}
+
+#languages:hover ul {
+    display: block;
+}
+
+#languages ul a {
+    line-height: 23px;
+}
+
+
+
+
+/*******
+ELEMENTS
+*******/
+
+a {
+}
+
+a:hover {
+}
+
+a, a.big, a.large, a.huge {
+}
+
+h1, h2, .huge, .large, h3, .big {
+    margin: 10px 0;
+}
+
+h1, .huge {
+    font-size: 24px;
+}
+
+h2, .large {
+    font-size: 18px;
+}
+
+h3, .big {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.small {
+    font-size: 10px;
+}
+
+p {
+    margin: 3px 0;
+}
+
+strong {
+}
+
+em {
+    font-style: italic;
+}
+
+a img {
+}
+
+
+
+
+
+/******
+GENERAL
+******/
+
+/** FORMS **/
+
+/*Remove button padding in FF*/
+input::-moz-focus-inner {
+    padding: 0;
+}
+
+.button, .button_small {
+    margin: 0;
+    line-height: 31px;
+    height: 35px;
+    padding: 1px 15px 3px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.button[disabled] {
+    cursor: not-allowed;
+}
+
+.button_small {
+    font-size: 12px;
+    line-height: 1em;
+    height: auto;
+    padding: 6px 15px 8px;
+}
+
+a.button, a.button_small {
+    display: inline-block;
+}
+
+a.button {
+    line-height: 33px;
+    padding: 0 15px;
+}
+
+.form {
+    padding: 15px 25px;
+    width: 250px;
+}
+
+.wide {
+    width: 440px;
+}
+
+.form form {
+    display: block;
+    overflow: hidden;
+}
+
+.form label {
+}
+
+.form input[type="text"],
+.form input[type="password"],
+.form select,
+.form textarea {
+    height: 35px;
+    width: 230px;
+    padding: 0 10px;
+    margin: 5px 0 25px;
+    display: block;
+}
+
+.form textarea {
+    width: 420px;
+    height: 160px;
+    padding: 10px;
+}
+
+.form select {
+    padding: 5px 10px;
+    width: 250px;
+}
+
+.form .button {
+    float: right;
+}
+
+.form .hint {
+    margin-top: -17px;
+    margin-bottom: 20px;
+}
+
+.form label.error + input[type="text"],
+.form label.error + input[type="password"],
+.form label.error + select,
+.form label.error + textarea {
+    padding: 0 9px;
+}
+
+.form label.error + textarea {
+    padding: 10px 9px;
+}
+
+.form label.error {
+}
+
+
+/** MESSAGES **/
+
+.message {
+    margin: 10px 0;
+    display: none;
+}
+
+.left > .message:first-child {
+    margin-top: 0;
+}
+
+.success {
+    display: block;
+}
+
+.errors {
+    display: block;
+}
+
+.notice {
+    display: block;
+}
+
+
+/** VIDEOS **/
+
+.videos_list {
+    margin-bottom: -20px;
+    overflow: hidden;
+}
+
+.videos_list div:nth-child(3n+3) {
+    margin-right: 0;
+}
+
+.video {
+    width: 165px;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 47px;
+    margin-bottom: 20px;
+}
+
+.video .thumbnail {
+}
+
+.video_medium .thumbnail {
+}
+
+.video_small .thumbnail {
+}
+
+.video .thumbnail span {
+}
+
+.video .duration {
+    font-size: 11px;
+}
+
+.video_medium .duration,
+.video_small .duration {
+    font-size: 10px;
+}
+
+.video .watchLater {
+    display :none;
+}
+
+.video .watchLater:hover {
+}
+
+.video .watchLater a {
+    display: block;
+}
+
+.video .thumbnail:hover .watchLater {
+    display: block;
+}
+
+.video .thumbnail:hover .duration {
+    display: none;
+}
+
+.video .message {
+    margin: 0;
+}
+
+.video_medium .message {
+}
+
+.video_small .message {
+}
+
+.video_medium .message,
+.video_small .message {
+    font-size: 10px;
+}
+
+.video .message a {
+}
+
+.video .success {
+    display: none;
+}
+
+.video .success p {
+    margin: 0;
+}
+
+.video_medium .success p {
+}
+
+.video_small .success p {
+}
+
+.video .errors {
+    display: none;
+}
+
+.video .errors p {
+    margin: 0;
+}
+
+.video_medium .errors p,
+.video_small .errors p {
+}
+
+
+
+
+/** PLAYLISTS **/
+
+.playlist-list {
+    margin-bottom: -20px;
+}
+
+.playlist {
+    width: 165px;
+    margin-right: 47px;
+    margin-bottom: 20px;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+}
+
+.playlist:nth-child(3n+3) {
+    margin-right: 0;
+}
+
+.playlist img {
+    display: block;
+}
+
+.playlist span {
+    width: 60px;
+    height: 67px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 14px;
+    text-align: center;
+    display: block;
+    padding: 25px 5px 0 5px;
+}
+
+.playlist .watch-all,
+.playlist a:hover .video-count {
+    display: none;
+}
+
+.playlist a:hover .watch-all {
+    display: block;
+}
+
+.playlist-empty a:hover .video-count {
+    display: block;
+}
+
+
+
+
+
+
+/** MEMBER LISTS **/
+.member_list {
+    overflow: hidden;
+    margin-bottom: -15px;
+}
+
+.member_list > div {
+    width: 135px;
+    float: left;
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+
+.member_list div:nth-child(4n+4) {
+    margin-right: 0;
+}
+
+
+
+
+
+/** MISC **/
+
+.clear {
+    clear: both;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+#pagination {
+    margin: 10px 0 0;
+    font-size: 14px;
+    text-align: right;
+}
+
+#pagination li {
+    display: inline;
+    margin: 0 5px;
+}
+
+/** TABS **/
+
+.tabs {
+    clear: both;
+    text-align: center;
+    height: 22px;
+    margin-bottom: 15px;
+}
+
+.tabs a {
+    display: inline-block;
+    margin: 0 4px;
+    line-height: 20px;
+    height: 20px;
+    padding: 1px 15px 2px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.tab_block {
+    display: none;
+}

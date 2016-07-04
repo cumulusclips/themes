@@ -1,0 +1,197 @@
+
+/** General Account Styles **/
+
+.account-menu {
+    margin-top: 25px;
+}
+
+.mobile-account-menu {
+    margin-top: 25px;
+}
+
+.account-menu .h4 {
+    margin-top: 20px;
+}
+
+.account-menu .h4:first-child {
+    margin-top: 0;
+}
+
+.account-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.account-menu li {
+    margin: 5px 0;
+}
+
+.video-list > div:nth-child(3n+3) {
+    margin-right: 0;
+}
+
+.video-list > div:nth-child(4n+4) {
+    margin-right: 35px;
+}
+
+.member .delete {
+    z-index:99;
+    position:absolute;
+    top:10px;
+    left:10px;
+    width:16px;
+    height:16px;
+    background: url(../images/cancel.png) no-repeat;
+}
+
+.member .delete span {
+    display:none;
+}
+
+.account .form p:first-child {
+    margin-top: 0;
+}
+
+.actions {
+    border-top: 1px solid #D2D2D2;
+    overflow: hidden;
+    padding-top: 3px;
+}
+
+.confirm {
+    color: #900;
+}
+
+.btn.confirm {
+    color: #fff;
+}
+
+
+
+/** Account Index **/
+
+.account_account main .col-xs-3 p {
+    margin-top: 10px;
+}
+
+
+
+/*************
+UPLOAD - VIDEO
+*************/
+
+.account_upload_video form[name="upload"] {
+    margin-top: 15px;
+}
+
+#upload-select-file {
+    float: left;
+    margin-right: 15px;
+    height: auto;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+}
+
+#upload-select-file input {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    font-size: 200px;
+    opacity: 0;
+}
+
+#upload_status {
+    margin-top: 20px;
+    background-color: #F0F0F0;
+    border: 3px solid #E1E1E1;
+    padding: 10px;
+    display: none;
+}
+
+#upload_status .title {
+    margin: 0 0 10px;
+}
+
+#upload_status .progress {
+    overflow: hidden;
+}
+
+#upload_status .progress-bar {
+    min-width: 1em;
+}
+
+.ie9 #upload_status {
+    width: 285px;
+}
+
+.ie9 #upload_status .fill {
+    width: 100% !important;
+    background-color: #E1E1E1;
+}
+
+.ie9 #upload_status .in-progress {
+    background: url('../images/jquery-ui/animated-overlay.gif');
+    opacity: 0.3;
+}
+
+
+
+/** Playlists **/
+
+.playlist:nth-child(3n+3) {
+    margin-right: 0;
+}
+
+.playlist:nth-child(4n+4) {
+    margin-right: 35px;
+}
+
+.playlist-list + h2 {
+    margin-top: 0;
+}
+
+.account_playlists .playlist-list {
+    margin-top: 15px;
+}
+
+#create-playlist-form {
+    display: none;
+}
+
+
+
+/** Update Profile **/
+
+#update_avatar .avatar {
+    margin:0 auto;
+    margin-bottom:5px;
+}
+
+
+
+/** ubscriptions **/
+
+.member-list > div {
+    margin-right: 25px;
+}
+
+
+
+/** Message Inbox **/
+
+#inbox .subject {
+    width: 350px;
+}
+
+#message_body {
+    background-color: #f0f0f0;
+    padding: 15px;
+    margin: 20px 0;
+}
+
+#message_display p {
+    margin: 5px 0;
+}

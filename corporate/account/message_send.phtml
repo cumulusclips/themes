@@ -1,0 +1,31 @@
+<?php $this->SetLayout ('account'); ?>
+
+<h1><?=Language::GetText('message_send_header')?></h1>
+
+<?php if ($message): ?>
+    <div class="alert <?=convertAlertToBootstrap($message_type)?>"><?=$message?></div>
+<?php endif; ?>
+
+<div class="form">
+    <form action="<?=HOST?>/account/message/send/" method="post">
+
+        <div class="form-group <?=(isset ($errors['recipient'])) ? 'has-error' : ''?>">
+            <label class="control-label"><?=Language::GetText('to')?>: </label>
+            <input class="form-control" type="text" name="to" value="<?=$to?>" />
+            <p class="help-block"><?=Language::GetText('members_username')?></p>
+        </div>
+
+        <div class="form-group <?=(isset ($errors['subject'])) ? 'has-error' : ''?>">
+            <label class="control-label"><?=Language::GetText('subject')?>: </label>
+            <input class="form-control" type="text" name="subject" value="<?=htmlspecialchars($subject)?>" />
+        </div>
+
+        <div class="form-group <?=(isset ($errors['message'])) ? 'has-error' : ''?>">
+            <label class="control-label"><?=Language::GetText('message')?>: </label>
+            <textarea class="form-control" name="message" cols="45" rows="10"><?=htmlspecialchars($msg)?></textarea>
+        </div>
+
+        <input type="hidden" name="submitted" value="yes" />
+        <input class="btn btn-primary" type="submit" name="button" value="<?=Language::GetText('message_send_button')?>" />
+    </form>
+</div>
