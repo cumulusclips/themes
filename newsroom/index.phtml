@@ -1,0 +1,18 @@
+<?php
+
+$videoMapper = new VideoMapper();
+$commentMapper = new CommentMapper();
+$commentService = new CommentService();
+$this->setLayout('player');
+
+// Retrieve Recent Videos
+$videoList = $this->vars->videoList = getRecentVideos();
+$activeVideo = $this->vars->activeVideo = (isset($videoList[0])) ? $videoList[0] : false;
+
+// Retrieve comments
+$commentCount = $this->view->vars->commentCount = ($activeVideo)
+    ? $commentMapper->getVideoCommentCount($activeVideo->videoId)
+    : 0;
+$commentCardList = $this->view->vars->commentCardList = ($activeVideo)
+    ? $commentService->getVideoComments($activeVideo, 5)
+    : array();

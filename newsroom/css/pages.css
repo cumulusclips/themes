@@ -1,0 +1,306 @@
+
+/** Player Area **/
+
+.no-videos h1 {
+    margin: 120px 0;
+}
+
+.player-area {
+    background-color: #333;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.player-area .video-info h1 {
+    margin-top: 0;
+}
+
+.player-area .video-actions a {
+    margin-right: 10px;
+}
+
+.player-area .video-actions .fa {
+    margin-right: 3px;
+}
+
+#about {
+    display: block;
+}
+
+.video-info {
+    display: none;
+}
+
+.video-info .header {
+    position: relative;
+}
+
+.video-info .header a {
+    position: absolute;
+    top: 0;
+    right: 5px;
+}
+
+
+/** Comments **/
+
+.comment-message {
+    margin: 10px 0;
+}
+
+.comment-indent,
+.comment-indent-2,
+.comment-indent-3 {
+    margin-left: 60px;
+}
+
+#comments .form-control,
+#comments .comment-totals {
+    margin: 10px 0;
+}
+
+.comment-list {
+    max-height: 600px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.comment .small {
+    font-size: 10px;
+}
+
+.comment .text-danger {
+    color: #fc8585;
+}
+
+.comment .media-object {
+    width: 50px;
+    height: 50px;
+}
+
+.comment .media-heading span {
+    margin-right: 10px;
+}
+
+.comment .media-heading span:last-child {
+    margin: 0;
+}
+
+.comment a {
+    margin-right: 10px;
+}
+
+#comments .load-more {
+    margin-top: 10px;
+}
+
+
+/** Playlist Carousel **/
+
+.playlist {
+    padding: 20px 0 30px;
+    background-color: #202020;
+}
+
+.playlist h3 {
+    margin: 0 0 20px 50px;
+}
+
+.playlist-carousel {
+    position: relative;
+    opacity: 0;
+    transition: opacity 300ms;
+}
+
+.playlist-carousel .window {
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 0 50px;
+    font-size: 0;
+}
+
+.playlist-carousel .slide {
+    position: relative;
+    display: inline-block;
+    font-size: 14px;
+    vertical-align: top;
+    white-space: normal;
+    width: 170px;
+    margin-right: 55px;
+    left: 0;
+    transition: left 200ms ease-out, opacity 300ms;
+    opacity: .6;
+}
+
+.playlist-carousel .slide:hover,
+.playlist-carousel .active {
+    opacity: 1;
+}
+
+.playlist-carousel .overlay span:hover {
+    background-color: rgba(0,0,0,0.8);
+    transition: background-color 300ms;
+}
+
+.playlist-carousel p {
+    width: 170px;
+    margin-top: 7px;
+    margin-bottom: 0;
+}
+
+.playlist-carousel .direction {
+    font-size: 64px;
+    font-weight: 100;
+    border: none;
+    background: none;
+    position: absolute;
+    top: 0;
+    padding: 0;
+}
+
+.playlist-carousel .direction,
+.playlist-carousel .direction:active,
+.playlist-carousel .direction:focus {
+    color: #777;
+}
+
+.playlist-carousel .direction:hover {
+    color: inherit;
+}
+
+.playlist-carousel .direction[disabled] {
+    color: #444;
+    cursor: not-allowed;
+}
+
+.playlist-carousel .prev {
+    left: 0;
+}
+
+.playlist-carousel .next {
+    right: 0;
+}
+
+.playlist .video {
+    background: none;
+    color: #FFF;
+    width: auto;
+    margin: 0;
+    padding: 0;
+}
+
+.playlist .video:hover {
+    text-decoration: none;
+    box-shadow: none;
+}
+
+.playlist .active span {
+    display: block;
+    width: 115px;
+    height: 25px;
+    background-color: rgba(153,0,0,0.75);
+    font-size: 14px;
+    color: #FFF;
+    text-align: center;
+    padding-top: 2px;
+    position: absolute;
+    top: 71px;
+    left: 0;
+}
+
+.playlist .video i {
+    top: 31px;
+    left: 65px;
+}
+
+
+/** Category Videos **/
+
+.player .category-videos {
+    margin: 40px 0 0;
+}
+
+.content h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.content .video:last-child {
+    margin-right: 0;
+}
+
+.content h3 a i {
+    display: none;
+}
+
+.content h3 a:hover i {
+    display: inline;
+}
+
+
+/** Search **/
+
+.search h1 {
+    margin-bottom: 0;
+}
+
+.search .video {
+    width: 100%;
+    margin: 20px 0 0;
+    color: #555;
+}
+
+.search .video:hover {
+    color: #555;
+}
+
+.search .video .media-heading {
+    margin-top: 0;
+    color: #777;
+    font-size: 16px;
+}
+.search .video:hover .media-heading {
+    color: #900;
+}
+
+.search .video .glyphicon-play {
+    top: 46px;
+    left: 96px;
+    font-size: 30px;
+}
+
+.search .video .views {
+    margin-left: 10px;
+}
+
+
+/** Contact Us **/
+
+.contact .form {
+    margin-top: 15px;
+}
+
+
+/** Login, Password, and Register **/
+
+.login .form-container form {
+    border-bottom: 1px solid #DDD;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+#forgot-form {
+    margin-top: 20px;
+}
+
+#forgot-form h2 {
+    margin-top: 0;
+}
+
+.login .form p {
+    margin: 10px 0 0;
+}
+
+.register .form {
+    margin-top: 15px;
+}

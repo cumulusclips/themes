@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="<?=Language::getLocale()?>">
+<head>
+<title><?=$meta->title?></title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="baseUrl" content="<?=HOST?>" />
+<meta name="themeUrl" content="<?=$this->options->themeUrl?>" />
+<?php $this->writeMeta(); ?>
+<?php Plugin::triggerEvent('theme.head'); ?>
+<link rel="shortcut icon" type="image/x-icon" href="<?=$this->options->themeUrl?>/images/favicon.ico" />
+
+<!-- Vendors -->
+<link rel="stylesheet" type="text/css" href="<?=$this->options->themeUrl?>/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="<?=$this->options->themeUrl?>/css/font-awesome.min.css" />
+<link href="//vjs.zencdn.net/5.9.2/video-js.css" rel="stylesheet" />
+
+
+<!-- Theme -->
+<link rel="stylesheet" type="text/css" href="<?=$this->options->themeUrl?>/css/main.css" />
+<link rel="stylesheet" type="text/css" href="<?=$this->options->themeUrl?>/css/pages.css" />
+<link rel="stylesheet" type="text/css" href="<?=$this->options->themeUrl?>/css/responsive.css" />
+<?php $this->writeCSS(); ?>
+
+</head>
+<body class="play-layout <?=$this->cssHooks()?>">
+<?php Plugin::triggerEvent('theme.body'); ?>
+
+<?php $this->block('header.phtml'); ?>
+
+
+<!-- BEGIN Player Area -->
+<div class="player-area dark">
+    <div class="container">
+        <div class="row">
+
+            <?php if (!empty($logout)): ?>
+                <div class="col-xs-12">
+                    <div class="alert alert-success"><?=Language::getText('success_logout')?></div>
+                </div>
+            <?php endif; ?>
+
+            <?php if ($activeVideo): ?>
+
+                <div class="col-xs-12 col-lg-8">
+
+                    <video id="video-player" class="video-js"
+                        width="800" height="452"
+                        data-setup='{"preload": true, "controls": true, "autoplay": true}'
+                        src="<?=$config->h264Url?>/<?=$activeVideo->filename?>.mp4"
+                    >
+                     </video>
+                </div>
+
+                <div class="col-xs-12 col-lg-4 video-info" id="about">
+                    <h1><?php echo $activeVideo->title; ?></h1>
+                    <p><?php echo Language::getText('by'); ?> <?php echo $activeVideo->username; ?> | <?php echo date('F j, Y', strtotime($activeVideo->dateCreated)); ?></p>
+                    <p><?php echo $activeVideo->description; ?></p>
+                    <p><?php echo Language::getText('tags'); ?>:
+                        <?php foreach ($activeVideo->tags as $tag): ?>
+                            <a href="<?php echo HOST; ?>/search/?keyword=<?php echo $tag; ?>"><?php echo $tag; ?></a>
+                        <?php endforeach; ?>
+                    </p>
+                    <p class="video-actions">
+                        <a href="#comments" data-toggle="toggle" data-parent="#about"><i class="fa fa-comment"></i><?php echo Language::getText('comments'); ?></a>
+                        <a href="#embed" data-toggle="toggle" data-parent="#about"><i class="fa fa-code"></i><?php echo Language::getText('embed'); ?></a>
+                        <a href=""><i class="fa fa-facebook"></i></a>
+                        <a href=""><i class="fa fa-twitter"></i></a>
+                    </p>
+                </div>
+
+                <div class="col-xs-12 col-lg-4 video-info" id="embed">
+                    <div class="header clearfix">
+                        <h1><?php echo Language::getText('embed'); ?></h1>
+                        <a href="#about" data-toggle="toggle" data-parent="#embed"><i class="fa fa-close"></i></a>
+                    </div>
+                    <p><?php echo Language::getText('embed_text'); ?></p>
+                    <textarea readonly class="form-control">&lt;iframe src="<?php echo HOST; ?>/embed/<?php echo $activeVideo->videoId; ?>/" width="480" height="360" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</textarea>
+                </div>
+
+
+                <!-- BEGIN Comments Tab -->
+                <div class="col-xs-12 col-lg-4 video-info" id="comments">
+
+                    <div class="header clearfix">
+                        <h1><?php echo Language::getText('comments_header'); ?></h1>
+                        <a href="#about" data-toggle="toggle" data-parent="#comments"><i class="fa fa-close"></i></a>
+                    </div>
+
+                    <?php if ($activeVideo->commentsClosed): ?>
+                        <p class="comment-message"><?php echo Language::getText('comments_closed'); ?></p>
+                    <?php else: ?>
+
+                        <div class="alert hidden"></div>
+
+                        <?php if ($loggedInUser): ?>
+
+                            <!-- BEGIN Comments Form -->
+                            <form action="" method="post">
+                                <textarea class="form-control" name="comments"></textarea>
+                                <input type="hidden" name="videoId" value="<?php echo $activeVideo->videoId; ?>" />
+                                <input type="hidden" name="parentCommentId" value="" />
+                                <button type="submit" class="btn btn-primary"><?php echo Language::getText('comments_button'); ?></button>
+                            </form>
+                            <!-- END Comments Form -->
+
+                        <?php else: ?>
+
+                            <?php if ($config->enableRegistrations): ?>
+                                <p class="comment-message"><?=Language::getText('comments_login_register', array('login_link' => HOST . '/login/?redirect=' . urlencode($this->getService('Video')->getUrl($activeVideo)), 'register_link' => HOST . '/register/'))?></p>
+                            <?php else: ?>
+                                <p class="comment-message"><?=Language::getText('comments_login', array('login_link' => HOST . '/login/?redirect=' . urlencode($this->getService('Video')->getUrl($video))))?></p>
+                            <?php endif; ?>
+
+                        <?php endif; ?>
+
+
+                        <?php if ($commentCount > 0): ?>
+                            <p class="comment-message comment-totals"><span class="comment-count"><?php echo $commentCount; ?></span> <?php echo Language::getText('comments_total'); ?></p>
+                        <?php else: ?>
+                            <p class="comment-message no-comments"><?php echo Language::getText('no_comments'); ?></p>
+                        <?php endif; ?>
+
+
+                        <!-- BEGIN Comment List -->
+                        <div class="comment-list" data-comment-count="<?php echo $commentCount; ?>">
+
+                            <?php if ($commentCount > 0): ?>
+
+                                <?php foreach ($commentCardList as $commentCard): ?>
+
+                                    <?php $commentIndentClass = getCommentIndentClass($commentCard->comment); ?>
+
+                                    <!-- BEGIN Comment -->
+                                    <div class="comment media <?=$commentIndentClass?>" data-comment="<?=$commentCard->comment->commentId?>">
+
+                                        <div class="media-left">
+                                            <img class="media-object" src="<?=($commentCard->avatar) ? $commentCard->avatar : $this->options->themeUrl . '/images/avatar.png'?>">
+                                        </div>
+
+                                        <div class="media-body">
+                                            <p class="media-heading small">
+                                                <span class="comment-author"><?=$commentCard->author->username?></span>
+                                                <span class="comment-date"><?=date('m/d/Y', strtotime($commentCard->comment->dateCreated))?></span>
+                                                <?php if ($commentCard->comment->parentId != 0): ?>
+                                                    <span class="comment-reply"><?=Language::getText('reply_to')?> <?=$commentCard->parentAuthor->username?></span>
+                                                <?php endif; ?>
+                                            </p>
+
+                                            <p class="comment-text"><?=nl2br($commentCard->comment->comments)?></p>
+                                            <p class="small">
+                                                <a href="" class="reply"><?php echo Language::getText('reply'); ?></a>
+                                                <a href="" class="flag text-danger" data-type="comment" data-id="<?=$commentCard->comment->commentId?>"><?php echo Language::getText('report_abuse'); ?></a>
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                    <!-- END Comment -->
+
+                                <?php endforeach; ?>
+
+                            <?php endif; ?>
+
+                        </div>
+                        <!-- END Comment List -->
+
+                        <?php if ($commentCount > 5): ?>
+                            <p class="load-more text-center">
+                                <button class="btn btn-primary" data-loading-text="<?php echo Language::getText('loading'); ?>"><?php echo Language::getText('load_more'); ?></button>
+                            </p>
+                        <?php endif; ?>
+
+                    <?php endif; ?>
+
+
+                </div>
+                <!-- END Comments Tab -->
+
+            <?php else: ?>
+
+                <div class="col-xs-12 no-videos"><h1><?php echo Language::getText('no_videos'); ?></h1></div>
+
+            <?php endif; ?>
+
+
+        </div>
+    </div>
+</div>
+<!-- END Player Area -->
+
+
+<?php if (!empty($videoList)): ?>
+
+    <!-- BEGIN Playlist Carousel -->
+    <div class="playlist dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <?php if (!empty($activeCategory)): ?>
+                        <?php $videoLinkSuffix = '?category=' . $activeCategory->slug; ?>
+                        <h3><?php echo $activeCategory->name; ?></h3>
+                    <?php else: ?>
+                        <h3><?php echo Language::getText('recent_videos'); ?></h3>
+                        <?php $videoLinkSuffix = ''; ?>
+                    <?php endif; ?>
+
+                    <?php $offset = getPlaylistOffset($videoList, $activeVideo->videoId); ?>
+                    <div class="playlist-carousel" data-offset="<?php echo ($offset !== false) ? $offset : 0; ?>">
+
+                        <a href="" class="direction previous"><i class="fa fa-angle-left"></i></a>
+                        <a href="" class="direction next"><i class="fa fa-angle-right"></i></a>
+
+                        <div class="window">
+                        <?php foreach ($videoList as $key => $listVideo): ?>
+                            <div class="slide <?php echo $activeVideo->videoId == $listVideo->videoId ? 'active' : ''; ?>" video-id="<?php echo $listVideo->videoId; ?>">
+                                <a class="video" href="<?php echo $this->getService('Video')->getUrl($listVideo)?>/<?php echo $videoLinkSuffix; ?>" title="<?php echo $listVideo->title; ?>">
+                                    <?php if ($activeVideo->videoId == $listVideo->videoId): ?>
+                                        <span>Playing Now</span>
+                                    <?php else: ?>
+                                        <i class="fa fa-play"></i>
+                                    <?php endif; ?>
+                                    <img width="170" height="96" src="<?=$config->thumbUrl?>/<?=$listVideo->filename?>.jpg" />
+                                    <p><?php echo $listVideo->title; ?></p>
+                                </a>
+                            </div>
+                        <?php endforeach; ?>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Playlist Carousel -->
+
+<?php endif; ?>
+
+
+<!-- BEGIN Content -->
+<div class="content">
+    <div class="container">
+
+        <?php $categoryList = getCategories(); ?>
+        <?php foreach ($categoryList as $category): ?>
+
+            <?php $categoryVideos = getRecentCategoryVideos($category->categoryId); ?>
+            <?php if (empty($categoryVideos)) continue; ?>
+
+            <div class="row category-videos">
+                <div class="col-xs-12">
+                    <h3><a href="<?php echo HOST; ?>/videos/<?php echo $category->slug; ?>/"><?php echo $category->name; ?> <i class="fa fa-angle-right"></i></a></h3>
+                    <?php foreach ($categoryVideos as $key => $categoryVideo): ?>
+                        <a class="video" href="<?php echo $this->getService('Video')->getUrl($categoryVideo); ?>/?category=<?php echo $category->slug; ?>" title="<?php echo $categoryVideo->title; ?>">
+                            <i class="fa fa-play"></i>
+                            <img width="240" height="134" src="<?=$config->thumbUrl?>/<?=$categoryVideo->filename?>.jpg" />
+                            <p><?php echo $categoryVideo->title; ?></p>
+                        </a>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+        <?php endforeach; ?>
+
+    </div>
+</div>
+<!-- END Content -->
+
+
+<?php $this->block('footer.phtml'); ?>
+
+<script src="//vjs.zencdn.net/5.9.2/video.js"></script>
+<script type="text/javascript" src="<?=$this->options->themeUrl?>/js/jquery.min.js"></script>
+<script type="text/javascript" src="<?=$this->options->themeUrl?>/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<?=$this->options->themeUrl?>/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?=$this->options->themeUrl?>/js/playlist-carousel.js"></script>
+<script type="text/javascript" src="<?=$this->options->themeUrl?>/js/general.js"></script>
+<?php $this->writeJs(); ?>
+
+</body>
+</html>

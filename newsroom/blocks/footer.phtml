@@ -1,0 +1,34 @@
+
+
+<!-- BEGIN Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="left col-xs-12 col-md-6">
+                <a href="">Blog</a>
+                <a href="<?php echo HOST; ?>/contact/"><?php echo Language::getText('contact'); ?></a>
+                <a href="">About</a>
+                <?php $activeLanguages = Language::getActiveLanguages(); ?>
+                <?php if (count($activeLanguages) > 1): ?>
+
+                    <div class="dropup">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                            <?=Language::getLanguage(true)?>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <?php foreach ($activeLanguages as $systemName => $language): ?>
+                                <li><a href="<?=HOST?>/language/set/<?=$systemName?>/"><?=$language->native_name?></a></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+
+                <?php endif; ?>
+            </div>
+            <div class="right col-xs-12 col-md-6 text-right">&copy; <?php echo date('Y'); ?> CumulusClips</div>
+        </div>
+    </div>
+</footer>
+<!-- END Footer -->
+
+<div id="overlay"></div>

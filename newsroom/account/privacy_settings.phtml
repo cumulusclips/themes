@@ -1,0 +1,24 @@
+<?php $this->SetLayout ('account'); ?>
+
+<h1><?=Language::GetText('privacy_settings_header')?></h1>
+
+<?php if ($message): ?>
+    <div class="alert <?=convertAlertToBootstrap($message_type)?>"><?=$message?></div>
+<?php endif; ?>
+
+<div class="form">
+    <form action="<?=HOST?>/account/privacy-settings/" method="post">
+
+
+        <div class="form-group">
+            <label><?=Language::GetText('alert_comment_reply')?>:</label>
+            <select class="form-control" name="commentReply">
+                <option value="1"<?=($privacy->commentReply) ? ' selected="selected"' : ''?>><?=Language::GetText('yes')?></option>
+                <option value="0"<?=(!$privacy->commentReply) ? ' selected="selected"' : ''?>><?=Language::GetText('no')?></option>
+            </select>
+        </div>
+
+        <input type="hidden" name="submitted" value="TRUE" />
+        <input class="btn btn-primary" type="submit" name="button" value="<?=Language::GetText('privacy_settings_button')?>" />
+    </form>
+</div>

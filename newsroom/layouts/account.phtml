@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="<?=Language::getLocale()?>">
+<head>
+<title><?=$meta->title?></title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="baseUrl" content="<?=HOST?>" />
+<meta name="themeUrl" content="<?=$this->options->themeUrl?>" />
+<?php $this->writeMeta(); ?>
+<?php Plugin::triggerEvent('theme.head'); ?>
+<link rel="shortcut icon" type="image/x-icon" href="<?=$this->options->themeUrl?>/images/favicon.ico" />
+
+<!-- Frameworks -->
+<link rel="stylesheet" type="text/css" href="<?=$this->options->themeUrl?>/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="<?=$this->options->themeUrl?>/css/font-awesome.min.css" />
+
+<!-- Theme -->
+<link rel="stylesheet" type="text/css" href="<?=$this->options->themeUrl?>/css/main.css" />
+<link rel="stylesheet" type="text/css" href="<?=$this->options->themeUrl?>/css/account.css" />
+<link rel="stylesheet" type="text/css" href="<?=$this->options->themeUrl?>/css/responsive.css" />
+<?php $this->writeCSS(); ?>
+
+</head>
+<body class="<?=$this->cssHooks()?>">
+<?php Plugin::triggerEvent('theme.body'); ?>
+
+<?php $this->block('header.phtml'); ?>
+
+<!-- BEGIN Content -->
+<div class="content">
+    <div class="container">
+
+        <div class="row">
+
+            <!-- BEGIN SIDEBAR -->
+            <div class="hidden-xs hidden-sm col-md-3">
+                <div class="account-menu">
+
+                    <p class="h4"><?=Language::GetText('account_settings')?></p>
+                    <ul>
+                        <li><a href="<?php echo HOST; ?>/account/profile/" title="<?=Language::GetText('update_profile')?>"><?=Language::GetText('update_profile')?></a></li>
+                        <li><a href="<?php echo HOST; ?>/account/privacy-settings/" title="<?=Language::GetText('privacy_settings')?>"><?=Language::GetText('privacy_settings')?></a></li>
+                        <li><a href="<?php echo HOST; ?>/account/change-password/" title="<?=Language::GetText('change_password')?>"><?=Language::GetText('change_password')?></a></li>
+                    </ul>
+
+                </div>
+                <?php $this->writeSidebarBlocks(); ?>
+            </div>
+            <!-- END SIDEBAR -->
+
+            <!-- BEGIN Mobile/Table Account Menu -->
+            <div class="hidden visible-xs-block visible-sm-block col-xs-12 mobile-account-menu">
+            <div class="dropdown">
+                <button class="btn btn-default btn-block dropdown-toggle" type="button" data-toggle="dropdown">
+                    <?=Language::GetText('account_menu_header')?>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu col-xs-12">
+
+                    <li class="dropdown-header"><?=Language::GetText('account_settings')?></li>
+                    <li><a href="<?php echo HOST; ?>/account/profile/" title="<?=Language::GetText('update_profile')?>"><?=Language::GetText('update_profile')?></a></li>
+                    <li><a href="<?php echo HOST; ?>/account/privacy-settings/" title="<?=Language::GetText('privacy_settings')?>"><?=Language::GetText('privacy_settings')?></a></li>
+                    <li><a href="<?php echo HOST; ?>/account/change-password/" title="<?=Language::GetText('change_password')?>"><?=Language::GetText('change_password')?></a></li>
+
+                </ul></div>
+            </div>
+            <!-- END Mobile/Table Account Menu -->
+
+            <!-- BEGIN MAIN CONTENT -->
+            <main class="col-xs-12 col-md-9">
+                <?=$this->body()?>
+            </main>
+            <!-- END MAIN CONTENT -->
+
+        </div>
+
+    </div>
+</div>
+<!-- END Content -->
+
+<?php $this->block('footer.phtml'); ?>
+
+<script type="text/javascript" src="<?=$this->options->themeUrl?>/js/jquery.min.js"></script>
+<script type="text/javascript" src="<?=$this->options->themeUrl?>/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<?=$this->options->themeUrl?>/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?=$this->options->themeUrl?>/js/general.js"></script>
+<?php $this->writeJs(); ?>
+
+</body>
+</html>

@@ -1,0 +1,246 @@
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {}
+
+
+/* Medium devices (large tablets, small desktops 992px - 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+    .container {
+        width: 990px;
+    }
+
+
+    /** Video Player **/
+
+    #video-player {
+        margin: 0 auto 20px;
+    }
+
+    .comment-list {
+        max-height: none;
+        overflow: auto;
+    }
+}
+
+
+/* Small devices (small tablets, large phones, 768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+
+    .container {
+        width: 750px;
+    }
+
+
+    /** Video Player **/
+
+    .video-player-container,
+    .video-player-container .video-js {
+        width: 720px;
+        height: 406px;
+    }
+
+    #video-player {
+        width: 720px;
+    }
+}
+
+
+/* Both Small & Extra Small (0 - 991px) */
+@media (max-width: 991px) {
+
+    html {
+        min-height: 100%;
+        position: relative;
+    }
+
+    body {
+        height: 100%;
+    }
+
+    footer .row {
+        width: 100%;
+    }
+
+    footer .left {
+        text-align: center;
+        float: none;
+    }
+
+    footer .right {
+        text-align: center;
+        float: none;
+        line-height: 20px;
+    }
+
+    .mobile-menu-trigger {
+        font-size: 24px;
+    }
+
+    .mobile-nav a {
+        line-height: 45px;
+    }
+
+
+    /** Mobile Menu **/
+
+    #mobile-menu {
+        background-color: #202020;
+        position: absolute;
+        top: 0;
+        left: -100%;
+        height: 100%;
+        transition: left 400ms;
+        z-index: 100;
+    }
+
+    #mobile-menu.in {
+        left: 0;
+    }
+
+    #mobile-menu ul {
+        padding: 0;
+        margin: 0;
+    }
+
+    #mobile-menu li {
+        list-style: none;
+        padding: 7px 0;
+    }
+
+    #mobile-menu a {
+        line-height: 1em;
+        margin: 0;
+        font-size: 16px;
+    }
+
+    #mobile-menu .header {
+        padding: 10px 0 0;
+    }
+
+    #mobile-menu .divider {
+        border-top: 1px solid #FFF;
+        margin: 10px 0;
+    }
+
+    #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: #000;
+        opacity: 0;
+        width: 100%;
+        z-index: 99;
+        height: 0;
+        transition: opacity 400ms;
+    }
+
+    #overlay.in {
+        height: 100%;
+        opacity: 0.6;
+    }
+
+
+    /** General **/
+
+    body {
+        margin-bottom: 0;
+    }
+
+
+    /** Video Player **/
+
+    #video-player {
+        margin: 0 auto 20px;
+    }
+
+
+    /** Account **/
+
+    .account_update_profile #update_avatar .col-md-2 {
+        margin-bottom: 10px;
+    }
+}
+
+
+/* Extra Small devices (phones, up to 767px) */
+@media (max-width: 767px) {
+
+    .container {
+        width: 100%;
+    }
+
+    header {
+        height: 75px;
+    }
+
+    header .logo {
+        width: 148px;
+        height: 54px;
+        background-size: 148px 54px;
+        margin-top: 12px;
+    }
+
+    .mobile-search-trigger {
+        font-size: 20px;
+    }
+
+
+    /** Search Widget **/
+
+    #mobile-search {
+        display: none;
+        background-color: #900;
+        padding: 10px;
+        position: fixed;
+        top: -55px;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+        transition: top 400ms;
+    }
+
+    #mobile-search.in {
+        top: 0;
+    }
+
+    #mobile-search .input-group {
+        padding-right: 10px;
+    }
+
+    #mobile-search .form-control {
+        height: 35px;
+        border: none;
+    }
+
+    #mobile-search .ui-autocomplete {
+        top: 40px !important;
+    }
+
+    #mobile-search .mobile-search-trigger {
+        float: right;
+        color: #FFF;
+        padding: 3px 10px;
+    }
+
+
+    /** Playlist Carousel **/
+
+    .playlist-carousel .slide {
+        width: 100%;
+        margin: 0 0 0 50%;
+    }
+
+    .playlist .video {
+        margin-left: -85px;
+    }
+
+
+    /** Comments **/
+
+    .comment-indent,
+    .comment-indent-2,
+    .comment-indent-3 {
+        margin-left: 0;
+    }
+}

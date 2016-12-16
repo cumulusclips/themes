@@ -1,0 +1,159 @@
+
+<!-- BEGIN Sub Nav -->
+<div class="sub-nav dark hidden-xs hidden-sm">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6 left">
+                <a href="">Blog</a>
+                <a href="<?php echo HOST; ?>/contact/"><?php echo Language::getText('contact'); ?></a>
+                <a href="">About</a>
+            </div>
+            <div class="col-xs-6 text-right right">
+
+                <?php if ($loggedInUser): ?>
+
+                    <?php if ($this->getService('User')->checkPermissions('admin_panel', $loggedInUser)): ?>
+                        <a href="<?=HOST?>/cc-admin/" title="<?=Language::GetText('admin_panel')?>"><?=Language::GetText('admin_panel')?></a>
+                    <?php endif ?>
+
+                    <a href="<?php echo HOST; ?>/account/"><?php echo Language::getText('account'); ?></a>
+                    <a href="<?php echo HOST; ?>/logout/"><?php echo Language::getText('logout'); ?></a>
+                <?php else: ?>
+                    <a href="<?php echo HOST; ?>/login/"><?php echo Language::getText('login'); ?></a>
+                    <a href="<?php echo HOST; ?>/register/">Register</a>
+                <?php endif; ?>
+
+                <?php $activeLanguages = Language::getActiveLanguages(); ?>
+                <?php if (count($activeLanguages) > 1): ?>
+
+                    <div class="dropdown">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                            <?=Language::getLanguage(true)?>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <?php foreach ($activeLanguages as $systemName => $language): ?>
+                                <li><a href="<?=HOST?>/language/set/<?=$systemName?>/"><?=$language->native_name?></a></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+
+                <?php endif; ?>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Sub Nav -->
+
+
+<!-- BEGIN Header -->
+<header>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-xs-6">
+                <a class="logo" href="<?php echo HOST; ?>">CumulusClips</a>
+            </div>
+
+            <div class="col-xs-6 text-right search hidden-xs">
+                <form class="form-inline" action="<?php echo HOST; ?>/search/" method="post">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="keyword" />
+                        <input class="form-control" type="hidden" name="submitted_search" value="true" />
+                        <div id="search-ac-container" class="autocomplete-container"></div>
+                    </div>
+                    <button class="btn btn-primary"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</header>
+<!-- END Header -->
+
+
+<!-- BEGIN Nav -->
+<div class="nav">
+    <div class="container">
+        <div class="row">
+
+            <!-- BEGIN Category Menu -->
+            <div class="col-xs-12 hidden-xs hidden-sm category-menu">
+
+                <?php $categoryList = getCategories(); ?>
+                <?php foreach ($categoryList as $category): ?>
+                    <a class="h4" href="<?php echo HOST; ?>/videos/<?php echo $category->slug; ?>/"><?php echo $category->name; ?></a>
+                <?php endforeach; ?>
+
+            </div>
+            <!-- END Category Menu -->
+
+            <!-- BEGIN Mobile Menu -->
+            <div id="mobile-menu" class="dark col-xs-7 col-sm-4 hidden-md hidden-lg">
+                <div class="header text-right">
+                    <a href="" class="mobile-menu-trigger"><i class="fa fa-close"></i></a>
+                </div>
+                <div class="body">
+
+                    <ul>
+                    <li><a href="<?php echo HOST; ?>/"><?php echo Language::getText('home'); ?></a></li>
+                     <?php if ($loggedInUser): ?>
+
+                        <?php if ($this->getService('User')->checkPermissions('admin_panel', $loggedInUser)): ?>
+                            <li><a href="<?=HOST?>/cc-admin/" title="<?=Language::GetText('admin_panel')?>"><?=Language::GetText('admin_panel')?></a></li>
+                        <?php endif ?>
+
+                        <li><a href="<?php echo HOST; ?>/account/"><?php echo Language::getText('account'); ?></a></li>
+                        <li><a href="<?php echo HOST; ?>/logout/"><?php echo Language::getText('logout'); ?></a></li>
+                     <?php else: ?>
+                        <li><a href="<?php echo HOST; ?>/login/"><?php echo Language::getText('login'); ?></a></li>
+                        <li><a href="<?php echo HOST; ?>/register/">Register</a></li>
+                    <?php endif; ?>
+                    </ul>
+
+                    <div class="divider"></div>
+
+                    <ul>
+                        <?php foreach ($categoryList as $category): ?>
+                            <li><a href="<?php echo HOST; ?>/videos/<?php echo $category->slug; ?>/"><?php echo $category->name; ?></a></li>
+                        <?php endforeach; ?>
+                    </ul>
+
+                </div>
+            </div>
+            <!-- END Mobile Menu -->
+
+            <!-- BEGIN Mobile Search -->
+            <div id="mobile-search" class="search visible-xs">
+                <form action="<?php echo HOST; ?>/search/" method="post">
+                    <a href="" class="mobile-search-trigger"><i class="fa fa-close"></i></a>
+                    <div class="input-group">
+                        <input class="form-control" type="text" name="keyword" />
+                        <input class="form-control" type="hidden" name="submitted_search" value="true" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary"><i class="fa fa-search"></i></button>
+                        </span>
+                        <div id="mobile-search-ac-container" class="autocomplete-container"></div>
+                    </div>
+                </form>
+            </div>
+            <!-- END Mobile Search -->
+
+            <!-- BEGIN Mobile/Tablet Nav -->
+            <div class="mobile-nav">
+                <div class="mobile-menu-trigger col-xs-6 hidden-md hidden-lg">
+                    <a href=""><i class="fa fa-bars"></i></a>
+                </div>
+
+                <div class="mobile-search-trigger text-right col-xs-6 hidden-sm hidden-md hidden-lg">
+                    <a href=""><i class="fa fa-search"></i></a>
+                </div>
+            </div>
+            <!-- END Mobile/Tablet Nav -->
+
+        </div>
+    </div>
+</div>
+<!-- END Nav -->
+

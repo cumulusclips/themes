@@ -1,0 +1,311 @@
+body {
+    color: #555;
+}
+
+
+/** Sub Nav **/
+
+.sub-nav {
+    background-color: #333;
+    height: 30px;
+    font-size: 12px;
+    line-height: 30px
+}
+
+.sub-nav .left > a {
+    margin-right: 30px;
+}
+
+.sub-nav .right > a {
+    margin-left: 30px;
+}
+
+.sub-nav .dropdown {
+    display: inline-block;
+}
+
+.sub-nav .btn-link {
+    color: #FFF;
+    font-size: inherit;
+    padding: 0;
+    margin-left: 30px;
+}
+
+
+/** Search Auto-Complete **/
+
+.autocomplete-container {
+    position: relative;
+}
+
+.ui-autocomplete {
+    position: absolute;
+    top: 5px !important;
+    background-color: #FFF;
+    z-index: 100;
+    border: 1px solid #C1C1C1;
+    text-align: left;
+    padding: 0;
+}
+
+.ui-autocomplete li {
+    padding: 5px;
+    color: #555;
+    list-style: none;
+}
+
+.ui-autocomplete .ui-state-focus,
+.ui-autocomplete li:hover {
+    color: #FFF;
+    background-color: #1d8dff;
+}
+
+.ui-autocomplete li:hover {
+    cursor: pointer;
+}
+
+.ui-helper-hidden-accessible {
+    position: absolute;
+    left:-999em;
+}
+
+
+/** Header **/
+
+header {
+    background-color: #900;
+    height: 80px;
+}
+
+header .logo {
+    display: inline-block;
+    background: url('../images/logo.png');
+    width: 182px;
+    height: 66px;
+    background-size: 182px 66px;
+    text-indent: -9999px;
+    margin-top: 7px;
+}
+
+header .search {
+    margin-top: 20px;
+}
+
+header .search .form-group {
+    width: 270px;
+    margin-right: 5px;
+}
+
+header .search .form-control {
+    width: 100%;
+    border: none;
+}
+
+.search .btn {
+    background-color: #700;
+    border: none;
+    font-size: 18px;
+    padding: 3px 12px 7px;
+}
+
+
+/** Nav **/
+
+.category-menu a {
+    margin-right: 35px;
+    line-height: 50px;
+}
+
+
+/** Footer **/
+
+footer {
+    margin-top: 30px;
+}
+
+footer .row {
+    margin: 0;
+    border-top: 1px solid #555;
+}
+
+footer .left,
+footer .right {
+    padding: 10px 0;
+}
+
+footer .left > a {
+    margin-right: 40px;
+}
+
+footer .dropup {
+    display: inline-block;
+    margin-right: 40px;
+}
+
+footer .dropup button {
+    padding: 0;
+    vertical-align: baseline;
+    color: #777;
+}
+
+footer .dropup button:active,
+footer .dropup button:focus,
+footer .dropup button:hover {
+    color: #900;
+}
+
+
+/** Text & Links **/
+
+.h1, .h2, .h3, .h4,
+h1, h2, h3, h4 {
+    font-weight: normal;
+}
+
+h1 a, h2 a, h3 a, h4 a,
+a.h1, a.h2, a.h3, a.h4 {
+    color: #555;
+}
+
+h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover,
+a.h1:hover, a.h2:hover, a.h3:hover, a.h4:hover {
+    color: #900;
+    text-decoration: none;
+}
+
+a {
+    color: #777;
+}
+
+a:hover {
+    color: #900;
+    text-decoration: underline;
+}
+
+
+/** Pagination **/
+
+#pagination {
+    margin: 20px 0 0;
+    font-size: 14px;
+    text-align: right;
+}
+
+#pagination li {
+    display: inline-block;
+    padding: 6px 12px;
+    border: 1px solid #DDD;
+    border-left: none;
+    background-color: #FFF;
+}
+
+#pagination li:first-child {
+    border-left: 1px solid #DDD;
+    border-radius: 4px 0 0 4px;
+}
+
+#pagination li:last-child {
+    border-radius: 0 4px 4px 0;
+}
+
+
+/** General **/
+
+.container {
+    width: 1230px;
+}
+
+.col-center {
+    margin: 0 auto;
+    float: none;
+}
+
+.btn-primary {
+    border: none;
+    background-color: #900;
+    color: #FFF;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #555;
+}
+
+
+/** Dark Sections **/
+
+.dark {
+    color: #CCC;
+}
+
+.dark a {
+    color: #FFF;
+}
+
+.dark a:hover {
+    text-decoration: underline;
+}
+
+#video-player {
+    width: 800px;
+    height: 452px;
+}
+
+.dark .btn-primary {
+    background-color: #777;
+    border: none;
+}
+
+.dark .btn-primary:focus {
+    background-color: #555;
+}
+
+
+/** Videos **/
+
+.video {
+    display: inline-block;
+    vertical-align: top;
+    width: 240px;
+    transition: background-color 300ms, box-shadow 300ms ease-out;
+    background-color: #FFF;
+    box-shadow: 0px 1px 1px rgba(0,0,0,0);
+    margin-right: 30px;
+    margin-left: -10px;
+    padding: 10px;
+    box-sizing: content-box;
+    position: relative;
+}
+
+.video:active,
+.video:focus {
+    text-decoration: none;
+}
+
+.video:hover {
+    background-color: #F1F1F1;
+    box-shadow: 0px 1px 1px rgba(0,0,0,0.2);
+    text-decoration: none;
+    color: #900;
+}
+
+.video i {
+    transition: opacity 300ms;
+    background-color: #900;
+    color: #FFF;
+    border-radius: 3px;
+    padding: 10px 15px;
+    position: absolute;
+    top: 55px;
+    left: 105px;
+    opacity: 0;
+}
+
+.video:hover i {
+    opacity: 0.75;
+}
+
+.video p {
+    margin-top: 7px;
+    margin-bottom: 0;
+}

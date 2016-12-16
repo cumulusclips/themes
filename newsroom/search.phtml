@@ -1,0 +1,35 @@
+<h1><?=Language::getText('search_header')?></h1>
+
+<p><?=Language::getText('results_for')?>: '<em><?=$cleaned?></em>'</p>
+
+<?php if (!empty($search_videos)): ?>
+
+    <div class="video-list">
+
+    <?php foreach ($search_videos as $video): ?>
+
+        <a href="<?=$this->getService('Video')->getUrl($video)?>/" title="<?=$video->title?>">
+            <div class="video media">
+                <div class="media-left thumb">
+                    <i class="fa fa-play"></i>
+                    <img width="185" height="104" src="<?php echo $config->thumbUrl?>/<?=$video->filename; ?>.jpg" />
+                </div>
+                <div class="media-body">
+                    <p class="media-heading"><?php echo $video->title; ?></p>
+                    <p class="small">
+                        <span><?=Language::GetText('by')?>: <?=$video->username?></span>
+                        <span><?php echo date('m/d/Y', strtotime($video->dateCreated)); ?></span>
+                    </p>
+                    <p><?=Functions::cutOff($video->description, 200)?></p>
+                </div>
+            </div>
+        </a>
+
+    <?php endforeach; ?>
+
+    </div>
+    <?=$pagination->Paginate()?>
+
+<?php else: ?>
+    <p><?=Language::GetText('no_results')?></p>
+<?php endif; ?>

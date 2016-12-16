@@ -1,0 +1,70 @@
+<?php
+
+$this->setLayout('full');
+
+?>
+
+<div class="row">
+    <div class="form-container col-md-5 col-center">
+
+        <div id="login-form" class="collapse <?=($forgot_submit) ? '' : 'in'?>">
+            
+            <h1><?=Language::getText('login_header')?></h1>
+
+            <?php if ($message && $login_submit): ?>
+                <div class="alert <?=convertAlertToBootstrap($message_type)?>"><?=$message?></div>
+            <?php endif; ?>
+
+            <div class="form">
+                <form action="<?=HOST?>/login/" method="post">
+
+                    <div class="form-group <?=$login_submit && !$username ? 'has-error':''?>">
+                        <label class="control-label"><?=Language::getText('username')?>:</label>
+                        <input name="username" type="text" class="form-control" value="<?=($login_submit && $username) ? $username : ''?>" />
+                    </div>
+
+                    <div class="form-group <?=($login_submit && !$password) ? 'has-error' : ''?>">
+                        <label class="control-label"><?=Language::getText('password')?>:</label>
+                        <input type="password" class="form-control" name="password" value="" />
+                    </div>
+
+                    <input type="hidden" name="redirect" value="<?=urlencode($redirect)?>" />
+                    <input type="hidden" name="submitted_login" value="TRUE" />
+                    <input class="btn btn-primary" type="submit" name="button" value="<?=Language::getText('login_button')?>" />
+
+                </form>
+                <?php if ($config->enableRegistrations): ?>
+                    <p><a href="<?=HOST?>/register/"><?=Language::getText('no_account')?></a></p>
+                <?php endif; ?>
+                <p><a href="#forgot-form" data-toggle="toggle" data-parent=".collapse"><?=Language::getText('forgot_your_login')?></a></p>
+            </div>
+        </div>
+
+        <div id="forgot-form" class="collapse <?=($forgot_submit) ? 'in' : ''?>">
+
+            <h2><?=Language::getText('forgot_header')?></h2>
+
+            <?php if ($message && $forgot_submit): ?>
+                <div class="alert <?=convertAlertToBootstrap($message_type)?>"><?=$message?></div>
+            <?php endif; ?>
+
+            <div class="form">
+                <form action="<?=HOST?>/login/" method="post">
+                    
+                    <p><?=Language::getText('forgot_text')?></p>
+
+                    <div class="form-group <?=($forgot_submit && $message_type == 'errors') ? 'has-error' : ''?>">
+                        <label class="control-label"><?=Language::getText('email')?>:</label>
+                        <input type="text" class="form-control" name="email" />
+                    </div>
+
+                    <input type="hidden" name="submitted_forgot" value="TRUE" />
+                    <input class="btn btn-primary" type="submit" name="button" value="<?=Language::getText('forgot_button')?>" />
+                </form>
+                <p><a href="#login-form" data-toggle="toggle" data-parent=".collapse"><?=Language::getText('cancel')?></a></p>
+            </div>
+
+        </div>
+
+    </div>
+</div>

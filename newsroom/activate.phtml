@@ -1,0 +1,11 @@
+<?php $this->setLayout('full'); ?>
+
+<div class="row">
+    <div class="form-container col-md-5 col-center">
+        <h1><?=Language::getText('activate_header')?></h1>
+
+        <?php if ($message): ?>
+            <div class="alert <?=convertAlertToBootstrap($messageType)?>"><?=$message?></div>
+        <?php endif; ?>
+    </div>
+</div>
