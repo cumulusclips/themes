@@ -25,13 +25,13 @@ $this->setLayout('full');
                 <img width="750" height="420" src="<?=$config->thumbUrl?>/<?=$video->filename?>.jpg" alt="" />
                 <div>
                     <p><?=Language::getText('gated_video')?></p>
-                    <a href="<?=HOST?>/login/" class="button_small"><?=Language::getText('login')?></a>
+                    <a href="<?=BASE_URL?>/login/" class="button_small"><?=Language::getText('login')?></a>
                     <?php if ($config->enableRegistrations): ?>
-                        <a href="<?=HOST?>/register/" class="button_small"><?=Language::getText('register')?></a>
+                        <a href="<?=BASE_URL?>/register/" class="button_small"><?=Language::getText('register')?></a>
                     <?php endif; ?>
                 </div>
             </div>
-        
+
         <?php else: ?>
             <div class="video-player-container">
                 <video id="video-player" class="video-js vjs-default-skin" data-setup='{ "controls": true, "autoplay": true, "preload": "auto" }' width="auto" height="auto" poster="<?=$config->thumbUrl?>/<?=$video->filename?>.jpg">
@@ -60,15 +60,15 @@ $this->setLayout('full');
                     <h5><?=Functions::cutOff($this->getService('Playlist')->getPlaylistName($playlist), 85)?></h5>
                     <?php $playlistAuthor = $this->getMapper('User')->getUserById($playlist->userId); ?>
                     <p class="small">
-                        <span class="author"><?=Language::getText('by')?>: <a href="<?=HOST?>/members/<?=$playlistAuthor->username?>/"><?=$playlistAuthor->username?></a></span>
+                        <span class="author"><?=Language::getText('by')?>: <a href="<?=BASE_URL?>/members/<?=$playlistAuthor->username?>/"><?=$playlistAuthor->username?></a></span>
                         <?=Language::getText('videos')?>: <?=count($playlistVideos)?>
                     </p>
                 </header>
-                
+
                 <div class="video-list collapse in">
                 <?php $videoService = $this->getService('Video'); ?>
                 <?php foreach ($playlistVideos as $playlistVideo): ?>
-                    
+
                     <div class="video video-small media <?=($playlistVideo->videoId == $video->videoId) ? 'active' : ''?>">
                         <div class="media-left thumb">
                             <a href="<?=$videoService->getUrl($playlistVideo)?>/?playlist=<?=$playlist->playlistId?>" title="<?=$playlistVideo->title?>">
@@ -79,7 +79,7 @@ $this->setLayout('full');
                         <div class="media-body">
                             <p class="media-heading"><a href="<?=$videoService->getUrl($playlistVideo)?>/?playlist=<?=$playlist->playlistId?>" title="<?=$playlistVideo->title?>"><?=$playlistVideo->title?></a></p>
                             <div class="small">
-                                <?=Language::getText('by')?>:</strong> <a href="<?=HOST?>/members/<?=$playlistVideo->username?>/" title="<?=$playlistVideo->username?>"><?=$playlistVideo->username?></a>
+                                <?=Language::getText('by')?>:</strong> <a href="<?=BASE_URL?>/members/<?=$playlistVideo->username?>/" title="<?=$playlistVideo->username?>"><?=$playlistVideo->username?></a>
                                 <span class="duration"><span class="glyphicon glyphicon-time"></span> <?=$playlistVideo->duration?></span>
                             </div>
                         </div>
@@ -124,7 +124,7 @@ $this->setLayout('full');
                         <?=Language::getText('dislike')?>
                     </a>
                 </div>
-            
+
             </div>
         </div>
         <!-- END Actions -->
@@ -158,15 +158,15 @@ $this->setLayout('full');
                                 <img class="media-object" width="65" height="65" src="<?=($avatar) ? $avatar : $this->options->themeUrl . '/images/avatar.gif'?>" alt="<?=$member->username?>" />
                             </div>
                             <div class="media-body">
-                                <p><strong><?=Language::getText('by')?>:</strong> <a href="<?=HOST?>/members/<?=$member->username?>/" title="<?=$member->username?>"><?=$member->username?></a></p>
+                                <p><strong><?=Language::getText('by')?>:</strong> <a href="<?=BASE_URL?>/members/<?=$member->username?>/" title="<?=$member->username?>"><?=$member->username?></a></p>
                                 <p><strong><?=Language::getText('date_uploaded')?>:</strong> <?=date('m/d/Y', strtotime($video->dateCreated))?></p>
                                 <p><strong><?=Language::getText('tags')?>:</strong>
                                     <?php foreach ($video->tags as $value): ?>
-                                        <a href="<?=HOST?>/search/?keyword=<?=$value?>" title="<?=$value?>"><?=$value?></a>&nbsp;&nbsp;
+                                        <a href="<?=BASE_URL?>/search/?keyword=<?=$value?>" title="<?=$value?>"><?=$value?></a>&nbsp;&nbsp;
                                     <?php endforeach; ?>
                                 </p>
                             </div>
-                            
+
                         </div>
                         <div class="col-xs-12 col-sm-2">
                             <a href="" class="btn btn-primary subscribe" title="<?=Language::getText($subscribe_text)?>" data-type="<?=$subscribe_text?>" data-user="<?=$video->userId?>"><?=Language::getText($subscribe_text)?></a>
@@ -194,18 +194,18 @@ $this->setLayout('full');
                              - FaceBook, and Google + widgets require the video's URL to be publicly accessible, otherwise the widgets will not work.
                             -->
                             <!-- FACEBOOK BUTTON -->
-                            <meta property="og:url" content="<?=$this->getService('Video')->getUrl($video)?>/" /> 
+                            <meta property="og:url" content="<?=$this->getService('Video')->getUrl($video)?>/" />
                             <meta property="og:title" content="<?=$video->title?>" />
-                            <meta property="og:description" content="<?=$video->description?>" /> 
-                            <meta property="og:image" content="<?=$config->thumbUrl?>/<?=$video->filename?>.jpg" /> 
-                            <meta property="og:type" content="video" /> 
-                            <meta property="og:video" content="<?=$config->h264Url?>/<?=$video->filename?>.mp4"> 
-                            <meta property="og:video:type" content="video/mp4"> 
-                            <meta property="og:video:width" content="640"> 
-                            <meta property="og:video:height" content="360"> 
-                            <script>if (window.location.hash === '#facebook-share') {window.close();}</script>      
+                            <meta property="og:description" content="<?=$video->description?>" />
+                            <meta property="og:image" content="<?=$config->thumbUrl?>/<?=$video->filename?>.jpg" />
+                            <meta property="og:type" content="video" />
+                            <meta property="og:video" content="<?=$config->h264Url?>/<?=$video->filename?>.mp4">
+                            <meta property="og:video:type" content="video/mp4">
+                            <meta property="og:video:width" content="640">
+                            <meta property="og:video:height" content="360">
+                            <script>if (window.location.hash === '#facebook-share') {window.close();}</script>
                             <a class="facebook" href="https://www.facebook.com/dialog/share?app_id=<your_app_id>&display=popup&href=<?=urlencode($this->getService('Video')->getUrl($video) . '/')?>&redirect_uri=<?=urlencode($this->getService('Video')->getUrl($video) . '/#facebook-share')?>" onClick="window.open(this.href, 'sharewindow','width=550,height=300');return false;">Share on Facebook</a>
-                            
+
                             <!-- TWITTER BUTTON -->
                             <a class="twitter" href="" onClick="window.open('https://twitter.com/share?url=<?=urlencode($this->getService('Video')->getUrl($video) . '/')?>&text=<?=urlencode(Functions::cutOff($video->description, 140))?>','sharewindow','width=650,height=400');return false;">Share on Twitter</a>
 
@@ -218,7 +218,7 @@ $this->setLayout('full');
                             <div class="col-xs-8">
                                 <p class="h4"><?=Language::getText('embed')?></p>
                                 <p><?=Language::getText('embed_text')?></p>
-                                <textarea class="form-control" rows="5" cols="58">&lt;iframe src="<?=HOST?>/embed/<?=$video->videoId?>/" width="480" height="360" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</textarea>
+                                <textarea class="form-control" rows="5" cols="58">&lt;iframe src="<?=BASE_URL?>/embed/<?=$video->videoId?>/" width="480" height="360" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</textarea>
                             </div>
                         <?php endif; ?>
 
@@ -231,7 +231,7 @@ $this->setLayout('full');
 
             <!-- BEGIN Add Tab -->
             <div class="tab-pane" id="addToPlaylist">
-                
+
 
                 <h4><?=Language::getText('add_to')?></h4>
                 <div class="panel panel-default">
@@ -273,7 +273,7 @@ $this->setLayout('full');
                                         <label class="control-label"><?=Language::getText('playlist_name')?>:</label>
                                         <input class="form-control" type="text" name="playlist_name" />
                                     </div>
-                                    
+
                                     <div class="form-group">
                                         <label class="control-label"><?=Language::getText('visibility')?>:</label>
                                         <select class="form-control" name="playlist_visibility">
@@ -285,10 +285,10 @@ $this->setLayout('full');
                                     <input type="hidden" name="video_id" value="<?=$video->videoId?>" />
                                     <input class="btn btn-primary" type="submit" value="<?=Language::getText('create_playlist_button')?>" />
                                 </form>
-                            </div>           
+                            </div>
 
                         <?php else: ?>
-                            <?=Language::getText('playlist_login', array('url' => HOST . '/login/?redirect=' . urlencode($this->getService('Video')->getUrl($video))))?>
+                            <?=Language::getText('playlist_login', array('url' => BASE_URL . '/login/?redirect=' . urlencode($this->getService('Video')->getUrl($video))))?>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -307,13 +307,13 @@ $this->setLayout('full');
                 <?=($video->commentsClosed) ? '' : ' (<span class="comment-total">' . $commentCount . '</span>)'?>
             </h4>
             <?php if (!$loggedInUser && $config->enableRegistrations): ?>
-                <p class="col-xs-6 text-right"><?=Language::getText('comments_login_register', array('login_link' => HOST . '/login/?redirect=' . urlencode($this->getService('Video')->getUrl($video)), 'register_link' => HOST . '/register/'))?></p>
+                <p class="col-xs-6 text-right"><?=Language::getText('comments_login_register', array('login_link' => BASE_URL . '/login/?redirect=' . urlencode($this->getService('Video')->getUrl($video)), 'register_link' => BASE_URL . '/register/'))?></p>
             <?php elseif (!$loggedInUser && !$config->enableRegistrations): ?>
-                <p class="col-xs-6 text-right"><?=Language::getText('comments_login', array('login_link' => HOST . '/login/?redirect=' . urlencode($this->getService('Video')->getUrl($video))))?></p>
+                <p class="col-xs-6 text-right"><?=Language::getText('comments_login', array('login_link' => BASE_URL . '/login/?redirect=' . urlencode($this->getService('Video')->getUrl($video))))?></p>
             <?php endif; ?>
         </div>
         <!-- END Comments Header -->
-        
+
 
 
         <!-- BEGIN Comments Container -->
@@ -355,7 +355,7 @@ $this->setLayout('full');
 
                     <?php endif; ?>
 
-                
+
 
                     <!-- BEGIN Comments List -->
                     <div class="comment-list">
@@ -415,10 +415,10 @@ $this->setLayout('full');
 
     <!-- BEGIN PLAY RIGHT -->
     <div class="col-md-4 play-right">
-             
+
         <?php $this->Block ('ad300.phtml'); ?>
 
-        
+
         <!-- BEGIN RELATED VIDEOS -->
         <div class="related-videos">
             <h4><?=Language::getText('suggestions_header')?></h4>
@@ -439,7 +439,7 @@ $this->setLayout('full');
                         <div class="media-body">
                             <p class="media-heading"><a href="<?=$videoService->getUrl($relatedVideo)?>/" title="<?=$relatedVideo->title?>"><?=$relatedVideo->title?></a></p>
                             <div class="small">
-                                <?=Language::getText('by')?>: <a href="<?=HOST?>/members/<?=$relatedVideo->username?>/" title="<?=$relatedVideo->username?>"><?=$relatedVideo->username?></a>
+                                <?=Language::getText('by')?>: <a href="<?=BASE_URL?>/members/<?=$relatedVideo->username?>/" title="<?=$relatedVideo->username?>"><?=$relatedVideo->username?></a>
                                 <span class="duration"><span class="glyphicon glyphicon-time"></span> <?=$relatedVideo->duration?></span>
                             </div>
                         </div>

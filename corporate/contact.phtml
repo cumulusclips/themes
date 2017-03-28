@@ -29,9 +29,10 @@
                 </div>
 
                 <input type="hidden" value="TRUE" name="submitted" />
+                <input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
                 <input class="btn btn-primary" type="submit" name="button" value="<?=Language::getText('contact_button')?>" />
             </form>
         </div>
-        
+
     </div>
 </div>
