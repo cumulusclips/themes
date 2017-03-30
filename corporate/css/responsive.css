@@ -14,13 +14,17 @@
     .play #about .col-sm-2 {
         margin-bottom: 10px;
     }
+
+    .video-player-container {
+        width: 100%;
+        height: auto;
+    }
 }
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991px) {
 
-    .video-player-container,
-    .video-player-container .video-js {
+    .video-player-container {
         width: 720px;
         height: 406px;
     }
@@ -90,13 +94,13 @@
         display: block;
     }
 
-    .video-large .thumb {
+    .video-large .thumbnail {
         margin-right: 10px;
         float: left;
     }
 
     .search .video img,
-    .video-large .thumb img {
+    .video-large .thumbnail img {
         width: 180px;
         height: 101px;
     }
@@ -235,6 +239,13 @@
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) and (max-width: 1199px) {
 
+    .video-player-container,
+    .video-player-container .vjs-tech,
+    .video-player-container .video-js {
+        width: 616px !important;
+        height: 346px !important;
+    }
+
     .video-list > .video-large:nth-child(4n+4),
     .video-large {
         margin-right: 87px;
@@ -254,7 +265,7 @@
     .playlist:nth-child(4n+4) {
         margin-right: 35px;
     }
-    
+
     .account .playlist:nth-child(2n+2),
     .playlist:nth-child(3n+3) {
         margin-right: 0;
@@ -283,4 +294,10 @@
 }
 
 /* Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {}
+@media (min-width: 1200px) {
+
+    .video-player-container {
+        width: 750px;
+        height: 420px;
+    }
+}

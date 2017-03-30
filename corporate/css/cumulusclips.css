@@ -1,0 +1,196 @@
+.link {
+    cursor: pointer;
+}
+
+.no-padding {
+    padding: 0 !important;
+}
+
+.no-margin {
+    margin: 0 !important;
+}
+
+.no-transition.collapsing {
+    transition: none;
+}
+
+
+#add-to-playlist .glyphicon-plus-sign {
+    display: inline;
+}
+
+#add-to-playlist .glyphicon-ok-sign {
+    display: none;
+}
+
+#add-to-playlist .added .glyphicon-plus-sign {
+    display: none;
+}
+
+#add-to-playlist .added .glyphicon-ok-sign {
+    display: inline;
+}
+
+/** Video Add/Edit Attachments Tab **/
+
+#video-attachments p {
+    margin: 0 0 5px;
+}
+
+#video-attachments .add a i {
+    margin-right: 10px;
+}
+
+#video-attachments .attachment-form {
+    width: 485px;
+}
+
+#video-attachments h3 {
+    display: inline-block;
+    margin: 0 5px 10px 0;
+}
+
+#video-attachments .remove {
+    margin-left: 5px;
+}
+
+#video-attachments ul {
+    border-radius: 3px;
+    background-color: #FFF;
+    width: 485px;
+}
+
+#video-attachments li {
+    border-top: 1px solid #DDD;
+}
+
+#video-attachments li:first-child {
+    border-top: none;
+}
+
+#video-attachments li a {
+    display: block;
+    font-weight: normal;
+    color: #555;
+    padding: 10px;
+    font-size: 14px;
+}
+
+#video-attachments li .selected {
+    background-color: #d9edf7;
+    color: #31708f;
+}
+
+#video-attachments li span {
+    float: right;
+}
+
+
+/** File Upload Widget **/
+
+.uploader-container .button {
+    float: none;
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background: #337ab7;
+    border: 1px solid #2e6da4;
+    border-radius: 4px;
+    color: #fff;
+}
+
+.uploader-container .button[disabled] {
+    opacity: .65;
+    cursor: not-allowed;
+}
+
+.uploader-container .button-upload {
+    margin: 0 0 0 10px;
+}
+
+.button-browse {
+    height: auto;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+}
+
+.button-browse input {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    font-size: 200px;
+    opacity: 0;
+}
+
+.upload-progress {
+    font-family: arial;
+    background-color: #F0F0F0;
+    border: 3px solid #E1E1E1;
+    max-width: 465px;
+    margin: 7px 0 15px;
+    padding: 7px;
+    font-size: 13px;
+    box-sizing: content-box;
+}
+
+.upload-progress .title {
+    color: #005acc;
+    font-weight: bold;
+}
+
+.upload-progress .remove {
+    color: #999;
+    margin-right: 5px;
+}
+
+.upload-progress .remove .glyphicon {
+    top: 2px;
+    background: url("../images/cancel.png") no-repeat 0 0;
+    vertical-align: top;
+}
+
+.upload-progress .remove:hover {
+    color: #777;
+}
+
+.upload-progress .remove:focus,
+.upload-progress .remove:active, {
+    color: #555;
+}
+
+.upload-progress .glyphicon-ok {
+    color: #023e7b;
+    font-size: 16px;
+    width: 16px;
+}
+
+.upload-progress .progress-track {
+    width: 145px;
+    height: 14px;
+    border: 1px solid #023e7b;
+    float: right;
+    padding: 1px;
+    margin-top: 1px;
+}
+
+.upload-progress .progress-fill {
+    background-color: #023e7b;
+    width: 0%;
+    height: 10px;
+}

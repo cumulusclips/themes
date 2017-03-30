@@ -4,10 +4,9 @@ $this->addMeta('videoId', $video->videoId);
 $this->addMeta('theme', $this->options->themeUrl);
 $this->addMeta('loggedIn', (boolean) $loggedInUser);
 $this->addCss('video-js.css');
-$this->addCss('jscrollpane.css');
+$this->addCss('scrollbar.css');
 $this->addJs('video.plugin.js');
-$this->addJs('jscrollpane.plugin.js');
-$this->addJs('mousewheel.plugin.js');
+$this->addJs('scrollbar.js');
 $this->setLayout('full');
 ?>
 
@@ -21,6 +20,7 @@ $this->setLayout('full');
 
         <!-- BEGIN Video Player -->
         <?php if ($video->gated && !$loggedInUser): ?>
+
             <div id="player-gated">
                 <img width="750" height="420" src="<?=$config->thumbUrl?>/<?=$video->filename?>.jpg" alt="" />
                 <div>
@@ -33,8 +33,9 @@ $this->setLayout('full');
             </div>
 
         <?php else: ?>
+
             <div class="video-player-container">
-                <video id="video-player" class="video-js vjs-default-skin" data-setup='{ "controls": true, "autoplay": true, "preload": "auto" }' width="auto" height="auto" poster="<?=$config->thumbUrl?>/<?=$video->filename?>.jpg">
+                <video id="video-player" class="video-js vjs-default-skin vjs-16-9" data-setup='{ "controls": true, "autoplay": true, "preload": "auto" }' width="750" height="420" poster="<?=$config->thumbUrl?>/<?=$video->filename?>.jpg">
                     <source src="<?=$config->h264Url?>/<?=$video->filename?>.mp4" type="video/mp4" />
                     <?php if ($webmEncodingEnabled): ?>
                         <source src="<?=$config->webmUrl?>/<?=$video->filename?>.webm" type="video/webm" />
@@ -44,7 +45,7 @@ $this->setLayout('full');
                     <?php endif; ?>
                 </video>
             </div>
-            <!-- </div> -->
+
         <?php endif; ?>
         <!-- END Video Player -->
 
@@ -65,26 +66,28 @@ $this->setLayout('full');
                     </p>
                 </header>
 
-                <div class="video-list collapse in">
-                <?php $videoService = $this->getService('Video'); ?>
-                <?php foreach ($playlistVideos as $playlistVideo): ?>
+                <div class="scrollbar-outer">
+                    <div class="video-list collapse in">
+                    <?php $videoService = $this->getService('Video'); ?>
+                    <?php foreach ($playlistVideos as $playlistVideo): ?>
 
-                    <div class="video video-small media <?=($playlistVideo->videoId == $video->videoId) ? 'active' : ''?>">
-                        <div class="media-left thumb">
-                            <a href="<?=$videoService->getUrl($playlistVideo)?>/?playlist=<?=$playlist->playlistId?>" title="<?=$playlistVideo->title?>">
-                                <span class="glyphicon glyphicon-play"></span>
-                                <img class="media-object" width="100" height="56" src="<?=$config->thumbUrl?>/<?=$playlistVideo->filename?>.jpg" />
-                            </a>
-                        </div>
-                        <div class="media-body">
-                            <p class="media-heading"><a href="<?=$videoService->getUrl($playlistVideo)?>/?playlist=<?=$playlist->playlistId?>" title="<?=$playlistVideo->title?>"><?=$playlistVideo->title?></a></p>
-                            <div class="small">
-                                <?=Language::getText('by')?>:</strong> <a href="<?=BASE_URL?>/members/<?=$playlistVideo->username?>/" title="<?=$playlistVideo->username?>"><?=$playlistVideo->username?></a>
-                                <span class="duration"><span class="glyphicon glyphicon-time"></span> <?=$playlistVideo->duration?></span>
+                        <div class="video video-small media <?=($playlistVideo->videoId == $video->videoId) ? 'active' : ''?>">
+                            <div class="media-left thumbnail">
+                                <a href="<?=$videoService->getUrl($playlistVideo)?>/?playlist=<?=$playlist->playlistId?>" title="<?=$playlistVideo->title?>">
+                                    <span class="glyphicon glyphicon-play"></span>
+                                    <img class="media-object" width="100" height="56" src="<?=$config->thumbUrl?>/<?=$playlistVideo->filename?>.jpg" />
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <p class="media-heading"><a href="<?=$videoService->getUrl($playlistVideo)?>/?playlist=<?=$playlist->playlistId?>" title="<?=$playlistVideo->title?>"><?=$playlistVideo->title?></a></p>
+                                <div class="small">
+                                    <?=Language::getText('by')?>:</strong> <a href="<?=BASE_URL?>/members/<?=$playlistVideo->username?>/" title="<?=$playlistVideo->username?>"><?=$playlistVideo->username?></a>
+                                    <span class="duration"><span class="glyphicon glyphicon-time"></span> <?=$playlistVideo->duration?></span>
+                                </div>
                             </div>
                         </div>
+                    <?php endforeach; ?>
                     </div>
-                <?php endforeach; ?>
                 </div>
             </div>
         <?php endif; ?>
@@ -115,11 +118,11 @@ $this->setLayout('full');
                 </div>
 
                 <div class="col-xs-6 text-right">
-                    <a class="rating" href="" data-rating="1" title="<?=Language::getText('like')?>">
+                    <a class="rating" href="" data-video="<?php echo $video->videoId; ?>" data-rating="1" title="<?=Language::getText('like')?>">
                         <span class="glyphicon glyphicon-thumbs-up"></span>
                         <?=Language::getText('like')?>
                     </a>
-                    <a class="rating" href="" data-rating="0" title="<?=Language::getText('dislike')?>">
+                    <a class="rating" href="" data-video="<?php echo $video->videoId; ?>" data-rating="0" title="<?=Language::getText('dislike')?>">
                         <span class="glyphicon glyphicon-thumbs-down"></span>
                         <?=Language::getText('dislike')?>
                     </a>
@@ -135,7 +138,7 @@ $this->setLayout('full');
         <ul class="nav nav-tabs">
             <li><a href="#about" data-toggle="tab"><?=Language::getText('about')?></a></li>
             <li><a href="#share" data-toggle="tab"><?=Language::getText('share')?></a></li>
-            <li><a href="#addToPlaylist" data-toggle="tab" id="playlist-toggle"><?=Language::getText('add')?></a></li>
+            <li><a href="#add-to-playlist" data-toggle="tab" id="playlist-toggle"><?=Language::getText('add')?></a></li>
             <li><a href="" class="flag" data-type="video" data-id="<?=$video->videoId?>"><?=Language::getText('flag')?></a></li>
         </ul>
         <!-- END Action Tabs -->
@@ -230,7 +233,7 @@ $this->setLayout('full');
 
 
             <!-- BEGIN Add Tab -->
-            <div class="tab-pane" id="addToPlaylist">
+            <div class="tab-pane" id="add-to-playlist">
 
 
                 <h4><?=Language::getText('add_to')?></h4>
@@ -239,30 +242,43 @@ $this->setLayout('full');
 
                         <?php if ($loggedInUser): ?>
 
-                            <div class="col-xs-12 col-sm-5">
-                                <div style="overflow:hidden; box-sizing: content-box;">
-                                <div class="playlist-container">
+                            <div class="test col-xs-12 col-sm-5">
+                                <div class="scrollbar-outer playlist-container" >
                                     <ul>
                                         <?php $playlistService = $this->getService('Playlist'); ?>
-                                        <li>
-                                            <span class="glyphicon glyphicon-<?=($playlistService->checkListing($video, $favoritesList)) ? 'ok' : 'plus'?>-sign"></span>
-                                            <a data-playlist_id="<?=$favoritesList->playlistId?>" href=""><?=Language::getText('favorites')?></a>
+                                        <li class="<?php echo $playlistService->checkListing($video, $favoritesList) ? 'added' : ''; ?>">
+                                            <i class="glyphicon glyphicon-ok-sign"></i>
+                                            <i class="glyphicon glyphicon-plus-sign"></i>
+                                            <a
+                                                data-playlist_id="<?=$favoritesList->playlistId?>"
+                                                href=""
+                                                data-video="<?php echo $video->videoId; ?>"
+                                            ><?=Language::getText('favorites')?></a>
                                         </li>
-                                        <li>
-                                            <span class="glyphicon glyphicon-<?=($playlistService->checkListing($video, $watchLaterList)) ? 'ok' : 'plus'?>-sign"></span>
-                                            <a data-playlist_id="<?=$watchLaterList->playlistId?>" href=""><?=Language::getText('watch_later')?></a>
+                                        <li class="<?php echo $playlistService->checkListing($video, $watchLaterList) ? 'added' : ''; ?>">
+                                            <i class="glyphicon glyphicon-ok-sign"></i>
+                                            <i class="glyphicon glyphicon-plus-sign"></i>
+                                            <a
+                                                data-playlist_id="<?=$watchLaterList->playlistId?>"
+                                                href=""
+                                                data-video="<?php echo $video->videoId; ?>"
+                                            ><?=Language::getText('watch_later')?></a>
                                         </li>
                                         <?php if (count($userPlaylists) > 0): ?>
                                             <li><strong><?=Language::getText('playlists')?></strong></li>
                                             <?php foreach ($userPlaylists as $userPlaylist): ?>
-                                                <li>
-                                                    <span class="glyphicon glyphicon-<?=($playlistService->checkListing($video, $userPlaylist)) ? 'ok' : 'plus'?>-sign"></span>
-                                                    <a data-playlist_id="<?=$userPlaylist->playlistId?>" href=""><?=$userPlaylist->name?> (<?=count($userPlaylist->entries)?>)</a>
+                                                <li class="<?php echo $playlistService->checkListing($video, $userPlaylist) ? 'added' : ''; ?>">
+                                                    <i class="glyphicon glyphicon-ok-sign"></i>
+                                                    <i class="glyphicon glyphicon-plus-sign"></i>
+                                                    <a
+                                                        data-playlist_id="<?=$userPlaylist->playlistId?>"
+                                                        href=""
+                                                        data-video="<?php echo $video->videoId; ?>"
+                                                    ><?=$userPlaylist->name?> (<?=count($userPlaylist->entries)?>)</a>
                                                 </li>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
                                     </ul>
-                                </div>
                                 </div>
                             </div>
 
@@ -358,7 +374,7 @@ $this->setLayout('full');
 
 
                     <!-- BEGIN Comments List -->
-                    <div class="comment-list">
+                    <div class="comment-list" data-comment-count="<?php echo $commentCount; ?>">
                         <?php if ($commentCount > 0): ?>
 
                             <?php foreach ($commentCardList as $commentCard): ?>
@@ -372,19 +388,19 @@ $this->setLayout('full');
                                     <div class="media-body row">
 
                                         <div class="col-xs-8">
-                                            <span class="commentAuthor"><a href="<?=getUserProfileLink($commentCard->author)?>"><?=$commentCard->author->username?></a></span>
-                                            <span class="commentDate"><?=date('m/d/Y', strtotime($commentCard->comment->dateCreated))?></span>
+                                            <span class="comment-author"><a href="<?=getUserProfileLink($commentCard->author)?>"><?=$commentCard->author->username?></a></span>
+                                            <span class="comment-date"><?=date('m/d/Y', strtotime($commentCard->comment->dateCreated))?></span>
                                             <?php if ($commentCard->comment->parentId != 0): ?>
-                                                <span class="commentReply"><?=Language::getText('reply_to')?> <a href="<?=getUserProfileLink($commentCard->parentAuthor)?>"><?=$commentCard->parentAuthor->username?></a></span>
+                                                <span class="comment-reply"><?=Language::getText('reply_to')?> <a href="<?=getUserProfileLink($commentCard->parentAuthor)?>"><?=$commentCard->parentAuthor->username?></a></span>
                                             <?php endif; ?>
                                         </div>
 
-                                        <div class="col-xs-4 commentAction text-right">
+                                        <div class="col-xs-4 comment-action text-right">
                                             <a class="reply" href=""><?=Language::getText('reply')?></a>
                                             <a class="flag" data-type="comment" data-id="<?=$commentCard->comment->commentId?>" href=""><?=Language::getText('report_abuse')?></a>
                                         </div>
 
-                                        <p class="col-xs-12"><?=nl2br($commentCard->comment->comments)?></p>
+                                        <p class="col-xs-12 comment-text"><?=nl2br($commentCard->comment->comments)?></p>
                                     </div>
                                 </div>
 
@@ -400,8 +416,8 @@ $this->setLayout('full');
             </div>
 
             <?php if ($commentCount > 5): ?>
-                <div class="panel-footer text-center">
-                    <button class="btn btn-primary load-more" data-loading_text="<?=Language::getText('loading')?>"><?=Language::getText('load_more')?></button>
+                <div class="panel-footer text-center load-more">
+                    <button class="btn btn-primary load-more-btn" data-video="<?php echo $video->videoId; ?>" data-loading_text="<?=Language::getText('loading')?>"><?=Language::getText('load_more')?></button>
                 </div>
             <?php endif; ?>
 
@@ -430,7 +446,7 @@ $this->setLayout('full');
                 <?php foreach ($relatedVideos as $relatedVideo): ?>
 
                     <div class="video video-medium media">
-                        <div class="media-left thumb">
+                        <div class="media-left thumbnail">
                             <a href="<?=$videoService->getUrl($relatedVideo)?>/" title="<?=$relatedVideo->title?>">
                                 <span class="glyphicon glyphicon-play"></span>
                                 <img class="media-object" width="140" height="78" src="<?=$config->thumbUrl?>/<?=$relatedVideo->filename?>.jpg" />

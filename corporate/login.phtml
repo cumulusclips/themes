@@ -4,10 +4,11 @@ $this->setLayout('full');
 
 ?>
 
+
 <div class="row">
     <div class="form-container col-md-5 col-center">
 
-        <div id="login-form" class="collapse <?=($forgot_submit) ? '' : 'in'?>">
+        <div id="login-form" class="no-transition collapse <?=($forgot_submit) ? '' : 'in'?>">
 
             <h1><?=Language::getText('login_header')?></h1>
 
@@ -37,11 +38,17 @@ $this->setLayout('full');
                 <?php if ($config->enableRegistrations): ?>
                     <p><a href="<?=HOST?>/register/"><?=Language::getText('no_account')?></a></p>
                 <?php endif; ?>
-                <p><a href="#forgot-form" data-toggle="toggle" data-parent=".collapse"><?=Language::getText('forgot_your_login')?></a></p>
+                <p><a
+                    class="link"
+                    data-target="#forgot-form, #login-form"
+                    data-toggle="collapse"
+                    data-parent=".form-container"
+                ><?=Language::getText('forgot_your_login')?></a></p>
+
             </div>
         </div>
 
-        <div id="forgot-form" class="collapse <?=($forgot_submit) ? 'in' : ''?>">
+        <div id="forgot-form" class="no-transition collapse <?=($forgot_submit) ? 'in' : ''?>">
 
             <h2><?=Language::getText('forgot_header')?></h2>
 
@@ -63,7 +70,12 @@ $this->setLayout('full');
                     <input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
                     <input class="btn btn-primary" type="submit" name="button" value="<?=Language::getText('forgot_button')?>" />
                 </form>
-                <p><a href="#login-form" data-toggle="toggle" data-parent=".collapse"><?=Language::getText('cancel')?></a></p>
+                <p><a
+                    class="link"
+                    data-target="#login-form, #forgot-form"
+                    data-toggle="collapse"
+                    data-parent=".form-container"
+                ><?=Language::getText('cancel')?></a></p>
             </div>
 
         </div>

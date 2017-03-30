@@ -9,14 +9,14 @@
 
 /** Browse Videos **/
 
-.videos .filter-options {
+.browse .filter-options {
     margin: 20px 0 30px;
     border-top: 1px solid #D2D2D2;
     border-bottom: 1px solid #D2D2D2;
     padding: 15px 0;
 }
 
-.videos .filter-options .btn-group {
+.browse .filter-options .btn-group {
     margin-right: 15px;
 }
 
@@ -119,26 +119,20 @@
     margin-top: 440px;
 }
 
-.play .actions {
+.watch .actions {
     margin: 20px 0;
 }
 
-.play h1 {
+.watch h1 {
     margin-top: 0;
 }
 
-.play .tab-pane {
+.watch .tab-pane {
     margin: 20px 0;
 }
 
 .video-player-container {
     margin: 0 auto;
-}
-
-.video-player-container,
-.video-player-container .video-js {
-    width: 750px;
-    height: 420px;
 }
 
 #player-gated {
@@ -166,7 +160,7 @@
     margin: 10px 10px 0;
 }
 
-.play .rating {
+.watch .rating {
     margin-left: 10px;
 }
 
@@ -212,58 +206,45 @@
 
 /** Play - Add Tab **/
 
-#addToPlaylist .playlist-container {
+#add-to-playlist .playlist-container {
     border: 1px solid #CCC;
     height: 200px;
 }
 
-#addToPlaylist ul {
+#add-to-playlist ul {
     padding: 0;
     margin: 8px 0 0 10px;
 }
 
-#addToPlaylist .jspVerticalBar {
-    width: 12px;
-}
-
-#addToPlaylist .jspTrack {
-    background-color: #D2D2D2;
-}
-
-#addToPlaylist .jspDrag {
-    background-color: #555;
-    border-radius: 10px;
-}
-
-#addToPlaylist li {
+#add-to-playlist li {
     line-height: 24px;
     list-style: none;
     cursor: pointer;
 }
 
-#addToPlaylist .glyphicon-ok-sign {
+#add-to-playlist .glyphicon-ok-sign {
     color: #060;
 }
 
-#addToPlaylist .glyphicon-plus-sign {
+#add-to-playlist .glyphicon-plus-sign {
     color: #337ab7;
 }
 
-#addToPlaylist li strong {
+#add-to-playlist li strong {
     padding-left: 20px;
 }
 
-#addToPlaylist li a {
+#add-to-playlist li a {
     color: #555;
 }
 
-#addToPlaylist li a:active,
-#addToPlaylist li a:focus,
-#addToPlaylist li a:hover {
+#add-to-playlist li a:active,
+#add-to-playlist li a:focus,
+#add-to-playlist li a:hover {
     text-decoration: none;
 }
 
-#addToPlaylist .h4 {
+#add-to-playlist .h4 {
     margin-top: 0;
 }
 
@@ -341,10 +322,10 @@
     color: #900;
 }
 
-.comment .commentAuthor,
-.comment .commentReply,
-.comment .commentDate,
-.comment .commentAction {
+.comment .comment-author,
+.comment .comment-reply,
+.comment .comment-date,
+.comment .comment-action {
     font-size: 10px;
 }
 
@@ -372,6 +353,11 @@
     padding: 5px;
 }
 
+.video-medium .thumbnail img {
+    width: 140px;
+    height: 78px;
+}
+
 .video-medium .glyphicon-play {
     left: 56px;
     top: 26px;
@@ -391,7 +377,6 @@
     top: 0;
     right: -375px;
     width: 360px;
-    /*height: 420px;*/
     background-color: #222;
     color: #FFF;
     margin-bottom: 20px;
@@ -420,31 +405,25 @@
     margin-right: 10px;
 }
 
-#playlist .jspVerticalBar {
-    width: 11px;
+#playlist .scroll-y {
+    background: transparent;
 }
 
-#playlist .jspTrack {
+#playlist .scroll-element_track {
     background-color: #888;
 }
 
-#playlist .jspDrag {
+#playlist .scroll-bar {
     background-color: #555;
     border-radius: 10px;
     cursor: default;
 }
 
-#playlist .jspDrag:active {
+#playlist .scroll-bar:active {
     background-color: #444;
 }
 
-#playlist .jspPane {
-    width: 100% !important;
-}
-
 #playlist .video-list {
-    /*overflow: auto;*/
-    /*overflow: hidden;*/
     height: 350px;
 }
 
@@ -461,7 +440,7 @@
     cursor: pointer;
 }
 
-.video-small .thumb {
+.video-small .thumbnail img {
     width: 100px;
     height: 56px;
 }

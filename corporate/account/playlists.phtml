@@ -2,14 +2,14 @@
 <?php $playlistService = $this->getService('Playlist'); ?>
 
 <h1><?=Language::GetText('playlists_header')?></h1>
-        
+
 <?php if ($message): ?>
     <div class="alert <?=convertAlertToBootstrap($message_type)?>"><?=$message?></div>
 <?php endif; ?>
-    
-    
+
+
 <div class="playlist-list">
-        
+
     <!-- Begin Favorites -->
     <div class="playlist <?=(empty($favoritesList->entries)) ? 'playlist-empty' : ''?>">
         <?php if (!empty($favoritesList->entries)): ?>
@@ -30,7 +30,7 @@
             <a href="<?=HOST?>/account/playlists/edit/<?=$favoritesList->playlistId?>/" title="<?=Language::GetText('edit_playlist')?>"><?=Language::GetText('edit_playlist')?></a>
         </div>
     </div>
-    
+
     <!-- Begin Watch Later -->
     <div class="playlist <?=(empty($watchLaterList->entries)) ? 'playlist-empty' : ''?>">
         <?php if (!empty($watchLaterList->entries)): ?>
@@ -52,12 +52,14 @@
         </div>
     </div>
 </div>
- 
+
 <h2><?=Language::GetText('playlists')?></h2>
-<p><a class="showhide" data-block="create-playlist-form" href=""><?=Language::GetText('create_new_playlist')?></a></p>
+
+<a data-toggle="collapse" href="#create-playlist-form"><?=Language::GetText('create_new_playlist')?></a>
+
 
 <!-- BEGIN CREATE PLAYLIST FORM -->
-<div id="create-playlist-form">
+<div class="collapse" id="create-playlist-form">
     <h2><?=Language::GetText('create_new_playlist')?></h2>
     <div class="form form-inline playlists_form">
         <form method="post">

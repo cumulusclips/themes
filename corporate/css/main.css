@@ -279,8 +279,23 @@ main > h1:first-child {
     display: inline-block;
 }
 
-.video .thumb {
+.video .thumbnail {
+    background: none;
     position: relative;
+    margin: 0;
+    border: none;
+}
+
+.video .thumbnail img {
+    max-width: none;
+}
+
+.video-large .thumbnail {
+    padding: 0;
+}
+
+.video-large .thumbnail img {
+    height: 135px;
 }
 
 .video .glyphicon-play {
@@ -298,7 +313,7 @@ main > h1:first-child {
     font-size: 30px;
 }
 
-.video .thumb:hover .glyphicon-play {
+.video .thumbnail:hover .glyphicon-play {
     background-color: #337ab7;
     opacity: 1;
     transition: all .5s;
@@ -455,22 +470,22 @@ main > h1:first-child {
 /** Tabs **/
 
 .nav-tabs > li > a {
-    background-color: #337ab7;
-    border-color: #2e6da4;
-    border-bottom-color: rgba(0, 0, 0, 0);
-    border-bottom: none;
-    color: #FFF;
+    background-color: #FFF;
+    border-color: #DDD;
+    color: #555;
 }
 
 .nav-tabs > li > a:focus,
 .nav-tabs > li > a:hover {
     background-color: #286090;
     border-color: #204d74;
-    border-bottom-color: rgba(0, 0, 0, 0);
+    color: #FFF;
 }
 
 .nav-tabs > li.active > a:focus,
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a {
-    border-bottom: 1px solid #DDD;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    color: #FFF;
 }

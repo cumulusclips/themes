@@ -1,7 +1,4 @@
 <?php
-$this->addMeta('videoCount', $videoCount);
-$this->addMeta('playlistCount', $playlistCount);
-$this->addMeta('thumbUrl', $config->thumbUrl);
 if (!empty($watchLaterPlaylistId)) $this->addMeta('watchLaterPlaylistId', $watchLaterPlaylistId);
 $this->setLayout('full');
 ?>
@@ -26,7 +23,7 @@ $this->setLayout('full');
         <p><strong><?=Language::GetText('profile_views')?>:</strong>&nbsp; <?=$member->views?></p>
         <p><strong><?=Language::GetText('subscribers')?>:</strong>&nbsp; <?php echo $sub_count[0]; ?></p>
         <?php if (!empty ($member->website)): ?>
-            <p><strong><?=Language::GetText('website')?>:</strong>&nbsp; 
+            <p><strong><?=Language::GetText('website')?>:</strong>&nbsp;
             <a href="<?=$member->website?>" target="_blank" rel="nofollow"><?=Functions::CutOff ($member->website, 40);?></a></p>
         <?php endif; ?>
         <p><?=nl2br($member->aboutMe)?></p>
@@ -51,7 +48,13 @@ $this->setLayout('full');
                 <?php $this->RepeatingBlock('video.phtml', $videoList) ?>
             </div>
             <?php if ($videoCount > 9): ?>
-                <p class="text-center load-more"><a href="" data-user="<?=$member->userId?>" data-limit="9" class="btn btn-primary"><?=Language::GetText('load_more')?></a></p>
+                <p class="text-center load-more"><a
+                    href=""
+                    data-total="<?php echo $videoCount; ?>"
+                    data-user="<?php echo $member->userId; ?>"
+                    data-limit="9"
+                    class="btn btn-primary load-more-btn"
+                ><?=Language::GetText('load_more')?></a></p>
             <?php endif ?>
         <?php else: ?>
             <p><?=Language::GetText('no_member_videos')?></p>
@@ -63,7 +66,7 @@ $this->setLayout('full');
     <div id="member-playlists" class="tab-pane">
         <h3><?=Language::GetText('playlists')?></h3>
         <?php if ($playlistCount > 0): ?>
-            
+
             <div class="playlist-list">
                 <?php $playlistService = new PlaylistService(); ?>
                 <?php foreach ($playlist_list as $playlist): ?>
@@ -76,7 +79,7 @@ $this->setLayout('full');
                                 <span class="video-count"><?=count($playlist->entries)?><br><?=Language::GetText('videos')?></span>
                                 <span class="watch-all"><span class="glyphicon glyphicon-play"></span>Watch All</span>
                             </a>
-                            <p class="title"><a href="<?=$playlistService->getUrl($playlist)?>" title="<?=$playlist->name?>"><?=$playlist->name?></a></p> 
+                            <p class="title"><a href="<?=$playlistService->getUrl($playlist)?>" title="<?=$playlist->name?>"><?=$playlist->name?></a></p>
 
                         <?php else: ?>
 
@@ -91,9 +94,15 @@ $this->setLayout('full');
                     </div>
                 <?php endforeach; ?>
             </div>
-            
+
             <?php if ($playlistCount > 9): ?>
-                <p class="load-more text-center"><a href="" data-user="<?=$member->userId?>" data-limit="9" class="btn btn-primary"><?=Language::GetText('load_more')?></a></p>
+                <p class="load-more text-center"><a
+                    href=""
+                    data-user="<?=$member->userId?>"
+                    data-limit="9"
+                    data-total="<?php echo $playlistCount; ?>"
+                    class="btn btn-primary load-more-btn"
+                ><?=Language::GetText('load_more')?></a></p>
             <?php endif ?>
 
         <?php else: ?>
