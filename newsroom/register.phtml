@@ -6,7 +6,7 @@
         <h1><?=Language::getText('register_header')?></h1>
 
         <?=Language::getText('register_text', array ('sitename' => $config->sitename))?>
-        
+
         <?php if ($message): ?>
             <div class="alert <?=convertAlertToBootstrap($message_type)?>"><?=$message?></div>
         <?php endif; ?>
@@ -39,7 +39,7 @@
                 </div>
 
                 <input type="hidden" name="submitted" value="TRUE" />
-                <input type="hidden" name="token" value="<?=$token?>" />
+                <input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
                 <input class="btn btn-primary" type="submit" name="button" value="<?=Language::getText('register_button')?>" />
             </form>
 

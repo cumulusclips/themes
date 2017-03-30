@@ -8,7 +8,7 @@ $this->setLayout('full');
     <div class="form-container col-md-5 col-center">
 
         <div id="login-form" class="collapse <?=($forgot_submit) ? '' : 'in'?>">
-            
+
             <h1><?=Language::getText('login_header')?></h1>
 
             <?php if ($message && $login_submit): ?>
@@ -30,6 +30,7 @@ $this->setLayout('full');
 
                     <input type="hidden" name="redirect" value="<?=urlencode($redirect)?>" />
                     <input type="hidden" name="submitted_login" value="TRUE" />
+                    <input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
                     <input class="btn btn-primary" type="submit" name="button" value="<?=Language::getText('login_button')?>" />
 
                 </form>
@@ -50,7 +51,7 @@ $this->setLayout('full');
 
             <div class="form">
                 <form action="<?=HOST?>/login/" method="post">
-                    
+
                     <p><?=Language::getText('forgot_text')?></p>
 
                     <div class="form-group <?=($forgot_submit && $message_type == 'errors') ? 'has-error' : ''?>">
@@ -59,6 +60,7 @@ $this->setLayout('full');
                     </div>
 
                     <input type="hidden" name="submitted_forgot" value="TRUE" />
+                    <input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
                     <input class="btn btn-primary" type="submit" name="button" value="<?=Language::getText('forgot_button')?>" />
                 </form>
                 <p><a href="#login-form" data-toggle="toggle" data-parent=".collapse"><?=Language::getText('cancel')?></a></p>
