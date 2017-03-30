@@ -1,14 +1,4 @@
 // Global vars
-var cumulusClips = {};
-cumulusClips.baseUrl = $('meta[name="baseUrl"]').attr('content');
-cumulusClips.themeUrl = $('meta[name="themeUrl"]').attr('content');
-cumulusClips.loggedIn = $('meta[name="loggedIn"]').attr('content');
-cumulusClips.breakPoints = {
-    xs: 0,
-    sm: 768,
-    md: 992,
-    lg: 1200
-};
 cumulusClips.goToNextVideoDelay = 1000; // Milliseconds
 
 $(document).ready(function(){

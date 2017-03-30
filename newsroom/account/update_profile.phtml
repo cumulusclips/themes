@@ -54,25 +54,22 @@ $this->SetLayout('account');
 
         <div class="col-xs-12 col-md-10">
             <?=Language::GetText('update_avatar_text')?>
-            <form name="upload" action="<?=HOST?>/account/upload/avatar/">
-                <div id="upload-select-file" class="btn btn-primary">
-                    <span><?=Language::getText('browse_files_button')?></span>
-                    <input id="upload" type="file" name="upload" />
-                </div>
-                <input id="upload_button" class="btn btn-primary" type="button" value="<?=Language::GetText('update_avatar_button')?>" />
-                <input type="hidden" name="timestamp" value="<?=$timestamp?>" />
-                <input type="hidden" name="upload-limit" id="upload-limit" value="<?=1024*30?>" />
-                <input type="hidden" name="file-types" id="file-types" value="<?=htmlspecialchars(json_encode($config->acceptedAvatarFormats))?>" />
-                <input type="hidden" name="upload-type" id="upload-type" value="avatar" />
+            <form name="upload" action="<?=HOST?>/account/profile/" method="post">
 
+                <input
+                    class="uploader"
+                    type="file"
+                    name="upload"
+                    data-url="<?php echo BASE_URL; ?>/ajax/upload/"
+                    data-text="<?php echo Language::getText('browse_files_button'); ?>"
+                    data-limit="<?php echo $config->videoSizeLimit; ?>"
+                    data-extensions="<?php echo urlencode(json_encode($config->acceptedImageFormats)); ?>"
+                    data-type="image"
+                    data-auto-submit="true"
+                />
 
-                <div id="upload_status" class="">
-                    <div class="title"></div>
-                    <div class="progress">
-                        <div class="progress-bar"></div>
-                    </div>
-                    <a href="" title="<?=Language::GetText('cancel')?>"><?=Language::GetText('cancel')?></a>
-                </div>
+                <input type="hidden" name="submitted_avatar" value="true" />
+                <input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
 
             </form>
         </div>
