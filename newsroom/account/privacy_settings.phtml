@@ -18,7 +18,12 @@
             </select>
         </div>
 
+        <input type="hidden" name="video_ready" value="<?php echo (int) $privacy->videoReady; ?>" />
+        <input type="hidden" name="video_comment" value="<?php echo (int) $privacy->videoComment; ?>" />
+        <input type="hidden" name="new_video" value="<?php echo (int) $privacy->newVideo; ?>" />
+        <input type="hidden" name="new_message" value="<?php echo (int) $privacy->newMessage; ?>" />
         <input type="hidden" name="submitted" value="TRUE" />
+        <input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
         <input class="btn btn-primary" type="submit" name="button" value="<?=Language::GetText('privacy_settings_button')?>" />
     </form>
 </div>
