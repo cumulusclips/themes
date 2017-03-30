@@ -168,6 +168,21 @@ $this->setLayout('full');
                                         <a href="<?=BASE_URL?>/search/?keyword=<?=$value?>" title="<?=$value?>"><?=$value?></a>&nbsp;&nbsp;
                                     <?php endforeach; ?>
                                 </p>
+
+                                <?php if (!empty($attachments)): ?>
+                                    <p><strong><?=Language::getText('attachments')?>:</strong>
+                                        <?php foreach ($attachments as $attachment): ?>
+                                            <a
+                                                class="attachment"
+                                                href="<?php echo $this->getService('File')->getUrl($attachment); ?>"
+                                                title="<?php echo htmlspecialchars($attachment->name); ?> (<?php echo \Functions::formatBytes($attachment->filesize, 0); ?>)"
+                                            ><i class="glyphicon glyphicon-paperclip"></i>
+                                                <?php echo htmlspecialchars($attachment->name); ?> (<?php echo \Functions::formatBytes($attachment->filesize, 0); ?>)
+                                            </a>
+                                        <?php endforeach; ?>
+                                    </p>
+                                <?php endif; ?>
+
                             </div>
 
                         </div>

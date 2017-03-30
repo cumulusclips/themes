@@ -13,12 +13,17 @@ $(function(){
         appendTo: '.search-form .autocomplete-container'
     });
 
+
+    // Init Bootstrap tooltip
+    $('[data-toggle="tooltip"]').tooltip();
+
+
     /**
      * Display confirmation modal on click
      *
-     * href {String} Url to direct to after confirmation
-     * data-text {String} Text to use in modal body
-     * data-button-type {String} (optional) Default btn-primary, Bootstrap button class for confirm button
+     * @param {String} href Url to direct to after confirmation
+     * @param {String} data-text Text to use in modal body
+     * @param {String} data-button-type (optional) Default btn-primary, Bootstrap button class for confirm button
      */
     $(document).on('click', '[data-toggle="confirm-modal"]', function(event) {
 
@@ -207,11 +212,11 @@ $(function(){
     });
 
 
-    // Init Bootstrap tooltip
-    $('[data-toggle="tooltip"]').tooltip();
-
-
-    // Disable button until associated checkbox is checked
+    /**
+     * Disable button until associated checkbox is checked
+     *
+     * @param {String} data-checkbox Input name of checkbox group that must be checked to enable button
+     */
     $.each($('.checkbox-disable'), function(index, value) {
         var $element = $(value);
         var checkboxFieldName = $element.data('checkbox');
@@ -226,7 +231,12 @@ $(function(){
     });
 
 
-    // Attach flag action to flag links / buttons
+    /*
+     * Flags content
+     *
+     * @param {String} data-type Type of item being flagged
+     * @param {Number} data-id Id of item being flagged
+     */
     $(document).on('click', '.flag', function(event) {
 
         var url = cumulusClips.baseUrl + '/actions/flag/';
