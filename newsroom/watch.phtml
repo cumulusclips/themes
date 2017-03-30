@@ -7,12 +7,9 @@ $commentService = new CommentService();
 $this->setLayout('player');
 $this->addMeta('videoId', $this->vars->video->videoId);
 $this->addMeta('theme', $this->options->themeUrl);
-$this->addMeta('loggedIn', (boolean) $loggedInUser);
 
 // Retrieve Recent Videos
-$videoList = $this->vars->videoList = getRecentVideos();
 $activeVideo = $this->vars->activeVideo = $this->vars->video;
-
 
 // Retrieve videos
 if (isset($_GET['category']) && preg_match('/[a-z0-9\-]+/i', $_GET['category'])) {

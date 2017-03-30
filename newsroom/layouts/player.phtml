@@ -5,8 +5,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="baseUrl" content="<?=HOST?>" />
-<meta name="themeUrl" content="<?=$this->options->themeUrl?>" />
+<meta name="baseUrl" content="<?php echo BASE_URL; ?>" />
+<meta name="themeUrl" content="<?php echo $this->options->themeUrl; ?>" />
+<meta name="loggedIn" content="<?php echo (boolean) $loggedInUser; ?>" />
 <?php $this->writeMeta(); ?>
 <?php Plugin::triggerEvent('theme.head'); ?>
 <link rel="shortcut icon" type="image/x-icon" href="<?=$this->options->themeUrl?>/images/favicon.ico" />
