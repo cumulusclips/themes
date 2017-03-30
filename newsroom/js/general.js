@@ -25,18 +25,6 @@ $(document).ready(function(){
         event.preventDefault();
     });
 
-    // Init Bootstrap tooltip
-    $('[data-toggle="tooltip"]').tooltip();
-
-    // Search Auto-Complete
-    $('.search form input[type="text"]').each(function(key, value){
-        var idName = $(this).siblings('.autocomplete-container').attr('id');
-        $(this).autocomplete({
-            source: cumulusClips.baseUrl + '/search/suggest/',
-            appendTo: '#' + idName
-        });
-    });
-
 
     // Toggle visibility of one block with another
     $('[data-toggle="toggle"]').on('click', function(event){

@@ -4,6 +4,7 @@ $videoMapper = new VideoMapper();
 $commentMapper = new CommentMapper();
 $commentService = new CommentService();
 $this->setLayout('player');
+$this->addBodyClass('watch');
 
 // Retrieve Recent Videos
 $videoList = $this->vars->videoList = getRecentVideos();

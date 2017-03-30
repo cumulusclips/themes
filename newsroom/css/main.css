@@ -87,21 +87,21 @@ header .logo {
     margin-top: 7px;
 }
 
-header .search {
+header .search-form {
     margin-top: 20px;
 }
 
-header .search .form-group {
+header .search-form .form-group {
     width: 270px;
     margin-right: 5px;
 }
 
-header .search .form-control {
+header .search-form .form-control {
     width: 100%;
     border: none;
 }
 
-.search .btn {
+.search-form .btn {
     background-color: #700;
     border: none;
     font-size: 18px;
