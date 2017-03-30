@@ -18,19 +18,17 @@ $this->setLayout('account');
 
 <form action="<?php echo BASE_URL; ?>/account/upload/video/" method="post">
 
-    <div class="uploader-wrapper">
-        <input
-            class="uploader"
-            type="file"
-            name="upload"
-            data-url="<?php echo BASE_URL; ?>/ajax/upload/"
-            data-text="<?php echo Language::getText('browse_files_button'); ?>"
-            data-limit="<?php echo $config->videoSizeLimit; ?>"
-            data-extensions="<?php echo urlencode(json_encode($config->acceptedVideoFormats)); ?>"
-            data-type="video"
-            data-auto-submit="true"
-        />
-    </div>
+    <input
+        class="uploader"
+        type="file"
+        name="upload"
+        data-url="<?php echo BASE_URL; ?>/ajax/upload/"
+        data-text="<?php echo Language::getText('browse_files_button'); ?>"
+        data-limit="<?php echo $config->videoSizeLimit; ?>"
+        data-extensions="<?php echo urlencode(json_encode($config->acceptedVideoFormats)); ?>"
+        data-type="video"
+        data-auto-submit="true"
+    />
 
     <input type="hidden" name="submitted" value="true" />
     <input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
