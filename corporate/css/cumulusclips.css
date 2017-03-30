@@ -33,6 +33,10 @@
 
 /** Video Add/Edit Attachments Tab **/
 
+.video-information-form {
+    margin-bottom: 20px;
+}
+
 #video-attachments p {
     margin: 0 0 5px;
 }
