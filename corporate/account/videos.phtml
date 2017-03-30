@@ -39,7 +39,14 @@
 
             <div class="actions small">
                 <a href="<?=HOST?>/account/videos/edit/<?=$video->videoId?>/" title="<?=Language::getText('edit_video')?>"><span><?=Language::getText('edit_video')?></a>
-                <a class="pull-right confirm" data-node="confirm_delete_video" href="<?=HOST?>/account/videos/<?=$video->videoId?>/" title="<?=Language::getText('delete_video')?>"><span><?=Language::getText('delete_video')?></a>
+                <a
+                    class="pull-right text-danger"
+                    data-toggle="confirm-modal"
+                    data-button-type="btn-danger"
+                    data-text="<?php echo Language::getText('confirm_delete_video'); ?>"
+                    href="<?=HOST?>/account/videos/<?=$video->videoId?>/"
+                    title="<?=Language::getText('delete_video')?>"
+                ><?=Language::getText('delete_video')?></a>
             </div>
         </div>
 

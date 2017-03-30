@@ -14,7 +14,13 @@
             <?php $avatar = $this->getService('User')->getAvatarUrl($subscription); ?>
             <p><a href="<?=HOST?>/members/<?=$subscription->username?>/" title="<?=$subscription->username?>"><img src="<?=($avatar) ? $avatar : $this->options->themeUrl . '/images/avatar.gif'?>" alt="<?=$subscription->username?>" /></a></p>
             <p><a href="<?=HOST?>/members/<?=$subscription->username?>/" title="<?=$subscription->username?>"><?=Functions::CutOff ($subscription->username,18)?></a></p>
-            <div class="actions small"><a class="confirm" data-node="confirm_subscription" href="<?=HOST?>/account/subscriptions/<?=$subscription->userId?>/" title="<?=Language::GetText('unsubscribe')?>"><?=Language::GetText('unsubscribe')?></a></div>
+            <div class="actions small"><a
+                class="text-danger"
+                data-toggle="confirm-modal"
+                data-text="<?php echo Language::getText('confirm_subscription'); ?>"
+                href="<?php echo BASE_URL; ?>/account/subscriptions/<?=$subscription->userId?>/"
+                title="<?=Language::GetText('unsubscribe')?>"
+            ><?=Language::GetText('unsubscribe')?></a></div>
         </div>
     <?php endforeach; ?>
 

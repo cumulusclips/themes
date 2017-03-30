@@ -105,7 +105,14 @@
             <?php endif; ?>
             <div class="actions small">
                 <a href="<?=HOST?>/account/playlists/edit/<?=$playlist->playlistId?>/" title="<?=Language::GetText('edit_playlist')?>"><?=Language::GetText('edit_playlist')?></a>
-                <a class="pull-right confirm" data-node="confirm_delete_playlist" href="<?=HOST?>/account/playlists/?remove=<?=$playlist->playlistId?>" title="<?=Language::GetText('delete_playlist')?>"><?=Language::GetText('delete_playlist')?></a>
+                <a
+                    class="pull-right text-danger"
+                    data-toggle="confirm-modal"
+                    data-button-type="btn-danger"
+                    data-text="<?php echo Language::getText('confirm_delete_playlist'); ?>"
+                    href="<?php echo BASE_URL; ?>/account/playlists/?remove=<?=$playlist->playlistId?>"
+                    title="<?=Language::getText('delete_playlist')?>"
+                ><?=Language::GetText('delete_playlist')?></a>
             </div>
         </div>
     <?php endforeach; ?>

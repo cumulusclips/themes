@@ -21,7 +21,7 @@ $(function(){
     /**
      * Display confirmation modal on click
      *
-     * @param {String} href Url to direct to after confirmation
+     * @param {String} href Url to direct to after confirmation. If button, then parent form is submitted
      * @param {String} data-text Text to use in modal body
      * @param {String} data-button-type (optional) Default btn-primary, Bootstrap button class for confirm button
      */
@@ -29,6 +29,7 @@ $(function(){
 
         // Preserve button reference
         var self = this;
+        var confirmEvent = event;
 
         // Retrieve text and template
         var promises = [];
@@ -41,7 +42,7 @@ $(function(){
         $.when.apply($, promises).done(function(confirmModalTemplate) {
 
             var text = $(self).data('text');
-            var buttonType = $(this).data('button-type') || 'btn-primary';
+            var buttonType = $(self).data('button-type') || 'btn-primary';
 
             var $modal = $(confirmModalTemplate);
 
@@ -62,7 +63,7 @@ $(function(){
             $(document).on('click', '#confirm-modal .btn-confirm', function(event) {
 
                 // Determine whether submit form or redirect
-                if (event.target.nodeName === 'A') {
+                if (confirmEvent.target.nodeName === 'A') {
                     window.location = $(self).attr('href');
                 } else {
                     $(self).parents('form').submit();
