@@ -16,7 +16,7 @@
                 <option value="0"<?=(!$privacy->videoComment) ? ' selected="selected"' : ''?>><?=Language::GetText('no')?></option>
             </select>
         </div>
-        
+
         <div class="form-group">
             <label><?=Language::GetText('alert_video')?>:</label>
             <select class="form-control" size="1" name="new_video">
@@ -50,6 +50,7 @@
         </div>
 
         <input type="hidden" name="submitted" value="TRUE" />
+        <input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
         <input class="btn btn-primary" type="submit" name="button" value="<?=Language::GetText('privacy_settings_button')?>" />
     </form>
 </div>

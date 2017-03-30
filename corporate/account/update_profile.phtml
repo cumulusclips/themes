@@ -46,6 +46,7 @@ $this->SetLayout('account');
         </div>
 
         <input type="hidden" value="yes" name="submitted" />
+        <input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
         <input class="btn btn-primary" type="submit" name="button" value="<?=Language::GetText('profile_button')?>" />
     </form>
 </div>

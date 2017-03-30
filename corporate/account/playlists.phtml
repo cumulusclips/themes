@@ -76,8 +76,9 @@
                     <option value="private"><?=Language::GetText('private')?></option>
                 </select>
             </div>
-            <input class="btn btn-primary" type="submit" value="<?=Language::GetText('create_playlist_button')?>" />
             <input type="hidden" name="submitted" value="true" />
+            <input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
+            <input class="btn btn-primary" type="submit" value="<?=Language::GetText('create_playlist_button')?>" />
         </form>
     </div>
 </div>

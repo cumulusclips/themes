@@ -26,6 +26,7 @@
         </div>
 
         <input type="hidden" name="submitted" value="yes" />
+        <input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
         <input class="btn btn-primary" type="submit" name="button" value="<?=Language::GetText('message_send_button')?>" />
     </form>
 </div>
