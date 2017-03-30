@@ -703,7 +703,6 @@ $(function(){
             if (loadMoreComments) {
 
                 var promises = [];
-                var videoId = $('meta[name="videoId"]').attr('content');
                 var data = {
                     videoId         : $loadMoreButton.data('video'),
                     lastCommentId   : lastCommentId,

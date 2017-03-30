@@ -2,12 +2,8 @@
 <language>
     <information>
         <lang_name>English</lang_name>
-        <native_name>English</native_name>
         <locale>en_US</locale>
         <author>CumulusClips</author>
-        <sample>The quick brown fox jumps over the lazy dog</sample>
-        <version>2.4</version>
-        <notes></notes>
     </information>
     <terms>
         <confirm_button>Yes, Continue</confirm_button>
