@@ -25,46 +25,44 @@ $(function(){
         // Preserve button reference
         var self = this;
 
-        // Retrieve default text
-        var cancelPromise = cumulusClips.getText('cancel');
-        var confirmButtonPromise = cumulusClips.getText('confirm_button');
-        var confirmTitlePromise = cumulusClips.getText('confirm_header');
+        // Retrieve text and template
+        var promises = [];
+        promises.push(cumulusClips.getTemplate('confirm-modal'));
+        promises.push(cumulusClips.getText('cancel'));
+        promises.push(cumulusClips.getText('confirm_button'));
+        promises.push(cumulusClips.getText('confirm_header'));
 
         // Proceed with modal once text is obtained
-        $.when(
-            cancelPromise,
-            confirmButtonPromise,
-            confirmTitlePromise
-        ).done(function(cancelText, confirmButtonText, confirmTitleText) {
+        $.when.apply($, promises).done(function(confirmModalTemplate) {
 
-            var location = $(self).attr('href');
             var text = $(self).data('text');
             var buttonType = $(this).data('button-type') || 'btn-primary';
-            var templateDeferred = $.Deferred();
 
-            // Retrieve modal template
-            var templatePromise = cumulusClips.getTemplate('confirm-modal');
-            templateDeferred.done(function(template) {
+            var $modal = $(confirmModalTemplate);
 
-                var $modal = $(template);
+            // Inject text into modal
+            $modal.find('.btn-confirm')
+                .addClass(buttonType)
+                .text(cumulusClips.text['confirm_button']);
 
-                // Inject text into modal
-                $modal.find('.btn-confirm')
-                    .addClass(buttonType)
-                    .text(confirmButtonText);
+            $modal.find('.modal-title').text(cumulusClips.text['confirm_header']);
+            $modal.find('.modal-body p').text(text);
+            $modal.find('.btn-cancel').text(cumulusClips.text['cancel']);
 
-                $modal.find('.modal-title').text(confirmTitleText);
-                $modal.find('.modal-body p').text(text);
-                $modal.find('.btn-cancel').text(cancelText);
+            // Attach and display modal
+            $('body').append($modal);
+            $('#confirm-modal').modal('show');
 
-                // Attach and display modal
-                $('body').append($modal);
-                $('#confirm-modal').modal('show');
+            // Listen for confirm click and navigate to location
+            $(document).on('click', '#confirm-modal .btn-confirm', function(event) {
 
-                // Listen for confirm click and navigate to location
-                $(document).on('click', '#confirm-modal .btn-confirm', function(event) {
-                    window.location = location;
-                });
+                // Determine whether submit form or redirect
+                if (event.target.nodeName === 'A') {
+                    window.location = $(self).attr('href');
+                } else {
+                    $(self).parents('form').submit();
+                }
+
             });
         });
 
