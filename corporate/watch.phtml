@@ -389,7 +389,7 @@ $this->setLayout('full');
 
 
                     <!-- BEGIN Comments List -->
-                    <div class="comment-list" data-comment-count="<?php echo $commentCount; ?>">
+                    <div class="comment-list">
                         <?php if ($commentCount > 0): ?>
 
                             <?php foreach ($commentCardList as $commentCard): ?>
@@ -403,10 +403,12 @@ $this->setLayout('full');
                                     <div class="media-body row">
 
                                         <div class="col-xs-8">
-                                            <span class="comment-author"><a href="<?=getUserProfileLink($commentCard->author)?>"><?=$commentCard->author->username?></a></span>
+                                            <a href="<?=getUserProfileLink($commentCard->author)?>" class="comment-author"><?=$commentCard->author->username?></a>
                                             <span class="comment-date"><?=date('m/d/Y', strtotime($commentCard->comment->dateCreated))?></span>
                                             <?php if ($commentCard->comment->parentId != 0): ?>
-                                                <span class="comment-reply"><?=Language::getText('reply_to')?> <a href="<?=getUserProfileLink($commentCard->parentAuthor)?>"><?=$commentCard->parentAuthor->username?></a></span>
+                                                <span class="comment-reply"><?=Language::getText('reply_to')?>
+                                                    <a class="comment-parent-author" href="<?=getUserProfileLink($commentCard->parentAuthor)?>"><?=$commentCard->parentAuthor->username?></a>
+                                                </span>
                                             <?php endif; ?>
                                         </div>
 
@@ -432,7 +434,12 @@ $this->setLayout('full');
 
             <?php if ($commentCount > 5): ?>
                 <div class="panel-footer text-center load-more">
-                    <button class="btn btn-primary load-more-btn" data-video="<?php echo $video->videoId; ?>" data-loading_text="<?=Language::getText('loading')?>"><?=Language::getText('load_more')?></button>
+                    <button
+                        class="btn btn-primary load-more-btn"
+                        data-total="<?php echo $commentCount; ?>"
+                        data-video="<?php echo $video->videoId; ?>"
+                        data-loading-text="<?=Language::getText('loading')?>"
+                    ><?=Language::getText('load_more')?></button>
                 </div>
             <?php endif; ?>
 

@@ -195,3 +195,22 @@
     width: 0%;
     height: 10px;
 }
+
+
+/** Comment Form **/
+
+.comment-form .collapsed-show {
+    display: none;
+}
+
+.comment-form .collapsed-hide {
+    display: block;
+}
+
+.comment-form.collapsed .collapsed-show {
+    display: block;
+}
+
+.comment-form.collapsed .collapsed-hide {
+    display: none;
+}

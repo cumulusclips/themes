@@ -180,31 +180,27 @@ $(function(){
             // Determine if thumbnails are needed
             if (thumbnailVideos.length) {
 
+                var thumbUrl = cumulusClips.baseUrl + '/api/video/list/';
+                var thumbData = {list: thumbnailVideos.join(',')};
+                var thumbOptions = {displayMessage: false, xhr: {type: 'get'}};
+
                 // Fetch first video in each playlist
-                cumulusClips.apiRequest(
-                    cumulusClips.baseUrl + '/api/video/list/',
-                    {list: thumbnailVideos.join(',')},
-                    {
-                        displayMessage: false,
-                        xhr: {
-                            type: 'get'
-                        }
-                    }
-                ).done(function(videosApiResponse) {
+                cumulusClips.apiRequest(thumbUrl, thumbData, thumbOptions)
+                    .done(function(videosApiResponse) {
 
-                    // Cycle through each playlist to decorate it's entries
-                    $.each(playlistList, function(index, playlist){
+                        // Cycle through each playlist to decorate it's entries
+                        $.each(playlistList, function(index, playlist){
 
-                        // Decorate playlist's entries property with it's video object
-                        $.each(videosApiResponse.data, function(index, video){
-                            if (playlist.entries.length > 0 && playlist.entries[0].videoId === video.videoId) {
-                                playlist.entries[0].video = video;
-                            }
+                            // Decorate playlist's entries property with it's video object
+                            $.each(videosApiResponse.data, function(index, video){
+                                if (playlist.entries.length > 0 && playlist.entries[0].videoId === video.videoId) {
+                                    playlist.entries[0].video = video;
+                                }
+                            });
                         });
-                    });
 
-                    appendDeferred.resolve(true);
-                });
+                        appendDeferred.resolve(true);
+                    });
 
             } else {
                 appendDeferred.resolve(true);
@@ -598,7 +594,7 @@ $(function(){
 
 
         // Expand the general comment form when focused on
-        $('#comments .comment-form').focusin(function() {
+        $('#comments .comment-form-main').focusin(function() {
 
             var $commentForm = $(this);
 
@@ -677,7 +673,7 @@ $(function(){
 
                             // Update comment count text
                             $('.comment-total').text(commentApiResponse.other.commentCount);
-                            $('.comment-list').data('comment-count', commentApiResponse.other.commentCount)
+                            $('#comments .load-more-btn').data('total', commentApiResponse.other.commentCount)
 
                             // Append comment to list
                             if (commentCard.comment.parentId !== 0) {
@@ -709,12 +705,19 @@ $(function(){
         });
 
 
-        // Load more comments
+        /**
+         * Loads more comments for video and appends to list
+         *
+         * @param {Number} data-video ID of video comments are being loaded for
+         * @param {String} data-loading-text Text to display while comments are being retrieved
+         * @param {Number} data-total Total number of comments for video
+         * @param {Number} data-comment (on .comment) ID of comment
+         */
         $('#comments .load-more-btn').on('click', function(event) {
 
             var $loadMoreButton = $(this);
             var lastCommentId = $('.comment-list .comment:last-child').data('comment');
-            var commentCount = parseInt($('.comment-list').data('comment-count'));
+            var commentCount = parseInt($loadMoreButton.data('total'));
             var visibleCommentCount = $('.comment-list .comment').length;
             var loadMoreComments = commentCount > visibleCommentCount ? true : false;
 
@@ -722,6 +725,7 @@ $(function(){
             if (loadMoreComments) {
 
                 var promises = [];
+                var url = cumulusClips.baseUrl + '/actions/comments/get/';
                 var data = {
                     videoId         : $loadMoreButton.data('video'),
                     lastCommentId   : lastCommentId,
@@ -735,13 +739,7 @@ $(function(){
                 promises.push(cumulusClips.getTemplate('comment'));
 
                 // Retrieve subsequent comments
-                var commentsPromise = $.ajax({
-                    type        : 'get',
-                    data        : data,
-                    dataType    : 'json',
-                    url         : cumulusClips.baseUrl + '/actions/comments/get/'
-                });
-                promises.push(commentsPromise);
+                promises.push(cumulusClips.apiRequest(url, data, {displayMessage: false, xhr: {type: 'get'}}));
 
                 // Retrieve text for comment card
                 promises.push(cumulusClips.getText('reply_to'));
@@ -750,14 +748,13 @@ $(function(){
 
                 // Resolve promises together
                 $.when.apply($, promises)
-                    .done(function(commentCardTemplate, commentsResponse) {
+                    .done(function(commentCardTemplate, commentsApiResponse) {
 
-                        var responseData = commentsResponse[0];
-                        var lastCommentKey = responseData.other.commentCardList.length-1;
-                        lastCommentId = responseData.other.commentCardList[lastCommentKey].comment.commentId;
+                        var lastCommentKey = commentsApiResponse.other.commentCardList.length-1;
+                        lastCommentId = commentsApiResponse.other.commentCardList[lastCommentKey].comment.commentId;
 
                         // Loop through comment data set, inject into comment template and append to list
-                        $.each(responseData.other.commentCardList, function(key, commentCard){
+                        $.each(commentsApiResponse.other.commentCardList, function(key, commentCard){
 
                             $('.comment-list').find('div[data-comment="' + commentCard.comment.commentId + '"]').remove();
                             var commentCardElement = cumulusClips.buildCommentCard(
@@ -809,36 +806,40 @@ $(function(){
         cumulusClips.getText('checking_availability');
 
         var delay;
-        var validLengthReached = false;
+        var validLengthReachedOnce = false;
 
         $('.register input[name="username"]').keyup(function() {
+
             var username = $(this).val();
             clearTimeout(delay);
+
             if (username.length >= 4) {
-                validLengthReached = true;
+
+                validLengthReachedOnce = true;
                 $('.register .help-block').html(cumulusClips.text['checking_availability'] + '&hellip;');
+
                 delay = setTimeout(function(){
 
-                    // Make call to search for username
-                    $.ajax({
-                        type: 'POST',
-                        url: cumulusClips.baseUrl + '/actions/username/',
-                        data: {username:username},
-                        dataType: 'json',
-                        success: function(response, textStatus, jqXHR) {
-                            $('.register .help-block').text(response.message);
-                            if (response.result === true) {
-                                $('.register .has-feedback').addClass('has-success').removeClass('has-error');
-                                $('.register .form-control-feedback').addClass('glyphicon-ok').removeClass('glyphicon-remove');
-                            } else {
-                                $('.register .has-feedback').addClass('has-error').removeClass('has-success');
-                                $('.register .form-control-feedback').addClass('glyphicon-remove').removeClass('glyphicon-ok');
-                            }
+                    var url = cumulusClips.baseUrl + '/actions/username/';
+                    var data = {username:username};
+
+                    // Make API request to search for username
+                    cumulusClips.apiRequest(url, data).done(function(apiResponse) {
+
+                        $('.register .help-block').text(apiResponse.message);
+                        if (apiResponse.result === true) {
+                            $('.register .has-feedback').addClass('has-success').removeClass('has-error');
+                            $('.register .form-control-feedback').addClass('glyphicon-ok').removeClass('glyphicon-remove');
+                        } else {
+                            $('.register .has-feedback').addClass('has-error').removeClass('has-success');
+                            $('.register .form-control-feedback').addClass('glyphicon-remove').removeClass('glyphicon-ok');
                         }
+
                     });
 
                 }, 500);
-            } else if (validLengthReached) {
+
+            } else if (validLengthReachedOnce) {
                 $('.register .has-feedback').addClass('has-error').removeClass('has-success');
                 $('.register .form-control-feedback').addClass('glyphicon-remove').removeClass('glyphicon-ok');
                 $('.register .help-block').text(cumulusClips.text['username_minimum']);
@@ -1129,9 +1130,11 @@ cumulusClips.buildCommentCard = function(commentCardTemplate, commentCardData)
     }
 
     // Set comment author
-    commentCard.find('.comment-author a')
-        .attr('href', cumulusClips.baseUrl + '/members/' + commentCardData.author.username)
-        .text(commentCardData.author.username);
+    var $commentAuthor = commentCard.find('.comment-author');
+    $commentAuthor.text(commentCardData.author.username);
+    if ($commentAuthor.is('a')) {
+        $commentAuthor.attr('href', cumulusClips.baseUrl + '/members/' + commentCardData.author.username)
+    }
 
     // Set comment date
     var commentDate = new Date(commentCardData.comment.dateCreated.split(' ')[0]);
@@ -1145,15 +1148,17 @@ cumulusClips.buildCommentCard = function(commentCardTemplate, commentCardData)
         .text(cumulusClips.text['report_abuse'])
         .attr('data-id', commentCardData.comment.commentId);
 
-    // Set reply to text if apl.
+    // Set reply to text if app.
     if (commentCardData.comment.parentId !== 0) {
-        commentCard.find('.comment-reply').text(cumulusClips.text['reply_to'] + ' ');
-        // Determine parent comment author's text
-        var parentCommentAuthorText;
-        parentCommentAuthorText = $('<a>')
+
+        $commentReplyLabel = commentCard.find('.comment-reply');
+        $commentReplyLabel.prepend(cumulusClips.text['reply_to'] + ' ');
+
+        // Set link to parent comment author's profile
+        $commentReplyLabel.find('.comment-parent-author')
             .attr('href', cumulusClips.baseUrl + '/members/' + commentCardData.parentAuthor.username)
             .text(commentCardData.parentAuthor.username);
-        commentCard.find('.comment-reply').append(parentCommentAuthorText);
+
     } else {
         commentCard.find('.comment-reply').remove();
     }

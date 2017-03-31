@@ -284,22 +284,6 @@
     margin-top: 20px;
 }
 
-.comment-form .collapsed-show {
-    display: none;
-}
-
-.comment-form .collapsed-hide {
-    display: block;
-}
-
-.comment-form.collapsed .collapsed-show {
-    display: block;
-}
-
-.comment-form.collapsed .collapsed-hide {
-    display: none;
-}
-
 .comment-form .col-sm-3 {
     margin-top: 10px;
 }
