@@ -731,7 +731,7 @@ $(function(){
                     lastCommentId   : lastCommentId,
                     limit           : 5
                 };
-                var loadingText = $loadMoreButton.data('loading_text');
+                var loadingText = $loadMoreButton.data('loading-text');
                 var loadMoreText = $loadMoreButton.text();
                 $loadMoreButton.text(loadingText);
 

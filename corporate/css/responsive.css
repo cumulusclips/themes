@@ -1,6 +1,7 @@
 
 /* Extra small devices (phones, less than 768px) */
 @media (max-width: 767px) {
+
     .comment-indent,
     .comment-indent-2,
     .comment-indent-3 {
@@ -239,11 +240,9 @@
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) and (max-width: 1199px) {
 
-    .video-player-container,
-    .video-player-container .vjs-tech,
-    .video-player-container .video-js {
-        width: 616px !important;
-        height: 346px !important;
+    .video-player-container {
+        width: 616px;
+        height: 346px;
     }
 
     .video-list > .video-large:nth-child(4n+4),
@@ -253,12 +252,6 @@
 
     .video-list > .video-large:nth-child(3n+3) {
         margin-right: 0;
-    }
-
-    .video-player-container,
-    .video-player-container .video-js {
-        width: 616px;
-        height: 346px;
     }
 
     .account .playlist:nth-child(3n+3),
