@@ -19,6 +19,25 @@ $(function(){
 
 
     /**
+     * Toggles display of multiple blocks in a group, i.e. Bootstrap Accordion
+     *
+     * @param {String} href ID of block to be displayed
+     * @param {String} data-parent (optional) Parent container of all blocks in group,
+     * if omitted then .collapse-group is used
+     */
+    $(document).on('click', '[data-toggle="blocks"]', function(event) {
+
+        var parentSelector = $(this).data('parent') || $(this).parents('.collapse-group');
+        var target = $(this).attr('href');
+
+        $(parentSelector).find('.collapse.in').removeClass('in');
+        $(target).addClass('in');
+
+        event.preventDefault();
+    });
+
+
+    /**
      * Display confirmation modal on click
      *
      * @param {String} href Url to direct to after confirmation. If button, then parent form is submitted
