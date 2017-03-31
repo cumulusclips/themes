@@ -31,8 +31,6 @@ body {
     overflow: hidden;
     margin: -5px auto 0;
 }
-.ie9 #main {
-}
 
 #main > .left {
     width: 600px;
@@ -98,6 +96,8 @@ HEADER
 
 #header input {
     display: block;
+    border: none;
+    border-radius: 5px;
     width: 230px;
     height: 30px;
     padding: 0 10px;
@@ -124,10 +124,6 @@ HEADER
 
 .ui-autocomplete li {
     padding: 5px;
-}
-
-.ui-autocomplete .ui-state-focus,
-.ui-autocomplete li:hover {
 }
 
 .ui-autocomplete li:hover {
@@ -162,6 +158,7 @@ NAV BAR
     margin: 0 auto;
     position: relative;
     z-index: 2;
+    /*HTML5*/
 }
 
 #sub_nav {
@@ -187,6 +184,7 @@ nav a {
 }
 
 nav a:hover {
+    text-decoration: none;
 }
 
 nav {
@@ -199,7 +197,6 @@ nav {
 }
 
 #languages .active-language {
-    background: url('../images/arrow.png') no-repeat right 7px;
     padding-right: 12px;
 }
 
@@ -214,6 +211,8 @@ nav {
     text-align: right;
     padding: 5px 15px;
     right: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 #languages:hover ul {
@@ -232,9 +231,11 @@ ELEMENTS
 *******/
 
 a {
+    text-decoration: none;
 }
 
 a:hover {
+    text-decoration: underline;
 }
 
 a, a.big, a.large, a.huge {
@@ -265,14 +266,12 @@ p {
     margin: 3px 0;
 }
 
-strong {
-}
-
 em {
     font-style: italic;
 }
 
 a img {
+    border: none;
 }
 
 
@@ -287,6 +286,7 @@ GENERAL
 
 /*Remove button padding in FF*/
 input::-moz-focus-inner {
+    border: 0;
     padding: 0;
 }
 
@@ -295,6 +295,8 @@ input::-moz-focus-inner {
     line-height: 31px;
     height: 35px;
     padding: 1px 15px 3px;
+    border-radius: 5px;
+    border: none;
     font-size: 14px;
     cursor: pointer;
 }
@@ -320,6 +322,7 @@ a.button {
 }
 
 .form {
+    border-radius: 5px;
     padding: 15px 25px;
     width: 250px;
 }
@@ -333,15 +336,14 @@ a.button {
     overflow: hidden;
 }
 
-.form label {
-}
-
 .form input[type="text"],
 .form input[type="password"],
 .form select,
 .form textarea {
     height: 35px;
     width: 230px;
+    border: none;
+    border-radius: 5px;
     padding: 0 10px;
     margin: 5px 0 25px;
     display: block;
@@ -371,6 +373,7 @@ a.button {
 .form label.error + input[type="password"],
 .form label.error + select,
 .form label.error + textarea {
+    border: 1px solid #c20202;
     padding: 0 9px;
 }
 
@@ -378,13 +381,12 @@ a.button {
     padding: 10px 9px;
 }
 
-.form label.error {
-}
-
 
 /** MESSAGES **/
 
 .message {
+    border: 2px solid;
+    padding: 10px;
     margin: 10px 0;
     display: none;
 }
@@ -426,24 +428,36 @@ a.button {
 }
 
 .video .thumbnail {
+    position: relative;
+    width: 165px;
+    height: 92px;
 }
 
 .video_medium .thumbnail {
+    width: 125px;
+    height: 70px;
 }
 
 .video_small .thumbnail {
+    width: 100px;
+    height: 56px;
 }
 
 .video .thumbnail span {
+    right: 0;
+    bottom: 0;
+    position: absolute;
 }
 
 .video .duration {
     font-size: 11px;
+    padding: 3px;
 }
 
 .video_medium .duration,
 .video_small .duration {
     font-size: 10px;
+    padding: 2px;
 }
 
 .video .watchLater {
@@ -454,7 +468,10 @@ a.button {
 }
 
 .video .watchLater a {
+    padding: 4px;
     display: block;
+    width: 16px;
+    height: 13px;
 }
 
 .video .thumbnail:hover .watchLater {
@@ -466,17 +483,30 @@ a.button {
 }
 
 .video .message {
+    width: 145px;
+    height: 72px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    border: none;
+    font-weight: normal;
     margin: 0;
 }
 
 .video_medium .message {
+    width: 115px;
+    height: 60px;
 }
 
 .video_small .message {
+    width: 90px;
+    height: 46px;
 }
 
 .video_medium .message,
 .video_small .message {
+    padding: 5px;
     font-size: 10px;
 }
 
@@ -488,13 +518,17 @@ a.button {
 }
 
 .video .success p {
+    padding-top: 55px;
+    text-align: center;
     margin: 0;
 }
 
 .video_medium .success p {
+    padding-top: 40px;
 }
 
 .video_small .success p {
+    padding-top: 30px;
 }
 
 .video .errors {
@@ -502,11 +536,13 @@ a.button {
 }
 
 .video .errors p {
+    padding-left: 15px;
     margin: 0;
 }
 
 .video_medium .errors p,
 .video_small .errors p {
+    padding-left: 12px;
 }
 
 
@@ -592,7 +628,8 @@ a.button {
     clear: both;
 }
 
-.hide {
+.hide,
+.hidden {
     display: none;
 }
 
@@ -626,6 +663,8 @@ a.button {
     line-height: 20px;
     height: 20px;
     padding: 1px 15px 2px;
+    border-radius: 5px 5px 0 0;
+    border: none;
     font-size: 12px;
     cursor: pointer;
 }

@@ -15,8 +15,6 @@ HOMEPAGE
 }
 
 .index .form .divider {
-    border-top: 1px solid #b7b6b6;
-    border-bottom: 1px solid #e9e8e8;
     margin: 20px 0 15px;
 }
 
@@ -61,9 +59,6 @@ HOMEPAGE
     overflow: hidden;
 }
 
-.slide-text .large {
-}
-
 #slideshow p {
     padding: 3px;
     float: left;
@@ -82,6 +77,7 @@ HOMEPAGE
 }
 
 #slideshow_nav a {
+    border-radius: 12px;
     width: 12px;
     height: 12px;
     display: inline-block;
@@ -92,6 +88,7 @@ HOMEPAGE
 #slideshow_nav .activeSlide {
     height: 6px;
     width: 6px;
+    border-radius: 6px;
     line-height: 10px;
 }
 
@@ -103,17 +100,17 @@ HOMEPAGE
 BROWSE VIDEOS
 ************/
 
-.videos h1, .videos h1 + .large  {
+.browse h1, .browse h1 + .large  {
     margin: 5px 0;
 }
 
-.videos .large + div {
+.browse .large + div {
     margin: 15px 0 25px;
     padding: 15px 0;
     overflow: hidden;
 }
 
-.videos .large + div p {
+.browse .large + div p {
     margin-top: 0;
 }
 
@@ -296,20 +293,20 @@ SEARCH RESULTS
 
 
 
-/*********
-PLAY VIDEO
-*********/
+/**********
+Watch Video
+**********/
 
-.play #main .right {
+.watch #main .right {
     overflow: hidden;
     float: none;
 }
 
-.play #main .right > p:first-child {
+.watch #main .right > p:first-child {
     margin-top: 0;
 }
 
-.play h1 {
+.watch h1 {
     width: 600px;
     float: left;
     padding-right: 330px;
@@ -330,10 +327,7 @@ PLAY VIDEO
     padding: 15px;
     position: absolute;
     width: 500px;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.7);
     text-align: center;
-    color: #FFF;
 }
 
 #player-gated p {
@@ -344,24 +338,24 @@ PLAY VIDEO
     margin: 10px 10px 0;
 }
 
-.play .actions {
+.watch .actions {
     overflow: hidden;
     margin-bottom: 4px;
 }
 
-.play .actions .left {
+.watch .actions .left {
     float: left;
     width: 300px;
 }
 
-.play .actions .right {
+.watch .actions .right {
     float: right;
     width: 300px;
     margin-top: 15px;
     text-align: right;
 }
 
-.play .actions .large {
+.watch .actions .large {
     margin-bottom: 3px;
 }
 
@@ -370,20 +364,14 @@ PLAY VIDEO
     display: inline-block;
 }
 
-.like {
-}
-
 .dislike {
     margin-left: 7px;
-}
-
-.rating {
 }
 
 
 /** TAB BLOCKS **/
 
-.play .tab_block {
+.watch .tab_block {
     margin-bottom: 15px;
     padding-bottom: 15px;
 }
@@ -413,6 +401,16 @@ PLAY VIDEO
     float: right;
 }
 
+#about strong + .attachment {
+    margin-left: 5px;
+}
+
+#about .attachment {
+    line-height: 1.5em;
+    margin-right: 13px;
+    padding-left: 14px;
+}
+
 #share {
     overflow: hidden;
 }
@@ -432,15 +430,6 @@ PLAY VIDEO
     background-repeat: no-repeat;
     display: inline-block;
     margin-right: 12px;
-}
-
-#share .facebook {
-}
-
-#share .twitter {
-}
-
-#share .google {
 }
 
 #share div:last-child {
@@ -477,6 +466,7 @@ PLAY VIDEO
 }
 
 #addToPlaylist .jspDrag {
+    border-radius: 10px;
 }
 
 #addToPlaylist li {
@@ -489,9 +479,11 @@ PLAY VIDEO
 
 #addToPlaylist li a {
     padding-left: 20px;
+    font-weight: normal;
 }
 
 #addToPlaylist li a:hover {
+    text-decoration: none;
 }
 
 #addToPlaylist .added {
@@ -528,7 +520,6 @@ PLAY VIDEO
 }
 
 .commentForm textarea {
-    font-family: arial, helvetica, sans-serif;
     width: 530px;
     height: 100px;
     padding: 10px;
@@ -674,10 +665,8 @@ PLAY VIDEO
     width: 11px;
 }
 
-#playlistVideos .jspTrack {
-}
-
 #playlistVideos .jspDrag {
+    border-radius: 10px;
 }
 
 #playlistVideos .jspPane {
@@ -703,12 +692,6 @@ PLAY VIDEO
     height: 282px;
 }
 
-#playlistVideos a {
-}
-
-#playlistVideos .thumbnail a {
-}
-
 #playlistVideos .video_small {
     overflow: hidden;
     margin-right: 0;
@@ -716,10 +699,6 @@ PLAY VIDEO
     width: 270px;
     padding: 10px 15px;
     cursor: pointer;
-}
-
-#playlistVideos .video_small:hover,
-#playlistVideos .active {
 }
 
 #playlistVideos .video_small div:first-child {
