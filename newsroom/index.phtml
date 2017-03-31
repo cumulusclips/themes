@@ -17,3 +17,7 @@ $commentCount = $this->view->vars->commentCount = ($activeVideo)
 $commentCardList = $this->view->vars->commentCardList = ($activeVideo)
     ? $commentService->getVideoComments($activeVideo, 5)
     : array();
+
+// Increase view count for active video
+$activeVideo->views++;
+$videoMapper->save($activeVideo);

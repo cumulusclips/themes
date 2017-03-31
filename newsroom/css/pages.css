@@ -255,10 +255,9 @@
     color: #900;
 }
 
-.search .video .glyphicon-play {
-    top: 46px;
-    left: 96px;
-    font-size: 30px;
+.search .video .fa-play {
+    top: 45px;
+    left: 82px;
 }
 
 .search .video .views {
