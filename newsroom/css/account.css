@@ -54,74 +54,15 @@
 
 
 
-/*************
-UPLOAD - VIDEO
-*************/
-
-.account_upload_video form[name="upload"] {
-    margin-top: 15px;
-}
-
-#upload-select-file {
-    float: left;
-    margin-right: 15px;
-    height: auto;
-    display: inline-block;
-    position: relative;
-    overflow: hidden;
-}
-
-#upload-select-file input {
-    cursor: pointer;
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: block;
-    font-size: 200px;
-    opacity: 0;
-}
-
-#upload_status {
-    margin-top: 20px;
-    background-color: #F0F0F0;
-    border: 3px solid #E1E1E1;
-    padding: 10px;
-    display: none;
-}
-
-#upload_status .title {
-    margin: 0 0 10px;
-}
-
-#upload_status .progress {
-    overflow: hidden;
-}
-
-#upload_status .progress-bar {
-    min-width: 1em;
-}
-
-.ie9 #upload_status {
-    width: 285px;
-}
-
-.ie9 #upload_status .fill {
-    width: 100% !important;
-    background-color: #E1E1E1;
-}
-
-.ie9 #upload_status .in-progress {
-    background: url('../images/jquery-ui/animated-overlay.gif');
-    opacity: 0.3;
-}
-
-
-
-
 
 
 
 /** Update Profile **/
+
+.uploader-container .button {
+    background-color: #900;
+    border: none;
+}
 
 #update_avatar .avatar {
     margin:0 auto;

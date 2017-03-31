@@ -246,11 +246,6 @@ a:hover {
     text-decoration: underline;
 }
 
-#video-player {
-    width: 800px;
-    height: 452px;
-}
-
 .dark .btn-primary {
     background-color: #777;
     border: none;

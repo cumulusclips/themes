@@ -23,14 +23,6 @@
     margin-right: 3px;
 }
 
-#about {
-    display: block;
-}
-
-.video-info {
-    display: none;
-}
-
 .video-info .header {
     position: relative;
 }

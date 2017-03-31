@@ -34,7 +34,7 @@
 
 
 <!-- BEGIN Player Area -->
-<div class="player-area dark">
+<div class="player-area dark collapse-group">
     <div class="container">
         <div class="row">
 
@@ -48,15 +48,20 @@
 
                 <div class="col-xs-12 col-lg-8">
 
-                    <video id="video-player" class="video-js"
-                        width="800" height="452"
-                        data-setup='{"preload": true, "controls": true, "autoplay": true}'
-                        src="<?=$config->h264Url?>/<?=$activeVideo->filename?>.mp4"
-                    >
-                     </video>
+                    <div class="video-player-container">
+                        <video
+                            id="video-player"
+                            class="video-js vjs-16-9"
+                            width="800"
+                            height="450"
+                            data-setup='{"preload": true, "controls": true, "autoplay": true}'
+                            src="<?=$config->h264Url?>/<?=$activeVideo->filename?>.mp4"
+                        >
+                         </video>
+                    </div>
                 </div>
 
-                <div class="col-xs-12 col-lg-4 video-info" id="about">
+                <div class="col-xs-12 col-lg-4 video-info no-transition collapse in" id="about">
                     <h1><?php echo $activeVideo->title; ?></h1>
                     <p><?php echo Language::getText('by'); ?> <?php echo $activeVideo->username; ?> | <?php echo date('F j, Y', strtotime($activeVideo->dateCreated)); ?></p>
                     <p><?php echo $activeVideo->description; ?></p>
@@ -66,17 +71,17 @@
                         <?php endforeach; ?>
                     </p>
                     <p class="video-actions">
-                        <a href="#comments" data-toggle="toggle" data-parent="#about"><i class="fa fa-comment"></i><?php echo Language::getText('comments'); ?></a>
-                        <a href="#embed" data-toggle="toggle" data-parent="#about"><i class="fa fa-code"></i><?php echo Language::getText('embed'); ?></a>
+                        <a href="#comments" data-toggle="blocks"><i class="fa fa-comment"></i><?php echo Language::getText('comments'); ?></a>
+                        <a href="#embed" data-toggle="blocks"><i class="fa fa-code"></i><?php echo Language::getText('embed'); ?></a>
                         <a href=""><i class="fa fa-facebook"></i></a>
                         <a href=""><i class="fa fa-twitter"></i></a>
                     </p>
                 </div>
 
-                <div class="col-xs-12 col-lg-4 video-info" id="embed">
+                <div class="col-xs-12 col-lg-4 video-info no-transition collapse" id="embed">
                     <div class="header clearfix">
                         <h1><?php echo Language::getText('embed'); ?></h1>
-                        <a href="#about" data-toggle="toggle" data-parent="#embed"><i class="fa fa-close"></i></a>
+                        <a href="#about" data-toggle="blocks"><i class="fa fa-close"></i></a>
                     </div>
                     <p><?php echo Language::getText('embed_text'); ?></p>
                     <textarea readonly class="form-control">&lt;iframe src="<?php echo HOST; ?>/embed/<?php echo $activeVideo->videoId; ?>/" width="480" height="360" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</textarea>
@@ -84,11 +89,11 @@
 
 
                 <!-- BEGIN Comments Tab -->
-                <div class="col-xs-12 col-lg-4 video-info" id="comments">
+                <div class="col-xs-12 col-lg-4 video-info no-transition collapse" id="comments">
 
                     <div class="header clearfix">
                         <h1><?php echo Language::getText('comments_header'); ?></h1>
-                        <a href="#about" data-toggle="toggle" data-parent="#comments"><i class="fa fa-close"></i></a>
+                        <a href="#about" data-toggle="blocks"><i class="fa fa-close"></i></a>
                     </div>
 
                     <?php if ($activeVideo->commentsClosed): ?>
@@ -100,12 +105,29 @@
                         <?php if ($loggedInUser): ?>
 
                             <!-- BEGIN Comments Form -->
-                            <form action="" method="post">
-                                <textarea class="form-control" name="comments"></textarea>
-                                <input type="hidden" name="videoId" value="<?php echo $activeVideo->videoId; ?>" />
-                                <input type="hidden" name="parentCommentId" value="" />
-                                <button type="submit" class="btn btn-primary"><?php echo Language::getText('comments_button'); ?></button>
-                            </form>
+                            <div class="collapsed comment-form comment-form-main row">
+                                <form action="" method="post">
+
+                                    <div class="col-xs-12 collapsed-show">
+                                        <textarea class="form-control" rows="2" cols="50" name="comments" placeholder="<?=Language::getText('comments_button')?>"></textarea>
+                                    </div>
+
+                                    <div class="col-xs-12 collapsed-hide">
+                                        <textarea class="form-control" rows="4" cols="50" name="comments" placeholder="<?=Language::getText('comments')?>"></textarea>
+                                    </div>
+
+                                    <div class="col-xs-6 collapsed-hide">
+                                        <a class="cancel" href=""><?=Language::getText('cancel')?></a>
+                                    </div>
+
+                                    <div class="col-xs-6 text-right collapsed-hide">
+                                        <input type="hidden" name="videoId" value="<?=$activeVideo->videoId?>" />
+                                        <input type="hidden" name="parentCommentId" value="" />
+                                        <input class="btn btn-primary" type="submit" name="button" value="<?=Language::getText('comments_button')?>" />
+                                    </div>
+
+                                </form>
+                            </div>
                             <!-- END Comments Form -->
 
                         <?php else: ?>
@@ -127,7 +149,7 @@
 
 
                         <!-- BEGIN Comment List -->
-                        <div class="comment-list" data-comment-count="<?php echo $commentCount; ?>">
+                        <div class="comment-list">
 
                             <?php if ($commentCount > 0): ?>
 
@@ -147,12 +169,15 @@
                                                 <span class="comment-author"><?=$commentCard->author->username?></span>
                                                 <span class="comment-date"><?=date('m/d/Y', strtotime($commentCard->comment->dateCreated))?></span>
                                                 <?php if ($commentCard->comment->parentId != 0): ?>
-                                                    <span class="comment-reply"><?=Language::getText('reply_to')?> <?=$commentCard->parentAuthor->username?></span>
+                                                    <span class="comment-reply"><?=Language::getText('reply_to')?>
+                                                        <span class="comment-parent-author"><?=$commentCard->parentAuthor->username?>
+                                                        </span>
+                                                    </span>
                                                 <?php endif; ?>
                                             </p>
 
                                             <p class="comment-text"><?=nl2br($commentCard->comment->comments)?></p>
-                                            <p class="small">
+                                            <p class="small comment-action">
                                                 <a href="" class="reply"><?php echo Language::getText('reply'); ?></a>
                                                 <a href="" class="flag text-danger" data-type="comment" data-id="<?=$commentCard->comment->commentId?>"><?php echo Language::getText('report_abuse'); ?></a>
                                             </p>
@@ -170,7 +195,12 @@
 
                         <?php if ($commentCount > 5): ?>
                             <p class="load-more text-center">
-                                <button class="btn btn-primary" data-loading-text="<?php echo Language::getText('loading'); ?>"><?php echo Language::getText('load_more'); ?></button>
+                                <button
+                                    class="btn btn-primary load-more-btn"
+                                    data-video="<?php echo $activeVideo->videoId; ?>"
+                                    data-loading-text="<?php echo Language::getText('loading'); ?>"
+                                    data-total="<?php echo $commentCount; ?>"
+                                ><?php echo Language::getText('load_more'); ?></button>
                             </p>
                         <?php endif; ?>
 
