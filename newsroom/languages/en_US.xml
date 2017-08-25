@@ -9,8 +9,8 @@
 
     <terms>
         <playing_now>Playing Now</playing_now>
-        <register>Register</register>
         <nav_link_1>Blog</nav_link_1>
         <nav_link_2>About</nav_link_2>
+    <copyright><![CDATA[&copy; {YEAR} - CumulusClips]]></copyright>
     </terms>
 </language>

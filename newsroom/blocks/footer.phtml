@@ -5,9 +5,9 @@
     <div class="container">
         <div class="row">
             <div class="left col-xs-12 col-md-6">
-                <a href="">Blog</a>
+                <a href=""><?php echo Language::getText('nav_link_1'); ?></a>
                 <a href="<?php echo HOST; ?>/contact/"><?php echo Language::getText('contact'); ?></a>
-                <a href="">About</a>
+                <a href=""><?php echo Language::getText('nav_link_2'); ?></a>
                 <?php $activeLanguages = Language::getActiveLanguages(); ?>
                 <?php if (count($activeLanguages) > 1): ?>
 
@@ -25,7 +25,7 @@
 
                 <?php endif; ?>
             </div>
-            <div class="right col-xs-12 col-md-6 text-right">&copy; <?php echo date('Y'); ?> CumulusClips</div>
+            <div class="right col-xs-12 col-md-6 text-right"><?php echo Language::getText('copyright', array('YEAR' => date('Y'))); ?></div>
         </div>
     </div>
 </footer>

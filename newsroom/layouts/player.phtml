@@ -70,6 +70,21 @@
                             <a href="<?php echo HOST; ?>/search/?keyword=<?php echo $tag; ?>"><?php echo $tag; ?></a>
                         <?php endforeach; ?>
                     </p>
+
+                    <?php if (!empty($attachments)): ?>
+                        <p><?=Language::getText('attachments')?>:
+                            <?php foreach ($attachments as $attachment): ?>
+                                <a
+                                    class="attachment"
+                                    href="<?php echo $this->getService('File')->getUrl($attachment); ?>"
+                                    title="<?php echo htmlspecialchars($attachment->name); ?> (<?php echo \Functions::formatBytes($attachment->filesize, 0); ?>)"
+                                ><i class="glyphicon glyphicon-paperclip"></i>
+                                    <?php echo htmlspecialchars($attachment->name); ?> (<?php echo \Functions::formatBytes($attachment->filesize, 0); ?>)
+                                </a>
+                            <?php endforeach; ?>
+                        </p>
+                    <?php endif; ?>
+
                     <p class="video-actions">
                         <a href="#comments" data-toggle="blocks"><i class="fa fa-comment"></i><?php echo Language::getText('comments'); ?></a>
                         <a href="#embed" data-toggle="blocks"><i class="fa fa-code"></i><?php echo Language::getText('embed'); ?></a>
@@ -250,7 +265,7 @@
                             <div class="slide <?php echo $activeVideo->videoId == $listVideo->videoId ? 'active' : ''; ?>" video-id="<?php echo $listVideo->videoId; ?>">
                                 <a class="video" href="<?php echo $this->getService('Video')->getUrl($listVideo)?>/<?php echo $videoLinkSuffix; ?>" title="<?php echo $listVideo->title; ?>">
                                     <?php if ($activeVideo->videoId == $listVideo->videoId): ?>
-                                        <span>Playing Now</span>
+                                        <span><?php echo Language::getText('playing_now'); ?></span>
                                     <?php else: ?>
                                         <i class="fa fa-play"></i>
                                     <?php endif; ?>

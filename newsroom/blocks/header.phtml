@@ -4,9 +4,9 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-6 left">
-                <a href="">Blog</a>
+                <a href=""><?php echo Language::getText('nav_link_1'); ?></a>
                 <a href="<?php echo HOST; ?>/contact/"><?php echo Language::getText('contact'); ?></a>
-                <a href="">About</a>
+                <a href=""><?php echo Language::getText('nav_link_2'); ?></a>
             </div>
             <div class="col-xs-6 text-right right">
 
@@ -20,7 +20,7 @@
                     <a href="<?php echo HOST; ?>/logout/"><?php echo Language::getText('logout'); ?></a>
                 <?php else: ?>
                     <a href="<?php echo HOST; ?>/login/"><?php echo Language::getText('login'); ?></a>
-                    <a href="<?php echo HOST; ?>/register/">Register</a>
+                    <a href="<?php echo HOST; ?>/register/"><?php echo Language::getText('register'); ?></a>
                 <?php endif; ?>
 
                 <?php $activeLanguages = Language::getActiveLanguages(); ?>

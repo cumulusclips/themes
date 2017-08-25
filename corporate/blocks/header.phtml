@@ -14,7 +14,7 @@
                 <li class="<?=($this->options->page == 'videos') ? 'active' : ''?>"><a href="<?=HOST?>/videos/"><?=Language::GetText('videos')?></a></li>
                 <li class="<?=($this->options->page == 'members') ? 'active' : ''?>"><a href="<?=HOST?>/members/"><?=Language::GetText('members')?></a></li>
                 <?php if ($config->enableUserUploads): ?>
-                    <li class="<?=($this->options->page == 'account_upload') ? 'active' : ''?>"><a href="<?=HOST?>/account/upload/"><?=Language::GetText('upload')?></a></li>
+                    <li class="<?=($this->options->page == 'account_upload') ? 'active' : ''?>"><a href="<?=HOST?>/account/upload/video/"><?=Language::GetText('upload')?></a></li>
                 <?php endif; ?>
             </ul>
 

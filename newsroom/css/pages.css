@@ -33,6 +33,15 @@
     right: 5px;
 }
 
+.video-info .attachment {
+    display: block;
+    margin: 3px 0;
+}
+
+.video-info .attachment .glyphicon-paperclip {
+    font-size: 12px;
+}
+
 
 /** Comments **/
 
