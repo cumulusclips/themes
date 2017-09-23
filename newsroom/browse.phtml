@@ -34,13 +34,15 @@ if (isset($_GET['category']) && preg_match('/[a-z0-9\-]+/i', $_GET['category']))
 }
 
 // Retrieve comments
-$commentCount = $this->view->vars->commentCount = ($activeVideo)
+$commentCount = $this->vars->commentCount = ($activeVideo)
     ? $commentMapper->getVideoCommentCount($activeVideo->videoId)
     : 0;
-$commentCardList = $this->view->vars->commentCardList = ($activeVideo)
+$commentCardList = $thi->vars->commentCardList = ($activeVideo)
     ? $commentService->getVideoComments($activeVideo, 5)
     : array();
 
 // Increase view count for active video
-$activeVideo->views++;
-$videoMapper->save($activeVideo);
+if ($activeVideo) {
+    $activeVideo->views++;
+    $videoMapper->save($activeVideo);
+}

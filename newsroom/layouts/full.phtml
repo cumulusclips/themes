@@ -1,32 +1,30 @@
 <!DOCTYPE html>
-<html lang="<?=Language::getLocale()?>">
+<html lang="<?php echo Language::getLocale(); ?>">
 <head>
-<title><?=$meta->title?></title>
+<title><?php echo $meta->title; ?></title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="themeUrl" content="<?=$this->options->themeUrl?>" />
+<meta name="themeUrl" content="<?php echo $this->options->themeUrl; ?>" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="baseUrl" content="<?=HOST?>" />
-<meta name="themeUrl" content="<?=$this->options->themeUrl?>" />
+<meta name="baseUrl" content="<?php echo BASE_URL; ?>" />
+<meta name="themeUrl" content="<?php echo $this->options->themeUrl; ?>" />
 <?php $this->writeMeta(); ?>
 <?php Plugin::triggerEvent('theme.head'); ?>
-<link rel="shortcut icon" type="image/x-icon" href="<?=$this->options->themeUrl?>/images/favicon.ico" />
-
-<!-- Frameworks -->
-<link rel="stylesheet" type="text/css" href="<?=$this->options->themeUrl?>/css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="<?=$this->options->themeUrl?>/css/font-awesome.min.css" />
+<link rel="shortcut icon" type="image/x-icon" href="<?php echo $this->options->themeUrl; ?>/images/favicon.ico" />
 
 <!-- Vendors -->
+<link rel="stylesheet" type="text/css" href="<?php echo $this->options->themeUrl; ?>/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo $this->options->themeUrl; ?>/css/font-awesome.min.css" />
 
 <!-- Theme -->
-<link rel="stylesheet" type="text/css" href="<?=$this->options->themeUrl?>/css/cumulusclips.css" />
-<link rel="stylesheet" type="text/css" href="<?=$this->options->themeUrl?>/css/main.css" />
-<link rel="stylesheet" type="text/css" href="<?=$this->options->themeUrl?>/css/pages.css" />
-<link rel="stylesheet" type="text/css" href="<?=$this->options->themeUrl?>/css/responsive.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo $this->options->themeUrl; ?>/css/cumulusclips.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo $this->options->themeUrl; ?>/css/main.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo $this->options->themeUrl; ?>/css/pages.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo $this->options->themeUrl; ?>/css/responsive.css" />
 <?php $this->writeCSS(); ?>
 
 </head>
-<body class="<?=$this->cssHooks()?>">
+<body class="<?php echo $this->cssHooks(); ?>">
 <?php Plugin::triggerEvent('theme.body'); ?>
 
 <?php $this->block('header.phtml'); ?>
@@ -37,7 +35,7 @@
 
         <div class="row">
             <div class="col-xs-12">
-                <?=$this->body()?>
+                <?php echo $this->body(); ?>
             </div>
         </div>
 
@@ -47,11 +45,11 @@
 
 <?php $this->block('footer.phtml'); ?>
 
-<script type="text/javascript" src="<?=$this->options->themeUrl?>/js/jquery.min.js"></script>
-<script type="text/javascript" src="<?=$this->options->themeUrl?>/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="<?=$this->options->themeUrl?>/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<?=$this->options->themeUrl?>/js/cumulusclips.js"></script>
-<script type="text/javascript" src="<?=$this->options->themeUrl?>/js/general.js"></script>
+<script type="text/javascript" src="<?php echo $this->options->themeUrl; ?>/js/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo $this->options->themeUrl; ?>/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<?php echo $this->options->themeUrl; ?>/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo $this->options->themeUrl; ?>/js/cumulusclips.js"></script>
+<script type="text/javascript" src="<?php echo $this->options->themeUrl; ?>/js/general.js"></script>
 <?php $this->writeJs(); ?>
 
 </body>

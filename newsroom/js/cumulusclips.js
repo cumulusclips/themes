@@ -453,8 +453,11 @@ $(function(){
     // Watch Video Page
     if ($('.watch').length > 0) {
 
-        // Inir Scrollbar widget
-        $('.scrollbar-outer').scrollbar();
+        // Init Scrollbar widget
+        $scrollbarContainer = $('.scrollbar-outer');
+        if (!!$scrollbarContainer.length) {
+            $scrollbarContainer.scrollbar();
+        }
 
 
         // Scroll playlist to active video if viewing a playlist on watch page
@@ -868,7 +871,7 @@ cumulusClips.getVideoUrl = function(video)
     url += '/watch/' + video.videoId + '/';
     url += cumulusClips.generateSlug(video.title) + '/';
     return url;
-}
+};
 
 /**
  * Generates a URL friendly slug from an input string
@@ -881,7 +884,7 @@ cumulusClips.generateSlug = function(stringToConvert)
     var slug = stringToConvert.replace(/[^a-z0-9]+/ig, '-');
     slug = slug.replace(/^-|-$/g, '').toLowerCase();
     return slug;
-}
+};
 
 /**
  * Displays alert message on page
@@ -897,7 +900,7 @@ cumulusClips.displayMessage = function(result, message)
     $('.alert').html(message);
     $('.alert').removeClass(existingClass);
     $('.alert').addClass(cssClass);
-}
+};
 
 /**
  * Formats bytes into human readable format
@@ -914,7 +917,7 @@ cumulusClips.formatBytes = function(bytes, precision)
     pwr = Math.min(pwr, units.length - 1);
     bytes /= Math.pow(1024, pwr);
     return Math.round(bytes, precision) + units[pwr];
-}
+};
 
 /**
  * Retrieves language file text
@@ -943,7 +946,7 @@ cumulusClips.getText = function(node, replacements)
     }
 
     return textDeferred.promise();
-}
+};
 
 /**
  * Retrieves template file contents
@@ -971,7 +974,7 @@ cumulusClips.getTemplate = function(templateName)
     }
 
     return templateDeferred.promise();
-}
+};
 
 /**
  * Makes API request
@@ -1066,7 +1069,7 @@ cumulusClips.apiRequest = function(url, data, options)
         }
 
     });
-}
+};
 
 /**
  * Generates attachment card HTML to be appended to attachment list on video upload/edit page
@@ -1108,7 +1111,7 @@ cumulusClips.buildAttachmentCard = function(index, name, size, file)
     }
 
     return $attachment;
-}
+};
 
 /**
  * Generates comment card HTML to be appended to comment list on play page
@@ -1169,7 +1172,7 @@ cumulusClips.buildCommentCard = function(commentCardTemplate, commentCardData)
     commentCard.find('.comment-text').html(commentCardData.comment.comments.replace(/\r\n|\n|\r/g, '<br>'));
 
     return commentCard;
-}
+};
 
 /**
  * Resets the main comment form to it's default state
@@ -1181,7 +1184,7 @@ cumulusClips.resetCommentForm = function (commentForm)
     commentForm.addClass('collapsed');
     var commentField = commentForm.find('textarea');
     commentField.val(commentField.attr('title'));
-}
+};
 
 /**
  * Builds a video card from the video card template
@@ -1190,7 +1193,7 @@ cumulusClips.resetCommentForm = function (commentForm)
  * @param {Object} video The video which will be represented by the card
  * @return {jQuery} Returns jQuery object Representing the new video card
  */
-function buildVideoCard(videoCardTemplate, video)
+cumulusClips.buildVideoCard = function (videoCardTemplate, video)
 {
     var $videoCard = $(videoCardTemplate);
     var url = cumulusClips.getVideoUrl(video);
@@ -1205,7 +1208,7 @@ function buildVideoCard(videoCardTemplate, video)
         .attr('title', cumulusClips.text['watch_later']);
 
     return $videoCard;
-}
+};
 
 /**
  * Builds a playlist card from the playlist card template
@@ -1233,4 +1236,4 @@ cumulusClips.buildPlaylistCard = function(playlistCardTemplate, playlist)
     }
     playlistCard.find('.video-count').html(playlist.entries.length + '<br>' + cumulusClips.text['videos']);
     return playlistCard;
-}
+};

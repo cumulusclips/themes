@@ -16,13 +16,11 @@ $(document).ready(function(){
     });
 
 
-    // Play Video Page
-    if ($('.play-layout').length) {
-
-        // Set video player height for extra small screens
-        var videoPlayer = videojs("video-player")
+    // Player layout
+    if ($('#video-player').length) {
 
         // Go to next video in playlist carousel when video is done playing
+        var videoPlayer = videojs("video-player");
         videoPlayer.on('ended', function(event){
             var $next = $('.playlist .active').next();
             if ($next.length !== 0) {
@@ -31,7 +29,6 @@ $(document).ready(function(){
                 }, cumulusClips.goToNextVideoDelay);
             }
         });
-
-    }   // END Play Video page
+    }
 
 }); // END jQuery

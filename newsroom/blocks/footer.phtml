@@ -6,19 +6,19 @@
         <div class="row">
             <div class="left col-xs-12 col-md-6">
                 <a href=""><?php echo Language::getText('nav_link_1'); ?></a>
-                <a href="<?php echo HOST; ?>/contact/"><?php echo Language::getText('contact'); ?></a>
+                <a href="<?php echo BASE_URL; ?>/contact/"><?php echo Language::getText('contact'); ?></a>
                 <a href=""><?php echo Language::getText('nav_link_2'); ?></a>
                 <?php $activeLanguages = Language::getActiveLanguages(); ?>
                 <?php if (count($activeLanguages) > 1): ?>
 
                     <div class="dropup">
                         <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                            <?=Language::getLanguage(true)?>
+                            <?php echo Language::getLanguage(true); ?>
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <?php foreach ($activeLanguages as $systemName => $language): ?>
-                                <li><a href="<?=HOST?>/language/set/<?=$systemName?>/"><?=$language->native_name?></a></li>
+                                <li><a href="<?php echo BASE_URL; ?>/language/set/<?php echo $systemName; ?>/"><?php echo $language->native_name; ?></a></li>
                             <?php endforeach; ?>
                         </ul>
                     </div>

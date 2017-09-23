@@ -2,11 +2,10 @@
 
 $categoryMapper = new CategoryMapper();
 $videoMapper = new VideoMapper();
-$commentMapper = new CommentMapper();
-$commentService = new CommentService();
 $this->setLayout('player');
 $this->addMeta('videoId', $this->vars->video->videoId);
 $this->addMeta('theme', $this->options->themeUrl);
+$activeCategory = null;
 
 // Retrieve Recent Videos
 $activeVideo = $this->vars->activeVideo = $this->vars->video;
@@ -14,10 +13,13 @@ $activeVideo = $this->vars->activeVideo = $this->vars->video;
 // Retrieve videos
 if (isset($_GET['category']) && preg_match('/[a-z0-9\-]+/i', $_GET['category'])) {
 
-    $activeCategory = $this->vars->activeCategory = $categoryMapper->getCategoryBySlug($_GET['category']);
+    $requestedCategory = $this->vars->activeCategory = $categoryMapper->getCategoryBySlug($_GET['category']);
 
-    if ($activeCategory && $activeVideo->categoryId == $activeCategory->categoryId) {
-        $query = "SELECT video_id FROM " . DB_PREFIX . "videos WHERE status = 'approved' AND private = '0' AND category_id = $activeCategory->categoryId ORDER BY video_id DESC LIMIT 50";
+    if ($requestedCategory && $activeVideo->categoryId == $requestedCategory->categoryId) {
+
+        $activeCategory = $requestedCategory;
+
+        $query = "SELECT video_id FROM " . DB_PREFIX . "videos WHERE status = 'approved' AND private = '0' AND category_id = $requestedCategory->categoryId ORDER BY video_id DESC LIMIT 50";
         $result = $db->fetchAll($query);
 
         $videoList = $this->vars->videoList = $videoMapper->getVideosFromList(

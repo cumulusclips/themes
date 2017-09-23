@@ -2,10 +2,10 @@
 
 <div class="row">
     <div class="form-container col-md-5 col-center">
-        <h1><?=Language::getText('activate_header')?></h1>
+        <h1><?php echo Language::getText('activate_header'); ?></h1>
 
         <?php if ($message): ?>
-            <div class="alert <?=convertAlertToBootstrap($messageType)?>"><?=$message?></div>
+            <div class="alert <?php echo convertAlertToBootstrap($messageType); ?>"><?php echo $message; ?></div>
         <?php endif; ?>
     </div>
 </div>

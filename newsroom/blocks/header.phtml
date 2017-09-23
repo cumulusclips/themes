@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-xs-6 left">
                 <a href=""><?php echo Language::getText('nav_link_1'); ?></a>
-                <a href="<?php echo HOST; ?>/contact/"><?php echo Language::getText('contact'); ?></a>
+                <a href="<?php echo BASE_URL; ?>/contact/"><?php echo Language::getText('contact'); ?></a>
                 <a href=""><?php echo Language::getText('nav_link_2'); ?></a>
             </div>
             <div class="col-xs-6 text-right right">
@@ -13,14 +13,14 @@
                 <?php if ($loggedInUser): ?>
 
                     <?php if ($this->getService('User')->checkPermissions('admin_panel', $loggedInUser)): ?>
-                        <a href="<?=HOST?>/cc-admin/" title="<?=Language::GetText('admin_panel')?>"><?=Language::GetText('admin_panel')?></a>
+                        <a href="<?php echo BASE_URL; ?>/cc-admin/" title="<?php echo Language::GetText('admin_panel'); ?>"><?php echo Language::GetText('admin_panel'); ?></a>
                     <?php endif ?>
 
-                    <a href="<?php echo HOST; ?>/account/"><?php echo Language::getText('account'); ?></a>
-                    <a href="<?php echo HOST; ?>/logout/"><?php echo Language::getText('logout'); ?></a>
+                    <a href="<?php echo BASE_URL; ?>/account/"><?php echo Language::getText('account'); ?></a>
+                    <a href="<?php echo BASE_URL; ?>/logout/"><?php echo Language::getText('logout'); ?></a>
                 <?php else: ?>
-                    <a href="<?php echo HOST; ?>/login/"><?php echo Language::getText('login'); ?></a>
-                    <a href="<?php echo HOST; ?>/register/"><?php echo Language::getText('register'); ?></a>
+                    <a href="<?php echo BASE_URL; ?>/login/"><?php echo Language::getText('login'); ?></a>
+                    <a href="<?php echo BASE_URL; ?>/register/"><?php echo Language::getText('register'); ?></a>
                 <?php endif; ?>
 
                 <?php $activeLanguages = Language::getActiveLanguages(); ?>
@@ -28,12 +28,12 @@
 
                     <div class="dropdown">
                         <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                            <?=Language::getLanguage(true)?>
+                            <?php echo Language::getLanguage(true); ?>
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <?php foreach ($activeLanguages as $systemName => $language): ?>
-                                <li><a href="<?=HOST?>/language/set/<?=$systemName?>/"><?=$language->native_name?></a></li>
+                                <li><a href="<?php echo BASE_URL; ?>/language/set/<?php echo $systemName; ?>/"><?php echo $language->native_name; ?></a></li>
                             <?php endforeach; ?>
                         </ul>
                     </div>
@@ -53,11 +53,11 @@
         <div class="row">
 
             <div class="col-xs-6">
-                <a class="logo" href="<?php echo HOST; ?>">CumulusClips</a>
+                <a class="logo" href="<?php echo BASE_URL; ?>">CumulusClips</a>
             </div>
 
             <div class="col-xs-6 text-right search-form hidden-xs">
-                <form class="form-inline" action="<?php echo HOST; ?>/search/" method="post">
+                <form class="form-inline" action="<?php echo BASE_URL; ?>/search/" method="post">
                     <div class="form-group">
                         <input class="form-control search-input" type="text" name="keyword" />
                         <input class="form-control" type="hidden" name="submitted_search" value="true" />
@@ -83,7 +83,7 @@
 
                 <?php $categoryList = getCategories(); ?>
                 <?php foreach ($categoryList as $category): ?>
-                    <a class="h4" href="<?php echo HOST; ?>/videos/<?php echo $category->slug; ?>/"><?php echo $category->name; ?></a>
+                    <a class="h4" href="<?php echo BASE_URL; ?>/videos/<?php echo $category->slug; ?>/"><?php echo $category->name; ?></a>
                 <?php endforeach; ?>
 
             </div>
@@ -97,18 +97,18 @@
                 <div class="body">
 
                     <ul>
-                    <li><a href="<?php echo HOST; ?>/"><?php echo Language::getText('home'); ?></a></li>
+                    <li><a href="<?php echo BASE_URL; ?>/"><?php echo Language::getText('home'); ?></a></li>
                      <?php if ($loggedInUser): ?>
 
                         <?php if ($this->getService('User')->checkPermissions('admin_panel', $loggedInUser)): ?>
-                            <li><a href="<?=HOST?>/cc-admin/" title="<?=Language::GetText('admin_panel')?>"><?=Language::GetText('admin_panel')?></a></li>
+                            <li><a href="<?php echo BASE_URL; ?>/cc-admin/" title="<?php echo Language::GetText('admin_panel'); ?>"><?php echo Language::GetText('admin_panel'); ?></a></li>
                         <?php endif ?>
 
-                        <li><a href="<?php echo HOST; ?>/account/"><?php echo Language::getText('account'); ?></a></li>
-                        <li><a href="<?php echo HOST; ?>/logout/"><?php echo Language::getText('logout'); ?></a></li>
+                        <li><a href="<?php echo BASE_URL; ?>/account/"><?php echo Language::getText('account'); ?></a></li>
+                        <li><a href="<?php echo BASE_URL; ?>/logout/"><?php echo Language::getText('logout'); ?></a></li>
                      <?php else: ?>
-                        <li><a href="<?php echo HOST; ?>/login/"><?php echo Language::getText('login'); ?></a></li>
-                        <li><a href="<?php echo HOST; ?>/register/">Register</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>/login/"><?php echo Language::getText('login'); ?></a></li>
+                        <li><a href="<?php echo BASE_URL; ?>/register/"><?php echo Language::getText('register'); ?></a></li>
                     <?php endif; ?>
                     </ul>
 
@@ -116,7 +116,7 @@
 
                     <ul>
                         <?php foreach ($categoryList as $category): ?>
-                            <li><a href="<?php echo HOST; ?>/videos/<?php echo $category->slug; ?>/"><?php echo $category->name; ?></a></li>
+                            <li><a href="<?php echo BASE_URL; ?>/videos/<?php echo $category->slug; ?>/"><?php echo $category->name; ?></a></li>
                         <?php endforeach; ?>
                     </ul>
 
@@ -126,7 +126,7 @@
 
             <!-- BEGIN Mobile Search -->
             <div id="mobile-search" class="search visible-xs">
-                <form action="<?php echo HOST; ?>/search/" method="post">
+                <form action="<?php echo BASE_URL; ?>/search/" method="post">
                     <a href="" class="mobile-search-trigger"><i class="fa fa-close"></i></a>
                     <div class="input-group">
                         <input class="form-control" type="text" name="keyword" />

@@ -1,35 +1,44 @@
-<h1><?=Language::getText('search_header')?></h1>
 
-<p><?=Language::getText('results_for')?>: '<em><?=$cleaned?></em>'</p>
+<?php $this->setLayout('full'); ?>
 
-<?php if (!empty($search_videos)): ?>
+<div class="row">
+    <div class="col-sm-10 col-md-9 col-center">
 
-    <div class="video-list">
+        <h1><?php echo Language::getText('search_header'); ?></h1>
 
-    <?php foreach ($search_videos as $video): ?>
+        <p><?php echo Language::getText('results_for'); ?>: '<em><?php echo $cleaned; ?></em>'</p>
 
-        <a href="<?=$this->getService('Video')->getUrl($video)?>/" title="<?=$video->title?>">
-            <div class="video media">
-                <div class="media-left thumb">
-                    <i class="fa fa-play"></i>
-                    <img width="185" height="104" src="<?php echo $config->thumbUrl?>/<?=$video->filename; ?>.jpg" />
-                </div>
-                <div class="media-body">
-                    <p class="media-heading"><?php echo $video->title; ?></p>
-                    <p class="small">
-                        <span><?=Language::GetText('by')?>: <?=$video->username?></span>
-                        <span><?php echo date('m/d/Y', strtotime($video->dateCreated)); ?></span>
-                    </p>
-                    <p><?=Functions::cutOff($video->description, 200)?></p>
-                </div>
+        <?php if (!empty($search_videos)): ?>
+
+            <div class="video-list">
+
+            <?php foreach ($search_videos as $video): ?>
+
+                <a href="<?php echo $this->getService('Video')->getUrl($video); ?>/" title="<?php echo $video->title; ?>">
+                    <div class="video media">
+                        <div class="media-left thumb">
+                            <i class="fa fa-play"></i>
+                            <img width="185" height="104" src="<?php echo $config->thumbUrl?>/<?php echo $video->filename; ; ?>.jpg" />
+                        </div>
+                        <div class="media-body">
+                            <p class="media-heading"><?php echo $video->title; ?></p>
+                            <p class="small">
+                                <span><?php echo Language::GetText('by'); ?>: <?php echo $video->username; ?></span>
+                                <span><?php echo date('m/d/Y', strtotime($video->dateCreated)); ?></span>
+                            </p>
+                            <p><?php echo Functions::cutOff($video->description, 200); ?></p>
+                        </div>
+                    </div>
+                </a>
+
+            <?php endforeach; ?>
+
             </div>
-        </a>
+            <?php echo $pagination->Paginate(); ?>
 
-    <?php endforeach; ?>
+        <?php else: ?>
+            <p><?php echo Language::GetText('no_results'); ?></p>
+        <?php endif; ?>
 
     </div>
-    <?=$pagination->Paginate()?>
-
-<?php else: ?>
-    <p><?=Language::GetText('no_results')?></p>
-<?php endif; ?>
+</div>
