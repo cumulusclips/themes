@@ -1,0 +1,70 @@
+
+/** General Account Styles **/
+
+.account-menu {
+    margin-top: 30px;
+}
+
+.mobile-account-menu {
+    margin-top: 30px;
+}
+
+.account-menu .h4 {
+    margin-top: 20px;
+}
+
+.account-menu .h4:first-child {
+    margin-top: 0;
+}
+
+.account-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.account-menu li {
+    margin: 5px 0;
+}
+
+.actions {
+    border-top: 1px solid #D2D2D2;
+    overflow: hidden;
+    padding-top: 3px;
+}
+
+.confirm {
+    color: #900;
+}
+
+.btn.confirm {
+    color: #fff;
+}
+
+
+
+/** Account Index **/
+
+.account_account main .col-xs-3 p {
+    margin-top: 10px;
+}
+
+
+
+
+
+
+/** Update Profile **/
+
+.uploader-container .button {
+    font-weight: 600;
+    border-radius: 0;
+    padding: 7px 12px;
+    border: none;
+    background: #2B2C2D;
+    color: #FFF;
+}
+
+#update_avatar .avatar {
+    margin:0 auto;
+    margin-bottom:5px;
+}

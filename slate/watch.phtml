@@ -1,0 +1,47 @@
+<?php
+
+$categoryMapper = new CategoryMapper();
+$videoMapper = new VideoMapper();
+$commentMapper = new CommentMapper();
+$commentService = new CommentService();
+$this->setLayout('player');
+$this->addMeta('videoId', $this->vars->video->videoId);
+$this->addMeta('theme', $this->options->themeUrl);
+$activeCategory = null;
+
+// Retrieve Recent Videos
+$activeVideo = $this->vars->activeVideo = $this->vars->video;
+
+// Retrieve videos
+if (isset($_GET['category']) && preg_match('/[a-z0-9\-]+/i', $_GET['category'])) {
+
+    $requestedCategory = $this->vars->activeCategory = $categoryMapper->getCategoryBySlug($_GET['category']);
+
+    if ($requestedCategory && $activeVideo->categoryId == $requestedCategory->categoryId) {
+
+        $activeCategory = $requestedCategory;
+
+        $query = "SELECT video_id FROM " . DB_PREFIX . "videos WHERE status = 'approved' AND private = '0' AND category_id = $requestedCategory->categoryId ORDER BY video_id DESC LIMIT 50";
+        $result = $db->fetchAll($query);
+
+        $videoList = $this->vars->videoList = $videoMapper->getVideosFromList(
+            Functions::arrayColumn($result, 'video_id')
+        );
+
+    } else {
+        // Retrieve Recent Videos
+        $videoList = $this->vars->videoList = getRecentVideos();
+    }
+
+} else {
+    // Retrieve Recent Videos
+    $videoList = $this->vars->videoList = getRecentVideos();
+}
+
+// Retrieve comments
+$commentCount = $this->vars->commentCount = ($activeVideo)
+    ? $commentMapper->getVideoCommentCount($activeVideo->videoId)
+    : 0;
+$commentCardList = $this->vars->commentCardList = ($activeVideo)
+    ? $commentService->getVideoComments($activeVideo, 5)
+    : array();

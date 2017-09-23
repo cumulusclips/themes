@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="<?php echo Language::getLocale(); ?>">
+<head>
+<title><?php echo $meta->title; ?></title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="baseUrl" content="<?php echo BASE_URL; ?>" />
+<meta name="themeUrl" content="<?php echo $this->options->themeUrl; ?>" />
+<meta name="loggedIn" content="<?php echo (boolean) $loggedInUser; ?>" />
+<meta name="recordsPerPage" content="<?php echo getRecordsPerPage(); ?>" />
+<?php $this->writeMeta(); ?>
+<?php Plugin::triggerEvent('theme.head'); ?>
+<link rel="shortcut icon" type="image/x-icon" href="<?php echo $this->options->themeUrl; ?>/images/favicon.ico" />
+
+<!-- Vendors -->
+<link rel="stylesheet" type="text/css" href="<?php echo $this->options->themeUrl; ?>/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo $this->options->themeUrl; ?>/css/font-awesome.min.css" />
+
+<!-- Theme -->
+<link rel="stylesheet" type="text/css" href="<?php echo $this->options->themeUrl; ?>/css/cumulusclips.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo $this->options->themeUrl; ?>/css/main.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo $this->options->themeUrl; ?>/css/account.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo $this->options->themeUrl; ?>/css/responsive.css" />
+<?php $this->writeCSS(); ?>
+
+</head>
+<body class="<?php echo $this->cssHooks(); ?>">
+
+
+<!-- BEGIN Wrapper -->
+<div class="wrapper">
+
+    <?php Plugin::triggerEvent('theme.body'); ?>
+
+    <?php $this->block('header.phtml'); ?>
+
+
+    <div class="container">
+
+        <div class="row">
+
+            <!-- BEGIN Sidebar -->
+            <div class="hidden-xs hidden-sm col-md-3">
+                <div class="account-menu">
+
+                    <p class="h4"><?php echo Language::getText('account_settings'); ?></p>
+                    <ul>
+                        <li><a href="<?php echo BASE_URL; ?>/account/profile/" title="<?php echo Language::getText('update_profile'); ?>"><?php echo Language::getText('update_profile'); ?></a></li>
+                        <li><a href="<?php echo BASE_URL; ?>/account/privacy-settings/" title="<?php echo Language::getText('privacy_settings'); ?>"><?php echo Language::getText('privacy_settings'); ?></a></li>
+                        <li><a href="<?php echo BASE_URL; ?>/account/change-password/" title="<?php echo Language::getText('change_password'); ?>"><?php echo Language::getText('change_password'); ?></a></li>
+                    </ul>
+
+                </div>
+                <?php $this->writeSidebarBlocks(); ?>
+            </div>
+            <!-- END Sidebar -->
+
+            <!-- BEGIN Mobile/Table Account Menu -->
+            <div class="hidden visible-xs-block visible-sm-block col-xs-12 mobile-account-menu">
+            <div class="dropdown">
+                <button class="btn btn-default btn-block dropdown-toggle" type="button" data-toggle="dropdown">
+                    <?php echo Language::getText('account_menu_header'); ?>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu col-xs-12">
+
+                    <li class="dropdown-header"><?php echo Language::getText('account_settings'); ?></li>
+                    <li><a href="<?php echo BASE_URL; ?>/account/profile/" title="<?php echo Language::getText('update_profile'); ?>"><?php echo Language::getText('update_profile'); ?></a></li>
+                    <li><a href="<?php echo BASE_URL; ?>/account/privacy-settings/" title="<?php echo Language::getText('privacy_settings'); ?>"><?php echo Language::getText('privacy_settings'); ?></a></li>
+                    <li><a href="<?php echo BASE_URL; ?>/account/change-password/" title="<?php echo Language::getText('change_password'); ?>"><?php echo Language::getText('change_password'); ?></a></li>
+
+                </ul></div>
+            </div>
+            <!-- END Mobile/Table Account Menu -->
+
+            <!-- BEGIN Main Content -->
+            <main class="col-xs-12 col-md-9">
+                <?php echo $this->body(); ?>
+            </main>
+            <!-- END Main Content -->
+
+        </div>
+
+    </div>
+
+
+</div>
+<!-- END Wrapper -->
+
+
+<?php $this->block('footer.phtml'); ?>
+
+
+<script type="text/javascript" src="<?php echo $this->options->themeUrl; ?>/js/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo $this->options->themeUrl; ?>/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<?php echo $this->options->themeUrl; ?>/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo $this->options->themeUrl; ?>/js/cumulusclips.js"></script>
+<script type="text/javascript" src="<?php echo $this->options->themeUrl; ?>/js/general.js"></script>
+<?php $this->writeJs(); ?>
+
+</body>
+</html>

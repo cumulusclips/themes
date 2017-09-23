@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="<?=Language::getLocale()?>">
+<head>
+<title><?=$meta->title?></title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="baseUrl" content="<?php echo BASE_URL; ?>" />
+<meta name="themeUrl" content="<?php echo $this->options->themeUrl; ?>" />
+<meta name="loggedIn" content="<?php echo (boolean) $loggedInUser; ?>" />
+<meta name="recordsPerPage" content="<?php echo getRecordsPerPage(); ?>" />
+<?php $this->writeMeta(); ?>
+<?php Plugin::triggerEvent('theme.head'); ?>
+<link rel="shortcut icon" type="image/x-icon" href="<?=$this->options->themeUrl?>/images/favicon.ico" />
+
+<!-- Vendors -->
+<link rel="stylesheet" type="text/css" href="<?=$this->options->themeUrl?>/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="<?=$this->options->themeUrl?>/css/font-awesome.min.css" />
+<link href="//vjs.zencdn.net/5.9.2/video-js.css" rel="stylesheet" />
+
+<!-- Theme -->
+<link rel="stylesheet" type="text/css" href="<?=$this->options->themeUrl?>/css/cumulusclips.css" />
+<link rel="stylesheet" type="text/css" href="<?=$this->options->themeUrl?>/css/main.css" />
+<link rel="stylesheet" type="text/css" href="<?=$this->options->themeUrl?>/css/pages.css" />
+<link rel="stylesheet" type="text/css" href="<?=$this->options->themeUrl?>/css/responsive.css" />
+<?php $this->writeCSS(); ?>
+
+</head>
+<body class="play-layout <?=$this->cssHooks()?>">
+
+
+<!-- BEGIN Wrapper -->
+<div class="wrapper">
+
+    <?php Plugin::triggerEvent('theme.body'); ?>
+
+    <?php $this->block('header.phtml'); ?>
+
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-xs-12 collapse-group">
+
+                <?php if (!empty($logout)): ?>
+                    <div class="alert alert-success"><?php echo Language::getText('success_logout'); ?></div>
+                <?php endif; ?>
+
+
+                <?php if ($activeVideo): ?>
+
+                    <!-- BEGIN Player -->
+                    <div class="video-player-container">
+                        <video
+                            id="video-player"
+                            class="video-js vjs-16-9"
+                            width="960"
+                            height="540"
+                            data-setup='{"preload": true, "controls": true, "autoplay": true}'
+                            src="<?php echo $config->h264Url; ?>/<?php echo $activeVideo->filename; ?>.mp4"
+                        >
+                         </video>
+                    </div>
+                     <!-- END Player -->
+
+
+                    <!-- BEGIN About -->
+                    <div id="about" class="light collapse in">
+                        <h1><?php echo $activeVideo->title; ?></h1>
+                        <p><?php echo Language::getText('by'); ?> <?php echo $activeVideo->username; ?> | <?php echo date('F j, Y', strtotime($activeVideo->dateCreated)); ?></p>
+                        <p><?php echo $activeVideo->description; ?></p>
+                        <p><?php echo Language::getText('tags'); ?>:
+                            <?php foreach ($activeVideo->tags as $tag): ?>
+                                <a href="<?php echo BASE_URL; ?>/search/?keyword=<?php echo $tag; ?>"><?php echo $tag; ?></a>
+                            <?php endforeach; ?>
+                        </p>
+
+                        <?php if (!empty($attachments)): ?>
+                            <p><?php echo Language::getText('attachments'); ?>:
+                                <?php foreach ($attachments as $attachment): ?>
+                                    <a
+                                        class="attachment"
+                                        href="<?php echo $this->getService('File')->getUrl($attachment); ?>"
+                                        title="<?php echo htmlspecialchars($attachment->name); ?> (<?php echo \Functions::formatBytes($attachment->filesize, 0); ?>)"
+                                    ><i class="glyphicon glyphicon-paperclip"></i>
+                                        <?php echo htmlspecialchars($attachment->name); ?> (<?php echo \Functions::formatBytes($attachment->filesize, 0); ?>)
+                                    </a>
+                                <?php endforeach; ?>
+                            </p>
+                        <?php endif; ?>
+
+
+                        <a class="btn btn-primary btn-block-mobile" href="#comments" data-toggle="blocks"><i class="fa fa-comment"></i> <?php echo Language::getText('comments'); ?></a>
+                        <a class="btn btn-primary btn-block-mobile" href="#embed" data-toggle="blocks"><i class="fa fa-code"></i> <?php echo Language::getText('embed'); ?></a>
+                    </div>
+                    <!-- END About -->
+
+
+                    <!-- BEGIN Comments -->
+                    <div id="comments" class="light collapse">
+
+                        <div class="header clearfix">
+                            <h2 class="pull-left"><?php echo Language::getText('comments_header'); ?></h2>
+                            <a class="pull-right toggle-close" href="#about" data-toggle="blocks"><i class="fa fa-close"></i> <?php echo Language::getText('close'); ?></a>
+                        </div>
+
+                        <?php if ($activeVideo->commentsClosed): ?>
+                            <p class="comment-message comments-closed"><?php echo Language::getText('comments_closed'); ?></p>
+                        <?php else: ?>
+
+                            <div class="alert hidden"></div>
+
+                            <?php if ($loggedInUser): ?>
+
+                                <!-- BEGIN Comment Form -->
+                                <div class="comment-form comment-form-main collapsed">
+                                    <form>
+                                        <div class="form-group collapsed-show">
+                                            <textarea class="form-control" rows="2" cols="50" placeholder="<?php echo Language::getText('comments_button'); ?>"></textarea>
+                                        </div>
+
+                                        <div class="form-group collapsed-hide">
+                                            <textarea class="form-control" rows="4" cols="50" name="comments" placeholder="<?php echo Language::getText('comments'); ?>"></textarea>
+                                        </div>
+
+                                        <div class="form-group collapsed-hide">
+                                            <input type="hidden" name="videoId" value="<?php echo $activeVideo->videoId; ?>" />
+                                            <input type="hidden" name="parentCommentId" value="" />
+                                            <button type="submit" class="btn btn-primary btn-block-mobile"><?php echo Language::getText('comments_button'); ?></button>
+                                            <button class="cancel btn btn-default btn-block-mobile"><?php echo Language::getText('cancel'); ?></button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- END Comment Form -->
+
+                            <?php else: ?>
+
+                                <?php if ($config->enableRegistrations): ?>
+                                    <p class="comment-message"><?php echo Language::getText('comments_login_register', array('login_link' => HOST . '/login/?redirect=' . urlencode($this->getService('Video')->getUrl($activeVideo)), 'register_link' => HOST . '/register/')); ?></p>
+                                <?php else: ?>
+                                    <p class="comment-message"><?php echo Language::getText('comments_login', array('login_link' => HOST . '/login/?redirect=' . urlencode($this->getService('Video')->getUrl($video)))); ?></p>
+                                <?php endif; ?>
+
+                            <?php endif; ?>
+
+
+                            <?php if ($commentCount > 0): ?>
+                                <p class="comment-message comment-totals"><span class="comment-count"><?php echo $commentCount; ?></span> <?php echo Language::getText('comments_total'); ?></p>
+                            <?php else: ?>
+                                <p class="comment-message no-comments"><?php echo Language::getText('no_comments'); ?></p>
+                            <?php endif; ?>
+
+
+                            <!-- BEGIN Comment List -->
+                            <div class="comment-list">
+
+                                <?php if ($commentCount > 0): ?>
+
+                                    <?php foreach ($commentCardList as $commentCard): ?>
+
+                                        <?php $commentIndentClass = getCommentIndentClass($commentCard->comment); ?>
+
+                                        <!-- BEGIN Comment -->
+                                        <div class="comment media <?=$commentIndentClass?>" data-comment="<?=$commentCard->comment->commentId?>">
+
+                                            <div class="media-left">
+                                                <img class="media-object" src="<?=($commentCard->avatar) ? $commentCard->avatar : $this->options->themeUrl . '/images/avatar.gif'?>">
+                                            </div>
+
+                                            <div class="media-body">
+                                                <p class="media-heading small">
+                                                    <span class="comment-author"><?=$commentCard->author->username?></span>
+                                                    <span class="comment-date"><?=date('m/d/Y', strtotime($commentCard->comment->dateCreated))?></span>
+                                                    <?php if ($commentCard->comment->parentId != 0): ?>
+                                                        <span class="comment-reply"><?=Language::getText('reply_to')?>
+                                                            <span class="comment-parent-author"><?=$commentCard->parentAuthor->username?>
+                                                            </span>
+                                                        </span>
+                                                    <?php endif; ?>
+                                                </p>
+
+                                                <p class="comment-text"><?=nl2br($commentCard->comment->comments)?></p>
+                                                <p class="small comment-action">
+                                                    <a href="" class="reply"><?php echo Language::getText('reply'); ?></a>
+                                                    <a href="" class="flag" data-type="comment" data-id="<?=$commentCard->comment->commentId?>"><?php echo Language::getText('report_abuse'); ?></a>
+                                                </p>
+                                            </div>
+
+                                        </div>
+                                        <!-- END Comment -->
+
+                                    <?php endforeach; ?>
+
+                                <?php endif; ?>
+
+                            </div>
+                            <!-- END Comment List -->
+
+                            <?php if ($commentCount > 5): ?>
+                                <div class="load-more">
+                                    <button
+                                        class="btn btn-primary btn-lg btn-block load-more-btn"
+                                        data-video="<?php echo $activeVideo->videoId; ?>"
+                                        data-loading-text="<?php echo Language::getText('loading'); ?>"
+                                        data-total="<?php echo $commentCount; ?>"
+                                    ><?php echo Language::getText('load_more'); ?></button>
+                                </div>
+                            <?php endif; ?>
+
+                        <?php endif; ?>
+
+                    </div>
+                    <!-- END Comments -->
+
+
+                    <!-- BEGIN Embed -->
+                    <div id="embed" class="light collapse">
+
+                        <div class="header clearfix">
+                            <h2 class="pull-left"><?php echo Language::getText('embed'); ?></h2>
+                            <a class="pull-right toggle-close" href="#about" data-toggle="blocks"><i class="fa fa-close"></i> <?php echo Language::getText('close'); ?></a>
+                        </div>
+
+                        <p><?php echo Language::getText('embed_text'); ?></p>
+                        <textarea readonly class="form-control">&lt;iframe src="<?php echo BASE_URL; ?>/embed/<?php echo $activeVideo->videoId; ?>/" width="480" height="360" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</textarea>
+
+                    </div>
+                    <!-- END Embed -->
+
+
+                    <!-- BEGIN Playlist -->
+                    <div class="playlist">
+
+                        <?php if (!empty($activeCategory)): ?>
+                            <?php $videoLinkSuffix = '?category=' . $activeCategory->slug; ?>
+                            <h2><?php echo $activeCategory->name; ?></h2>
+                        <?php else: ?>
+                            <h2><?php echo Language::getText('recent_videos'); ?></h2>
+                            <?php $videoLinkSuffix = ''; ?>
+                        <?php endif; ?>
+
+                        <?php $offset = getPlaylistOffset($videoList, $activeVideo->videoId); ?>
+                        <div class="playlist-carousel" data-offset="<?php echo ($offset !== false) ? $offset : 0; ?>">
+
+                            <a href="" class="direction previous fa fa-angle-left"></a>
+                            <a href="" class="direction next fa fa-angle-right"></a>
+
+                            <div class="video-list window">
+
+                            <?php foreach ($videoList as $key => $listVideo): ?>
+
+                                <div class="slide <?php echo $activeVideo->videoId == $listVideo->videoId ? 'active' : ''; ?>" video-id="<?php echo $listVideo->videoId; ?>">
+                                    <a class="video" href="<?php echo $this->getService('Video')->getUrl($listVideo)?>/<?php echo $videoLinkSuffix; ?>" title="<?php echo $listVideo->title; ?>">
+                                        <?php if ($activeVideo->videoId == $listVideo->videoId): ?>
+                                            <span class="playing-now"><?php echo Language::getText('playing_now'); ?></span>
+                                        <?php endif; ?>
+                                        <img width="200" height="112" src="<?=$config->thumbUrl?>/<?=$listVideo->filename?>.jpg" />
+                                        <span class="title"><?php echo $listVideo->title; ?></span>
+                                    </a>
+                                </div>
+
+                            <?php endforeach; ?>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- END Playlist -->
+
+
+                <?php else: ?>
+
+                    <div class="light no-videos">
+                        <h1><?php echo Language::getText('no_videos'); ?></h1>
+                    </div>
+
+                <?php endif; ?>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- BEGIN Categories -->
+    <div id="categories">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <div class="header clearfix">
+
+                        <?php $categoryList = getCategories(); ?>
+                        <h2 class="pull-left"><?php echo $categoryList[0]->name; ?></h2>
+
+                        <div class="dropdown pull-right">
+                            <button class="btn btn-default btn-block-mobile dropdown-toggle" type="button" data-toggle="dropdown">
+                                <span class="title"><?php echo $categoryList[0]->name; ?></span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                            <?php foreach ($categoryList as $category): ?>
+                                <li><a href="#" data-slug="<?php echo $category->slug; ?>" data-id="<?php echo $category->categoryId; ?>"><?php echo $category->name; ?></a></li>
+                            <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <?php $categoryVideos = getBatchFromCategory($categoryList[0]->categoryId); ?>
+                    <?php if (!!count($categoryVideos)): ?>
+
+                        <div class="video-list">
+
+                            <?php foreach ($categoryVideos as $categoryVideo): ?>
+                                <a href="<?php echo $this->getService('Video')->getUrl($categoryVideo)?>/?category=<?php echo $categoryList[0]->slug; ?>" class="video">
+                                    <img width="200" height="112" src="<?php echo $config->thumbUrl; ?>/<?php echo $categoryVideo->filename; ?>.jpg" />
+                                    <span class="title"><?php echo $categoryVideo->title; ?></span>
+                                </a>
+                            <?php endforeach; ?>
+
+                        </div>
+
+                        <?php $total = getCategoryTotal($categoryList[0]->categoryId); ?>
+                        <?php if ($total > getRecordsPerPage()): ?>
+                            <a
+                                href=""
+                                data-slug="<?php echo $categoryList[0]->slug; ?>"
+                                data-category="<?php echo $categoryList[0]->categoryId; ?>"
+                                data-total="<?php echo $total; ?>"
+                                class="btn btn-primary btn-lg btn-block load-more"
+                            ><?php echo Language::getText('load_more'); ?></a>
+                        <?php endif; ?>
+
+                    <?php else: ?>
+                        <p class="message"><?php echo Language::getText('no_videos'); ?></p>
+                    <?php endif; ?>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Categories -->
+
+</div>
+<!-- END Wrapper -->
+
+
+<?php $this->block('footer.phtml'); ?>
+
+
+<script src="//vjs.zencdn.net/5.9.2/video.js"></script>
+<script type="text/javascript" src="<?=$this->options->themeUrl?>/js/jquery.min.js"></script>
+<script type="text/javascript" src="<?=$this->options->themeUrl?>/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<?=$this->options->themeUrl?>/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?=$this->options->themeUrl?>/js/playlist-carousel.js"></script>
+<script type="text/javascript" src="<?=$this->options->themeUrl?>/js/cumulusclips.js"></script>
+<script type="text/javascript" src="<?=$this->options->themeUrl?>/js/general.js"></script>
+<?php $this->writeJs(); ?>
+
+</body>
+</html>

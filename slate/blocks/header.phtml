@@ -1,0 +1,134 @@
+
+<!-- BEGIN Header -->
+<header class="dark">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-xs-5 col-sm-4 col-md-3">
+                <div class="menu-trigger">
+                    <a href=""><i class="fa fa-bars"></i></a>
+                </div>
+                <a class="logo" href="<?php echo BASE_URL; ?>" alt="CumulusClips - Free Video Sharing CMS, Video Sharing Script, YouTube Clone Script">CumulusClips - Free Video Sharing CMS, Video Sharing Script, YouTube Clone Script</a>
+            </div>
+
+            <div class="sub-nav col-xs-7 col-sm-8 col-md-offset-3 col-md-6">
+                <div class="text-right">
+
+                    <div class="search-form">
+                        <form action="<?php echo BASE_URL; ?>/search/">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                            <div class="form-group">
+                                <input class="search-input" type="text" value="" name="keyword" placeholder="<?php echo Language::getText('search'); ?>" />
+                            </div>
+                            <div id="search-ac-container" class="autocomplete-container"></div>
+                        </form>
+                    </div>
+
+                    <div class="hidden-xs">
+
+                        <?php $activeLanguages = Language::getActiveLanguages(); ?>
+                        <?php if (count($activeLanguages) > 1): ?>
+
+                            <div class="language-menu dropdown">
+                                <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                                    <?php echo Language::getLanguage(true); ?>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <?php foreach ($activeLanguages as $systemName => $language): ?>
+                                        <li><a href="<?php echo BASE_URL; ?>/language/set/<?php echo $systemName; ?>/"><?php echo $language->native_name; ?></a></li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
+
+                        <?php endif; ?>
+
+                        <?php if ($loggedInUser): ?>
+
+                            <a href="<?php echo BASE_URL; ?>/logout/" title="<?php echo Language::getText('logout')?>"><?=Language::getText('logout')?></a>
+                            <a href="<?php echo BASE_URL; ?>/account/" title="<?=Language::getText('account')?>"><?=Language::getText('account')?></a>
+
+                            <?php if ($this->getService('User')->checkPermissions('admin_panel', $loggedInUser)): ?>
+                                <a href="<?php echo BASE_URL; ?>/cc-admin/" title="<?=Language::getText('admin_panel')?>"><?=Language::getText('admin_panel')?></a>
+                            <?php endif ?>
+
+                        <?php else: ?>
+                            <a href="<?php echo BASE_URL; ?>/login/" alt="<?php echo Language::getText('login'); ?>"><?php echo Language::getText('login'); ?></a>
+                            <?php if ($config->enableRegistrations): ?>
+                                <a href="<?php echo BASE_URL; ?>/register/" alt="<?php echo Language::getText('register'); ?>"><?php echo Language::getText('register'); ?></a>
+                            <?php endif; ?>
+                        <?php endif; ?>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</header>
+<!-- END Header -->
+
+
+
+<!-- BEGIN Slide Menu -->
+<div id="menu" class="container-fluid">
+    <div class="row">
+        <div class="col col-xs-7 col-sm-5 col-md-4 col-lg-3 dark">
+            <div class="menu-container">
+
+                <div class="header text-right">
+                    <a href="" class="menu-trigger"><i class="fa fa-close"></i> <?php echo Language::getText('close'); ?></a>
+                </div>
+
+                <div class="body">
+
+                    <?php if ($loggedInUser): ?>
+
+                        <?php if ($this->getService('User')->checkPermissions('admin_panel', $loggedInUser)): ?>
+                            <li><a href="<?php echo BASE_URL; ?>/cc-admin/" title="<?=Language::getText('admin_panel')?>"><?=Language::getText('admin_panel')?></a></li>
+                        <?php endif ?>
+
+                        <li><a href="<?php echo BASE_URL; ?>/account/" title="<?=Language::getText('account')?>"><?=Language::getText('account')?></a></li>
+                        <li><a href="<?php echo BASE_URL; ?>/logout/" title="<?php echo Language::getText('logout')?>"><?=Language::getText('logout')?></a></li>
+
+                    <?php else: ?>
+                        <li><a href="<?php echo BASE_URL; ?>/login/" alt="<?php echo Language::getText('login'); ?>"><?php echo Language::getText('login'); ?></a></li>
+                        <?php if ($config->enableRegistrations): ?>
+                            <li><a href="<?php echo BASE_URL; ?>/register/" alt="<?php echo Language::getText('register'); ?>"><?php echo Language::getText('register'); ?></a></li>
+                        <?php endif; ?>
+                    <?php endif; ?>
+
+                    <?php if (count($activeLanguages) > 1): ?>
+
+                        <li class="language-menu dropdown">
+                            <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                                <?php echo Language::getLanguage(true); ?>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <?php foreach ($activeLanguages as $systemName => $language): ?>
+                                    <li><a href="<?php echo BASE_URL; ?>/language/set/<?php echo $systemName; ?>/"><?php echo $language->native_name; ?></a></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </li>
+
+                    <?php endif; ?>
+
+                    <div class="divider"></div>
+
+                    <ul>
+                        <li><a title="<?php echo Language::getText('contact'); ?>" href="<?php echo BASE_URL; ?>/contact/"><?php echo Language::getText('contact'); ?></a></li>
+                        <li><a title="<?php echo Language::getText('nav_link_1'); ?>" href=""><?php echo Language::getText('nav_link_1'); ?></a></li>
+                        <li><a title="<?php echo Language::getText('nav_link_2'); ?>" href=""><?php echo Language::getText('nav_link_2'); ?></a></li>
+                        <li><a title="<?php echo Language::getText('nav_link_3'); ?>" href=""><?php echo Language::getText('nav_link_3'); ?></a></li>
+                        <li><a title="<?php echo Language::getText('nav_link_4'); ?>" href=""><?php echo Language::getText('nav_link_4'); ?></a></li>
+                    </ul>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Slide Menu -->

@@ -1,0 +1,80 @@
+<?php
+$message_type = isset($message_type) ? $message_type : null;
+$messageClass = $message_type ? '' : 'hidden';
+$this->addJs('fileupload.jquery-ui.widget.js');
+$this->addJs('fileupload.iframe-transport.js');
+$this->addJs('fileupload.plugin.js');
+$this->addJs('fileupload.js');
+$this->SetLayout('account');
+?>
+
+<!--[if IE 9 ]> <meta name="ie9" content="true" /> <![endif]-->
+
+<div class="alert <?=$messageClass?> <?=convertAlertToBootstrap($message_type)?>"><?=$message?></div>
+
+<div class="light">
+
+    <h1><?=Language::GetText('profile_header')?></h1>
+
+    <p><?=Language::GetText('asterisk')?></p>
+
+    <form action="<?=HOST?>/account/profile/" method="post">
+
+        <div class="form-group <?=(isset($Errors['first_name'])) ? 'has-error' : ''?>">
+            <label class="control-label"><?=Language::GetText('first_name')?>:</label>
+            <input class="form-control" type="text" name="first_name" value="<?=htmlspecialchars($loggedInUser->firstName)?>" />
+        </div>
+
+        <div class="form-group <?=(isset($Errors['last_name'])) ? 'has-error' : ''?>">
+            <label class="control-label"><?=Language::GetText('last_name')?>:</label>
+            <input class="form-control" type="text" name="last_name" value="<?=htmlspecialchars($loggedInUser->lastName)?>" />
+        </div>
+
+        <div class="form-group <?=(isset($Errors['email'])) ? 'has-error' : ''?>">
+            <label class="control-label">*<?=Language::GetText('email')?>:</label>
+            <input class="form-control" type="text" name="email" value="<?=htmlspecialchars($loggedInUser->email)?>" />
+        </div>
+
+        <input type="hidden" value="yes" name="submitted" />
+        <input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
+        <input class="btn btn-primary btn-block-mobile" type="submit" name="button" value="<?=Language::GetText('profile_button')?>" />
+    </form>
+</div>
+
+<div id="update_avatar" class="light">
+
+    <h1><?=Language::GetText('update_avatar_header')?></h1>
+
+    <div class="row">
+
+        <div class="col-xs-12 col-md-2">
+            <?php $avatar = $this->getService('User')->getAvatarUrl($loggedInUser); ?>
+            <p class="avatar"><span><img width="100" height="100" alt="<?=Language::GetText('current_avatar')?>" src="<?=($avatar) ? $avatar : $this->options->themeUrl . '/images/avatar.gif'?>"></span></p>
+            <?=Language::GetText('current_avatar')?><br />
+            <a class="confirm" data-node="confirm_reset_avatar" href="<?=HOST?>/account/profile/reset/"><?=Language::GetText('reset_avatar')?></a>
+        </div>
+
+        <div class="col-xs-12 col-md-10">
+            <?=Language::GetText('update_avatar_text')?>
+            <form name="upload" action="<?=HOST?>/account/profile/" method="post">
+
+                <input
+                    class="uploader"
+                    type="file"
+                    name="upload"
+                    data-url="<?php echo BASE_URL; ?>/ajax/upload/"
+                    data-text="<?php echo Language::getText('browse_files_button'); ?>"
+                    data-limit="<?php echo $config->videoSizeLimit; ?>"
+                    data-extensions="<?php echo urlencode(json_encode($config->acceptedImageFormats)); ?>"
+                    data-type="image"
+                    data-auto-submit="true"
+                />
+
+                <input type="hidden" name="submitted_avatar" value="true" />
+                <input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
+
+            </form>
+        </div>
+
+    </div>
+</div>

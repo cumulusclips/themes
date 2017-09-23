@@ -1,0 +1,214 @@
+
+/** Player & About **/
+
+#about .btn {
+    margin: 10px 10px 0 0;
+}
+
+.video-player-container {
+    margin: 30px 0;
+}
+
+#about .attachment {
+    margin-left: 10px;
+}
+
+
+
+/** Playlist Carousel **/
+
+.playlist {
+    margin-bottom: 30px;
+}
+
+.playlist h2 {
+    margin-top: 0;
+}
+
+.playlist .video {
+    float: none;
+    font-size: 14px;
+    margin: 0;
+}
+
+.playing-now {
+    display: inline-block;
+    position: absolute;
+    width: 200px;
+    height: 112px;
+    line-height: 112px;
+    background: rgba(0,0,0, 0.5);
+    color: #FFF;
+    text-align: center;
+}
+
+.playlist .direction {
+    font-size: 42px;
+    color: #BBB;
+}
+
+.playlist .direction:hover,
+.playlist .direction:active,
+.playlist .direction:focus {
+    font-weight: normal;
+    color: #555;
+}
+
+.playlist-carousel {
+    position: relative;
+}
+
+.playlist-carousel .window {
+    margin: 0 35px;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 0;
+}
+
+.playlist-carousel .slide {
+    width: 200px;
+    margin: 0 30px 0 0;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    white-space: normal;
+    left: 0;
+    transition: left 200ms ease-out, opacity 300ms;
+}
+
+.playlist-carousel .direction {
+    position: absolute;
+    top: 30px;
+}
+
+.playlist-carousel .direction[disabled] {
+    color: #BBB;
+    cursor: not-allowed;
+}
+
+.playlist-carousel .previous {
+    left: 0;
+}
+
+.playlist-carousel .next {
+    right: 0;
+}
+
+
+
+/** Comments **/
+
+#comments h2,
+#embed h2 {
+    margin: 0;
+}
+
+#comments .toggle-close,
+#embed .toggle-close {
+    margin-top: -5px;
+}
+
+#comments .no-comments {
+    margin-bottom: 0;
+}
+
+.comment-list .comment:first-child {
+    margin-top: 0;
+}
+
+.comment-list .comment {
+    margin-top: 25px;
+}
+
+.comment-text {
+    margin: 0 0 5px;
+}
+
+.comment-action,
+.comment .media-heading {
+    font-size: 12px;
+}
+
+.comment-action {
+    margin: 0;
+}
+
+.comment .media-heading span,
+.comment-action a {
+    margin-right: 10px;
+}
+
+.comment-indent {
+    margin-left: 60px;
+}
+
+.comment-indent-2 {
+    margin-left: 120px;
+}
+
+.comment-indent-3 {
+    margin-left: 180px;
+}
+
+#comments .load-more-btn {
+    margin-top: 25px;
+}
+
+#comments .comment-form-reply {
+    margin-top: 25px;
+}
+
+
+
+/** Categories **/
+
+#categories {
+    background: #FFF;
+}
+
+#categories .header {
+    margin: 30px 0;
+}
+
+#categories h2 {
+    margin: 0;
+}
+
+#categories .dropdown .btn-default {
+    min-width: 300px;
+    text-align: left;
+}
+
+#categories  .dropdown .caret {
+    float: right;
+    position: relative;
+    top: 9px;
+}
+
+#categories .dropdown-menu {
+    min-width: 300px;
+}
+
+#categories .load-more, #categories .message {
+    margin-bottom: 30px;
+}
+
+
+
+/** Search **/
+
+.search .video {
+    display: block;
+    width: auto;
+    margin: 0 0 30px;
+}
+
+.search .video .description,
+.search .video .small {
+    color: #555;
+    font-weight: normal;
+}
+
+.search .video-list .video:last-child {
+    margin-bottom: 0;
+}

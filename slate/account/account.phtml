@@ -1,0 +1,29 @@
+<?php $this->SetLayout ('account'); ?>
+
+
+<div class="light">
+
+    <h1><?php echo Language::getText('account_header'); ?> - <?php echo $loggedInUser->username; ?></h1>
+
+    <div class="row">
+
+        <div class="col-xs-4 col-sm-3">
+            <?php $avatar = $this->getService('User')->getAvatarUrl($loggedInUser); ?>
+            <div class="avatar"><img alt="<?php echo $loggedInUser->username; ?>" width="90" height="90" src="<?php echo ($avatar) ? $avatar : $this->options->themeUrl . '/images/avatar.gif'; ?>" /></div>
+            <a href="<?php echo BASE_URL; ?>/account/profile/#update_avatar"><?php echo Language::getText('edit_avatar'); ?></a>
+            <p><strong><?php echo Language::getText('joined'); ?>:</strong> <?php echo date('m/d/Y', strtotime($loggedInUser->dateCreated)); ?><br>
+            <strong><?php echo Language::getText('last_login'); ?>:</strong> <?php echo date('m/d/Y', strtotime($loggedInUser->lastLogin)); ?><br>
+            <strong><?php echo Language::getText('profile_views'); ?>:</strong> <?php echo $loggedInUser->views; ?></p>
+        </div>
+
+        <div class="col-xs-8 col-sm-9">
+            <p><span><?php echo Language::getText('first_name'); ?>:</span> <?php echo empty($loggedInUser->firstName) ? '-' : $loggedInUser->firstName; ?></p>
+            <p><span><?php echo Language::getText('last_name'); ?>:</span> <?php echo empty($loggedInUser->lastName) ? '-' : $loggedInUser->lastName; ?></p>
+            <p><span><?php echo Language::getText('email'); ?>:</span> <?php echo $loggedInUser->email; ?></p>
+            <p><span><?php echo Language::getText('website'); ?>:</span> <?php echo empty($loggedInUser->website) ? '-' : $loggedInUser->website; ?></p>
+            <p><span><?php echo Language::getText('about_me'); ?>:</span> <?php echo empty($loggedInUser->aboutMe) ? '-' : $loggedInUser->aboutMe; ?></p>
+            <p><a href="<?php echo BASE_URL; ?>/account/profile/" title="<?php echo Language::getText('update_profile'); ?>"><?php echo Language::getText('update_profile'); ?></a></p>
+        </div>
+
+    </div>
+</div>

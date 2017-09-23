@@ -1,0 +1,169 @@
+
+/* Extra Small devices (phones, up to 767px) */
+@media (max-width: 767px) {
+
+    header .container-fluid {
+        padding: 0 15px;
+    }
+
+    .container {
+        width: 100%;
+    }
+
+    .logo {
+        position: fixed;
+        left: 50%;
+        margin-left: -65px;
+        opacity: 1;
+        transition: opacity 0.075s;
+        z-index: 1;
+    }
+
+    header .menu-trigger {
+        z-index: 1;
+        position: relative;
+    }
+
+    .btn-block-mobile {
+        width: 100%;
+        display: block;
+        margin: 15px 0 0;
+    }
+
+
+    /** Footer **/
+
+    html, body, .wrapper {
+        height: auto;
+    }
+
+    .wrapper {
+        display: block;
+        padding-bottom: 0;
+    }
+
+    footer {
+        margin-top: 0;
+    }
+
+
+    /** Comments **/
+
+    .comment-indent,
+    .comment-indent-2,
+    .comment-indent-3 {
+        margin-left: 0;
+    }
+
+
+    /** Player Area **/
+
+    .video-player-container {
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    #about .btn {
+        margin-top: 15px;
+    }
+
+
+    /** Categories **/
+
+    #categories h2,
+    #categories .dropdown {
+        float: none !important;
+    }
+
+    #categories .dropdown ul {
+        min-width: 100%;
+    }
+
+    #categories .video {
+        margin: 0 0 30px;
+        float: none;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    #categories .video img {
+        float: left;
+    }
+
+    #categories .video .title {
+        float: left;
+        margin: 0 0 0 10px;
+        width: calc(100% - 210px);
+    }
+
+
+    /** Playlist Carousel **/
+
+    .playlist-carousel .slide {
+        width: 100%;
+        margin: 0 0 0 50%;
+    }
+
+    .playlist-carousel .video {
+        margin-left: -100px;
+    }
+
+
+    /** Search Form **/
+
+    .search-form .form-group {
+        right: 40px;
+        width: calc(100vw - 70px);
+    }
+
+    header.focus .form-group input {
+        width: calc(100vw - 70px);
+        right: 0;
+    }
+
+    header.focus .logo {
+        opacity: 0;
+    }
+}
+
+/* Small devices (small tablets, large phones, 768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+
+    header .container-fluid {
+        padding: 0 25px;
+    }
+
+    .container {
+        width: 790px;
+    }
+
+    .playlist-carousel .slide {
+        margin: 0 45px 0 0;
+    }
+
+    .video {
+        margin: 0 0 30px 80px;
+    }
+
+    #categories .video:nth-child(3n+1) {
+        margin-left: 0;
+    }
+}
+
+
+/* Medium devices (large tablets, small desktops 992px+) */
+@media (min-width: 992px) {
+
+    header .container-fluid {
+        padding: 0 65px;
+    }
+
+    .container {
+        width: 990px;
+    }
+
+    #categories .video:nth-child(4n+1) {
+        margin-left: 0;
+    }
+}

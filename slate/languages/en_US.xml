@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language>
+
+    <information>
+        <lang_name>English</lang_name>
+        <native_name>English</native_name>
+        <locale>en_US</locale>
+    </information>
+
+    <terms>
+        <playing_now>Playing Now</playing_now>
+        <nav_link_1>Blog</nav_link_1>
+        <nav_link_2>About</nav_link_2>
+        <nav_link_3>Privacy</nav_link_3>
+        <nav_link_4>Terms</nav_link_4>
+        <copyright><![CDATA[&copy; {YEAR} CumulusClips]]></copyright>
+    </terms>
+</language>

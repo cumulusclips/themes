@@ -1,0 +1,27 @@
+<?php
+
+// Handle AJAX category list request
+if (!empty($_GET['category_id']) && is_numeric($_GET['category_id'])) {
+
+    if (!empty($_GET['offset']) && is_numeric($_GET['offset']) && $_GET['offset'] > 0) {
+        $offset = $_GET['offset'];
+    } else {
+        $offset = 0;
+    }
+
+    // Retrieve videos from category
+    $videoList = getBatchFromCategory($_GET['category_id'], $offset);
+
+    // Send response
+    $response = new ApiResponse();
+    $response->data = $videoList;
+    $response->other = (object) array('total' => getCategoryTotal($_GET['category_id']));
+    $response->statusCode = ApiResponse::HTTP_SUCCESS;
+    ApiResponse::sendResponse($response);
+
+} else {
+
+    // Disabled by theme
+    $this->options->viewFile = null;
+    App::throw404();
+}

@@ -1,0 +1,25 @@
+<?php
+
+$videoMapper = new VideoMapper();
+$commentMapper = new CommentMapper();
+$commentService = new CommentService();
+$this->setLayout('player');
+$this->addBodyClass('watch');
+
+// Retrieve Recent Videos
+$videoList = $this->vars->videoList = getRecentVideos();
+$activeVideo = $this->vars->activeVideo = (isset($videoList[0])) ? $videoList[0] : false;
+
+// Retrieve comments
+$commentCount = $this->vars->commentCount = ($activeVideo)
+    ? $commentMapper->getVideoCommentCount($activeVideo->videoId)
+    : 0;
+$commentCardList = $this->vars->commentCardList = ($activeVideo)
+    ? $commentService->getVideoComments($activeVideo, 5)
+    : array();
+
+// Increase view count for active video
+if ($activeVideo) {
+    $activeVideo->views++;
+    $videoMapper->save($activeVideo);
+}
