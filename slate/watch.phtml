@@ -2,8 +2,6 @@
 
 $categoryMapper = new CategoryMapper();
 $videoMapper = new VideoMapper();
-$commentMapper = new CommentMapper();
-$commentService = new CommentService();
 $this->setLayout('player');
 $this->addMeta('videoId', $this->vars->video->videoId);
 $this->addMeta('theme', $this->options->themeUrl);
@@ -37,11 +35,3 @@ if (isset($_GET['category']) && preg_match('/[a-z0-9\-]+/i', $_GET['category']))
     // Retrieve Recent Videos
     $videoList = $this->vars->videoList = getRecentVideos();
 }
-
-// Retrieve comments
-$commentCount = $this->vars->commentCount = ($activeVideo)
-    ? $commentMapper->getVideoCommentCount($activeVideo->videoId)
-    : 0;
-$commentCardList = $this->vars->commentCardList = ($activeVideo)
-    ? $commentService->getVideoComments($activeVideo, 5)
-    : array();

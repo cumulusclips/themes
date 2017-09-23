@@ -453,8 +453,11 @@ $(function(){
     // Watch Video Page
     if ($('.watch').length > 0) {
 
-        // Inir Scrollbar widget
-        $('.scrollbar-outer').scrollbar();
+        // Init Scrollbar widget
+        $scrollbarContainer = $('.scrollbar-outer');
+        if (!!$scrollbarContainer.length) {
+            $scrollbarContainer.scrollbar();
+        }
 
 
         // Scroll playlist to active video if viewing a playlist on watch page

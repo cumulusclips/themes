@@ -1,20 +1,20 @@
 <?php $this->SetLayout ('account'); ?>
 
 <?php if ($message): ?>
-    <div class="alert <?=convertAlertToBootstrap($message_type)?>"><?=$message?></div>
+    <div class="alert <?php echo convertAlertToBootstrap($message_type); ?>"><?php echo $message; ?></div>
 <?php endif; ?>
 
 <div class="light">
 
-    <h1><?=Language::GetText('privacy_settings_header')?></h1>
+    <h1><?php echo Language::GetText('privacy_settings_header'); ?></h1>
 
-    <form action="<?=HOST?>/account/privacy-settings/" method="post">
+    <form action="<?php echo BASE_URL; ?>/account/privacy-settings/" method="post">
 
         <div class="form-group">
-            <label><?=Language::GetText('alert_comment_reply')?>:</label>
+            <label><?php echo Language::GetText('alert_comment_reply'); ?>:</label>
             <select class="form-control" name="commentReply">
-                <option value="1"<?=($privacy->commentReply) ? ' selected="selected"' : ''?>><?=Language::GetText('yes')?></option>
-                <option value="0"<?=(!$privacy->commentReply) ? ' selected="selected"' : ''?>><?=Language::GetText('no')?></option>
+                <option value="1"<?php echo ($privacy->commentReply) ? ' selected="selected"' : ''; ?>><?php echo Language::GetText('yes'); ?></option>
+                <option value="0"<?php echo (!$privacy->commentReply) ? ' selected="selected"' : ''; ?>><?php echo Language::GetText('no'); ?></option>
             </select>
         </div>
 
@@ -24,6 +24,6 @@
         <input type="hidden" name="new_message" value="<?php echo (int) $privacy->newMessage; ?>" />
         <input type="hidden" name="submitted" value="TRUE" />
         <input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
-        <input class="btn btn-primary btn-block-mobile" type="submit" name="button" value="<?=Language::GetText('privacy_settings_button')?>" />
+        <input class="btn btn-primary btn-block-mobile" type="submit" name="button" value="<?php echo Language::GetText('privacy_settings_button'); ?>" />
     </form>
 </div>

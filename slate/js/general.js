@@ -12,7 +12,7 @@ $(document).ready(function(){
     });
 
 
-    // Play Video Page
+    // Player layout
     if ($('#video-player').length) {
 
         // Go to next video in playlist carousel when video is done playing
@@ -25,8 +25,7 @@ $(document).ready(function(){
                 }, cumulusClips.goToNextVideoDelay);
             }
         });
-
-    }   // END Play Video page
+    }
 
 
     /**

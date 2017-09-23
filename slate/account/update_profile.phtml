@@ -10,53 +10,53 @@ $this->SetLayout('account');
 
 <!--[if IE 9 ]> <meta name="ie9" content="true" /> <![endif]-->
 
-<div class="alert <?=$messageClass?> <?=convertAlertToBootstrap($message_type)?>"><?=$message?></div>
+<div class="alert <?php echo $messageClass; ?> <?php echo convertAlertToBootstrap($message_type); ?>"><?php echo $message; ?></div>
 
 <div class="light">
 
-    <h1><?=Language::GetText('profile_header')?></h1>
+    <h1><?php echo Language::GetText('profile_header'); ?></h1>
 
-    <p><?=Language::GetText('asterisk')?></p>
+    <p><?php echo Language::GetText('asterisk'); ?></p>
 
-    <form action="<?=HOST?>/account/profile/" method="post">
+    <form action="<?php echo BASE_URL; ?>/account/profile/" method="post">
 
-        <div class="form-group <?=(isset($Errors['first_name'])) ? 'has-error' : ''?>">
-            <label class="control-label"><?=Language::GetText('first_name')?>:</label>
-            <input class="form-control" type="text" name="first_name" value="<?=htmlspecialchars($loggedInUser->firstName)?>" />
+        <div class="form-group <?php echo (isset($Errors['first_name'])) ? 'has-error' : ''; ?>">
+            <label class="control-label"><?php echo Language::GetText('first_name'); ?>:</label>
+            <input class="form-control" type="text" name="first_name" value="<?php echo htmlspecialchars($loggedInUser->firstName); ?>" />
         </div>
 
-        <div class="form-group <?=(isset($Errors['last_name'])) ? 'has-error' : ''?>">
-            <label class="control-label"><?=Language::GetText('last_name')?>:</label>
-            <input class="form-control" type="text" name="last_name" value="<?=htmlspecialchars($loggedInUser->lastName)?>" />
+        <div class="form-group <?php echo (isset($Errors['last_name'])) ? 'has-error' : ''; ?>">
+            <label class="control-label"><?php echo Language::GetText('last_name'); ?>:</label>
+            <input class="form-control" type="text" name="last_name" value="<?php echo htmlspecialchars($loggedInUser->lastName); ?>" />
         </div>
 
-        <div class="form-group <?=(isset($Errors['email'])) ? 'has-error' : ''?>">
-            <label class="control-label">*<?=Language::GetText('email')?>:</label>
-            <input class="form-control" type="text" name="email" value="<?=htmlspecialchars($loggedInUser->email)?>" />
+        <div class="form-group <?php echo (isset($Errors['email'])) ? 'has-error' : ''; ?>">
+            <label class="control-label">*<?php echo Language::GetText('email'); ?>:</label>
+            <input class="form-control" type="text" name="email" value="<?php echo htmlspecialchars($loggedInUser->email); ?>" />
         </div>
 
         <input type="hidden" value="yes" name="submitted" />
         <input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
-        <input class="btn btn-primary btn-block-mobile" type="submit" name="button" value="<?=Language::GetText('profile_button')?>" />
+        <input class="btn btn-primary btn-block-mobile" type="submit" name="button" value="<?php echo Language::GetText('profile_button'); ?>" />
     </form>
 </div>
 
 <div id="update_avatar" class="light">
 
-    <h1><?=Language::GetText('update_avatar_header')?></h1>
+    <h1><?php echo Language::GetText('update_avatar_header'); ?></h1>
 
     <div class="row">
 
         <div class="col-xs-12 col-md-2">
             <?php $avatar = $this->getService('User')->getAvatarUrl($loggedInUser); ?>
-            <p class="avatar"><span><img width="100" height="100" alt="<?=Language::GetText('current_avatar')?>" src="<?=($avatar) ? $avatar : $this->options->themeUrl . '/images/avatar.gif'?>"></span></p>
-            <?=Language::GetText('current_avatar')?><br />
-            <a class="confirm" data-node="confirm_reset_avatar" href="<?=HOST?>/account/profile/reset/"><?=Language::GetText('reset_avatar')?></a>
+            <p class="avatar"><span><img width="100" height="100" alt="<?php echo Language::GetText('current_avatar'); ?>" src="<?php echo ($avatar) ? $avatar : $this->options->themeUrl . '/images/avatar.gif'; ?>"></span></p>
+            <?php echo Language::GetText('current_avatar'); ?><br />
+            <a class="confirm" data-node="confirm_reset_avatar" href="<?php echo BASE_URL; ?>/account/profile/reset/"><?php echo Language::GetText('reset_avatar'); ?></a>
         </div>
 
         <div class="col-xs-12 col-md-10">
-            <?=Language::GetText('update_avatar_text')?>
-            <form name="upload" action="<?=HOST?>/account/profile/" method="post">
+            <?php echo Language::GetText('update_avatar_text'); ?>
+            <form name="upload" action="<?php echo BASE_URL; ?>/account/profile/" method="post">
 
                 <input
                     class="uploader"

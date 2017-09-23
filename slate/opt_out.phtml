@@ -4,8 +4,8 @@
     <div class="col-md-7 col-center">
 
         <div class="light">
-            <h1><?=Language::GetText('opt_out_header')?></h1>
-            <p><?=Language::GetText('opt_out_text', array ('link' => HOST . '/account/privacy-settings/'))?></p>
+            <h1><?php echo Language::GetText('opt_out_header'); ?></h1>
+            <p><?php echo Language::GetText('opt_out_text', array ('link' => BASE_URL . '/account/privacy-settings/')); ?></p>
         </div>
 
     </div>

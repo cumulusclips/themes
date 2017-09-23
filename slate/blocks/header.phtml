@@ -45,11 +45,11 @@
 
                         <?php if ($loggedInUser): ?>
 
-                            <a href="<?php echo BASE_URL; ?>/logout/" title="<?php echo Language::getText('logout')?>"><?=Language::getText('logout')?></a>
-                            <a href="<?php echo BASE_URL; ?>/account/" title="<?=Language::getText('account')?>"><?=Language::getText('account')?></a>
+                            <a href="<?php echo BASE_URL; ?>/logout/" title="<?php echo Language::getText('logout')?>"><?php echo Language::getText('logout'); ?></a>
+                            <a href="<?php echo BASE_URL; ?>/account/" title="<?php echo Language::getText('account'); ?>"><?php echo Language::getText('account'); ?></a>
 
                             <?php if ($this->getService('User')->checkPermissions('admin_panel', $loggedInUser)): ?>
-                                <a href="<?php echo BASE_URL; ?>/cc-admin/" title="<?=Language::getText('admin_panel')?>"><?=Language::getText('admin_panel')?></a>
+                                <a href="<?php echo BASE_URL; ?>/cc-admin/" title="<?php echo Language::getText('admin_panel'); ?>"><?php echo Language::getText('admin_panel'); ?></a>
                             <?php endif ?>
 
                         <?php else: ?>
@@ -86,11 +86,11 @@
                     <?php if ($loggedInUser): ?>
 
                         <?php if ($this->getService('User')->checkPermissions('admin_panel', $loggedInUser)): ?>
-                            <li><a href="<?php echo BASE_URL; ?>/cc-admin/" title="<?=Language::getText('admin_panel')?>"><?=Language::getText('admin_panel')?></a></li>
+                            <li><a href="<?php echo BASE_URL; ?>/cc-admin/" title="<?php echo Language::getText('admin_panel'); ?>"><?php echo Language::getText('admin_panel'); ?></a></li>
                         <?php endif ?>
 
-                        <li><a href="<?php echo BASE_URL; ?>/account/" title="<?=Language::getText('account')?>"><?=Language::getText('account')?></a></li>
-                        <li><a href="<?php echo BASE_URL; ?>/logout/" title="<?php echo Language::getText('logout')?>"><?=Language::getText('logout')?></a></li>
+                        <li><a href="<?php echo BASE_URL; ?>/account/" title="<?php echo Language::getText('account'); ?>"><?php echo Language::getText('account'); ?></a></li>
+                        <li><a href="<?php echo BASE_URL; ?>/logout/" title="<?php echo Language::getText('logout')?>"><?php echo Language::getText('logout'); ?></a></li>
 
                     <?php else: ?>
                         <li><a href="<?php echo BASE_URL; ?>/login/" alt="<?php echo Language::getText('login'); ?>"><?php echo Language::getText('login'); ?></a></li>
