@@ -61,7 +61,11 @@
     .video-player-container {
         width: 100%;
         height: auto;
-        margin-bottom: 20px;
+    }
+
+    .player-gated-container {
+        width: 100%;
+        height: calc(56vw);
     }
 
     #about .btn {
@@ -136,6 +140,11 @@
 
     .container {
         width: 790px;
+    }
+
+    .player-gated-container {
+        width: 760px;
+        height: 426px;
     }
 
     .playlist-carousel .slide {

@@ -9,7 +9,7 @@
 
         <div class="col-xs-4 col-sm-3">
             <?php $avatar = $this->getService('User')->getAvatarUrl($loggedInUser); ?>
-            <div class="avatar"><img alt="<?php echo $loggedInUser->username; ?>" width="90" height="90" src="<?php echo ($avatar) ? $avatar : $this->options->themeUrl . '/images/avatar.gif'; ?>" /></div>
+            <div class="avatar"><img alt="<?php echo $loggedInUser->username; ?>" width="90" height="90" src="<?php echo ($avatar) ? $avatar : $this->options->themeUrl . '/images/avatar.png'; ?>" /></div>
             <a href="<?php echo BASE_URL; ?>/account/profile/#update_avatar"><?php echo Language::getText('edit_avatar'); ?></a>
             <p><strong><?php echo Language::getText('joined'); ?>:</strong> <?php echo date('m/d/Y', strtotime($loggedInUser->dateCreated)); ?><br>
             <strong><?php echo Language::getText('last_login'); ?>:</strong> <?php echo date('m/d/Y', strtotime($loggedInUser->lastLogin)); ?><br>
