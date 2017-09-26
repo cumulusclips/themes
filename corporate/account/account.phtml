@@ -6,7 +6,7 @@
 
     <div class="col-xs-4 col-sm-3">
         <?php $avatar = $this->getService('User')->getAvatarUrl($loggedInUser); ?>
-        <div class="avatar"><img alt="<?=$loggedInUser->username?>" src="<?=($avatar) ? $avatar : $this->options->themeUrl . '/images/avatar.gif'?>" /></div>
+        <div class="avatar"><img alt="<?=$loggedInUser->username?>" src="<?=($avatar) ? $avatar : $this->options->themeUrl . '/images/avatar.png'?>" /></div>
         <a href="<?=HOST?>/account/profile/#update_avatar"><?=Language::GetText('edit_avatar')?></a>
         <p><strong><?=Language::GetText('joined')?>:</strong> <?=date('m/d/Y', strtotime($loggedInUser->dateCreated))?><br>
         <strong><?=Language::GetText('last_login')?>:</strong> <?=date('m/d/Y', strtotime($loggedInUser->lastLogin))?><br>

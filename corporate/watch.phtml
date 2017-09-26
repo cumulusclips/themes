@@ -158,7 +158,7 @@ $this->setLayout('full');
                         <div class="col-xs-12 col-sm-10 media">
                             <div class="media-left">
                                 <?php $avatar = $this->getService('User')->getAvatarUrl($member); ?>
-                                <img class="media-object" width="65" height="65" src="<?=($avatar) ? $avatar : $this->options->themeUrl . '/images/avatar.gif'?>" alt="<?=$member->username?>" />
+                                <img class="media-object" width="65" height="65" src="<?=($avatar) ? $avatar : $this->options->themeUrl . '/images/avatar.png'?>" alt="<?=$member->username?>" />
                             </div>
                             <div class="media-body">
                                 <p><strong><?=Language::getText('by')?>:</strong> <a href="<?=BASE_URL?>/members/<?=$member->username?>/" title="<?=$member->username?>"><?=$member->username?></a></p>
@@ -398,7 +398,7 @@ $this->setLayout('full');
 
                                 <div class="media comment <?=$commentIndentClass?>" data-comment="<?=$commentCard->comment->commentId?>">
                                     <div class="media-left">
-                                        <img class="media-object" width="60" height="60" src="<?=($commentCard->avatar) ? $commentCard->avatar : $this->options->themeUrl . '/images/avatar.gif'?>" />
+                                        <img class="media-object" width="60" height="60" src="<?=($commentCard->avatar) ? $commentCard->avatar : $this->options->themeUrl . '/images/avatar.png'?>" />
                                     </div>
                                     <div class="media-body row">
 

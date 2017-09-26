@@ -11,7 +11,7 @@ $this->setLayout('full');
 <div class="media">
     <div class="media-left">
         <?php $avatar = $this->getService('User')->getAvatarUrl($member); ?>
-        <img class="media-object" src="<?=($avatar) ? $avatar : $this->options->themeUrl . '/images/avatar.gif'?>" alt="<?=$member->username?>" />
+        <img class="media-object" src="<?=($avatar) ? $avatar : $this->options->themeUrl . '/images/avatar.png'?>" alt="<?=$member->username?>" />
         <a class="btn btn-primary btn-sm subscribe" data-user="<?=$member->userId?>" data-type="<?=$subscribe_text?>" href=""><?=Language::GetText($subscribe_text)?></a>
     </div>
     <div class="media-body">
