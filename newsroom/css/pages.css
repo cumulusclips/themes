@@ -1,6 +1,31 @@
 
 /** Player Area **/
 
+.video-player-container,
+.player-gated-container {
+    width: 800px;
+    height: 450px;
+}
+
+.player-gated-container {
+    position: relative;
+}
+
+.player-gated-container img {
+    width: 100%;
+    height: 100%;
+}
+
+.player-gated {
+    position: absolute;
+    top: 37%;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    text-align: center;
+    padding: 25px;
+}
+
 .no-videos h1 {
     margin: 120px 0;
 }

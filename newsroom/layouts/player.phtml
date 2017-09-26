@@ -42,21 +42,44 @@
                 </div>
             <?php endif; ?>
 
+
             <?php if ($activeVideo): ?>
 
                 <div class="col-xs-12 col-lg-8">
 
-                    <div class="video-player-container">
-                        <video
-                            id="video-player"
-                            class="video-js vjs-16-9"
-                            width="800"
-                            height="450"
-                            data-setup='{"preload": true, "controls": true, "autoplay": true}'
-                            src="<?php echo $config->h264Url; ?>/<?php echo $activeVideo->filename; ?>.mp4"
-                        >
-                         </video>
-                    </div>
+                    <?php if ($activeVideo->gated && !$loggedInUser): ?>
+
+                        <!-- BEGIN Gated Video -->
+                        <div class="player-gated-container">
+                            <img src="<?php echo $config->thumbUrl; ?>/<?php echo $activeVideo->filename; ?>.jpg" />
+                            <div class="player-gated">
+                                <p><?php echo Language::getText('gated_video'); ?></p>
+                                <a href="<?php echo BASE_URL; ?>/login/?redirect=<?php echo urlencode($this->getService('Video')->getUrl($activeVideo)); ?>" class="btn btn-primary"><?php echo Language::getText('login'); ?></a>
+                                <?php if ($config->enableRegistrations): ?>
+                                    <a href="<?php echo BASE_URL; ?>/register/" class="btn btn-primary"><?php echo Language::getText('register'); ?></a>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <!-- END Gated Video -->
+
+                    <?php else: ?>
+
+                        <!-- BEGIN Video Player -->
+                        <div class="video-player-container">
+                            <video
+                                id="video-player"
+                                class="video-js vjs-16-9"
+                                width="800"
+                                height="450"
+                                data-setup='{"preload": true, "controls": true, "autoplay": true}'
+                                src="<?php echo $config->h264Url; ?>/<?php echo $activeVideo->filename; ?>.mp4"
+                            >
+                             </video>
+                        </div>
+                        <!-- END Video Player -->
+
+                    <?php endif; ?>
+
                 </div>
 
                 <div class="col-xs-12 col-lg-4 video-info no-transition collapse in" id="about">
@@ -85,20 +108,24 @@
 
                     <p class="video-actions">
                         <a href="#comments" data-toggle="blocks"><i class="fa fa-comment"></i><?php echo Language::getText('comments'); ?></a>
-                        <a href="#embed" data-toggle="blocks"><i class="fa fa-code"></i><?php echo Language::getText('embed'); ?></a>
+                        <?php if (!$activeVideo->disableEmbed): ?>
+                            <a href="#embed" data-toggle="blocks"><i class="fa fa-code"></i><?php echo Language::getText('embed'); ?></a>
+                        <?php endif; ?>
                         <a href=""><i class="fa fa-facebook"></i></a>
                         <a href=""><i class="fa fa-twitter"></i></a>
                     </p>
                 </div>
 
-                <div class="col-xs-12 col-lg-4 video-info no-transition collapse" id="embed">
-                    <div class="header clearfix">
-                        <h1><?php echo Language::getText('embed'); ?></h1>
-                        <a href="#about" data-toggle="blocks"><i class="fa fa-close"></i></a>
+                <?php if (!$activeVideo->disableEmbed): ?>
+                    <div class="col-xs-12 col-lg-4 video-info no-transition collapse" id="embed">
+                        <div class="header clearfix">
+                            <h1><?php echo Language::getText('embed'); ?></h1>
+                            <a href="#about" data-toggle="blocks"><i class="fa fa-close"></i></a>
+                        </div>
+                        <p><?php echo Language::getText('embed_text'); ?></p>
+                        <textarea readonly class="form-control">&lt;iframe src="<?php echo BASE_URL; ?>/embed/<?php echo $activeVideo->videoId; ?>/" width="480" height="360" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</textarea>
                     </div>
-                    <p><?php echo Language::getText('embed_text'); ?></p>
-                    <textarea readonly class="form-control">&lt;iframe src="<?php echo BASE_URL; ?>/embed/<?php echo $activeVideo->videoId; ?>/" width="480" height="360" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</textarea>
-                </div>
+                <?php endif; ?>
 
 
                 <!-- BEGIN Comments Tab -->

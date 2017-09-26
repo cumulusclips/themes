@@ -68,6 +68,12 @@
         margin-bottom: 20px;
     }
 
+    .player-gated-container {
+        width: 100%;
+        height: calc(56vw);
+        margin-bottom: 20px;
+    }
+
 
     /** Playlist Carousel **/
 
@@ -211,12 +217,12 @@
 
     /** Video Player **/
 
-    .video-player-container {
+    .video-player-container,
+    .player-gated-container {
         width: 720px;
         height: 405px;
         margin-bottom: 20px;
     }
-
 }
 
 
@@ -226,11 +232,12 @@
     .container {
         width: 990px;
     }
-
+    
 
     /** Video Player **/
 
-    .video-player-container {
+    .video-player-container,
+    .player-gated-container {
         width: 960px;
         height: 540px;
         margin-bottom: 20px;
@@ -240,15 +247,4 @@
         max-height: none;
         overflow: auto;
     }
-}
-
-
-/* Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-
-    .video-player-container {
-        width: 800px;
-        height: 450px;
-    }
-
 }

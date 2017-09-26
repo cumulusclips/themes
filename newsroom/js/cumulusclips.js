@@ -1129,7 +1129,7 @@ cumulusClips.buildCommentCard = function(commentCardTemplate, commentCardData)
     if (commentCardData.avatar !== null) {
         commentCard.find('img').attr('src', commentCardData.avatar);
     } else {
-        commentCard.find('img').attr('src', cumulusClips.themeUrl + '/images/avatar.gif');
+        commentCard.find('img').attr('src', cumulusClips.themeUrl + '/images/avatar.png');
     }
 
     // Set comment author

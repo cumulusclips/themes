@@ -251,9 +251,12 @@ a:hover {
     border: none;
 }
 
+.dark .btn-primary:hover,
 .dark .btn-primary:focus {
-    background-color: #555;
+    background-color: #333;
+    text-decoration: none;
 }
+
 
 
 /** Videos **/
