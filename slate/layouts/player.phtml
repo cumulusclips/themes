@@ -160,7 +160,7 @@
                                 <?php if ($config->enableRegistrations): ?>
                                     <p class="comment-message"><?php echo Language::getText('comments_login_register', array('login_link' => BASE_URL . '/login/?redirect=' . urlencode($this->getService('Video')->getUrl($activeVideo)), 'register_link' => BASE_URL . '/register/')); ?></p>
                                 <?php else: ?>
-                                    <p class="comment-message"><?php echo Language::getText('comments_login', array('login_link' => BASE_URL . '/login/?redirect=' . urlencode($this->getService('Video')->getUrl($video)))); ?></p>
+                                    <p class="comment-message"><?php echo Language::getText('comments_login', array('login_link' => BASE_URL . '/login/?redirect=' . urlencode($this->getService('Video')->getUrl($activeVideo)))); ?></p>
                                 <?php endif; ?>
 
                             <?php endif; ?>
