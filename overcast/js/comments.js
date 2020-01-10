@@ -147,7 +147,7 @@ $('.comments-actionable').on("submit", "form", function (event) {
     cc.displayMessage(responseData.result, responseData.message, '.comment-form-head')
   }
 
-  cc.executeAjax(url, $(this).serialize(), callback)
+  $.post(url, $(this).serialize(), callback, 'json')
   event.preventDefault()
 })
 
