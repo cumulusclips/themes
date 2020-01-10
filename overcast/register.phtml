@@ -1,0 +1,47 @@
+<?php
+if ($message){
+    if ($message_type == 'errors'){
+        $message_type = 'alert-danger';
+    }
+
+    if ($message_type == 'success'){
+        $message_type = 'alert-success';
+    }
+}
+?>
+<div class="container register">
+    <div class="row py-2 justify-content-md-center">
+        <div class="col-md-5">
+            <h1 class="my-3"><?=Language::getText('register_header')?></h1>
+
+            <p class="registration-blurb bg-light"><?=Language::getText('register_text', array ('sitename' => $config->sitename))?></p>
+
+        <?php if ($message): ?>
+            <div class="alert <?=$message_type?>" role="alert"><?=$message?></div>
+        <?php endif; ?>
+            <form action="<?=HOST?>/register/" method="post">
+              <div class="form-group">
+                <label for="email"><?=Language::getText('email')?>:</label>
+                <input type="email" name="email" class="form-control <?=(isset ($errors['email'])) ? 'is-invalid' : ''?>" id="email" placeholder="<?=Language::getText('email')?>" value="<?=(isset($errors, $user->email)) ? $user->email : ''?>" required>
+              </div>
+              <div class="form-group">
+                <label for="username"><?=Language::getText('username')?>:</label>
+                <input type="text" name="username" class="form-control <?=(isset ($errors['username'])) ? 'is-invalid' : ''?>" id="username" placeholder="<?=Language::getText('username')?>" value="<?=(isset($errors, $user->username)) ? $user->username : ''?>" required>
+              </div>
+              <div class="form-group">
+              <label for="password"><?=Language::getText('password')?>:</label>
+              <input type="password" name="password" class="form-control <?=(isset ($errors['password']) || isset($errors['match'])) ? 'is-invalid' : ''?>" id="password" placeholder="<?=Language::getText('password')?>" value="<?=(isset($errors, $user->password)) ? $user->password : ''?>">
+              </div>
+              <div class="form-group">
+              <label for="confirm"><?=Language::getText('confirm_password')?>:</label>
+              <input type="password" name="confirm" class="form-control <?=(isset ($errors['password_confirm']) || isset($errors['match'])) ? 'is-invalid' : ''?>" id="confirm" placeholder="<?=Language::getText('confirm_password')?>" value="<?=(isset($errors, $user->password)) ? $user->password : ''?>">
+              </div>
+
+                <input type="hidden" name="submitted" value="TRUE" />
+                <input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
+
+                <button type="submit" class="btn btn-primary btn-block mt-5"><?=Language::getText('register_button')?></button>
+            </form>
+        </div>
+    </div>
+</div>

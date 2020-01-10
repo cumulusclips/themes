@@ -1,0 +1,19 @@
+<script id="video-card-template" type="text/x-jsrender">
+<div  class="card mb-4 shadow-sm">
+    <a class="card-thumb-link" href="{{:url}}">
+      <div class="video-card-img-container d-flex bg-dark justify-content-center mr-2">
+        <img class="video-card-thumb" alt="" src="{{:thumbUrl}}/{{:filename}}.jpg" />
+      </div>
+      <small class="duration bg-dark text-light px-1" aria-label="{{:durationInWords}}">{{:duration}}</small>
+    </a>
+    <div class="card-body">
+      <p class="card-title mb-0 h6">
+    <a href="{{:url}}/">{{:title}}</a>
+      </p>
+      <p class="video-author small">
+        By: <a href="{{:memberBaseUrl}}/{{:username}}">{{:username}}</a>
+      </p>
+      <p class="description">{{:truncatedDescription}}</p>
+    </div>
+  </div>
+</script>

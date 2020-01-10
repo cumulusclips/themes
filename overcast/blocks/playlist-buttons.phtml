@@ -1,0 +1,80 @@
+<div class="btn-group btn-group-sm float-left" role="group" aria-label="List of add-to-playlist buttons.">
+  <div class="btn-group btn-group-sm" role="group">
+    <?php
+    $playlistService = new PlaylistService();
+    $watchLater = ($loggedInUser) ? $playlistService->getUserSpecialPlaylist($loggedInUser, \PlaylistMapper::TYPE_WATCH_LATER) : false;
+    $watchLaterCount = sizeof($watchLater->entries);
+    $watchLaterListed = isInPlaylist($video, $watchLater);
+    ?>
+    <button data-playlist_id="<?= $watchLater->playlistId ?>" data-video_id="<?= $video->videoId ?>" data-action="<?= ($watchLaterListed) ? 'remove' : 'add'; ?>" class="btn btn-outline-secondary addToPlaylist watch-later" role="button" href="#"><i class="playlist-icon fa-bookmark text-success pl-1 pr-2<?= ($watchLaterListed) ? ' fas' : ' far'; ?>" alt="<?= ($watchLaterListed) ? ' Video is in playlist: ' : ' Video is not in playlist:'; ?>"></i></button>
+
+
+    <?php
+
+    $favorites = ($loggedInUser) ? $playlistService->getUserSpecialPlaylist($loggedInUser, \PlaylistMapper::TYPE_FAVORITES) : false;
+    $favoritesCount = sizeof($watchLater->entries);
+    $favoritesListed = isInPlaylist($video, $favorites);
+    ?>
+    <button data-playlist_id="<?= $favorites->playlistId ?>" data-video_id="<?= $video->videoId ?>" data-action="<?php echo $favoritesListed ? 'remove' : 'add'; ?>" class="btn btn-outline-secondary addToPlaylist favorites<?php echo $favoritesListed ? ' added' : '' ?>" role="button" href="#"><i class="playlist-icon fa-star text-warning<?= ($favoritesListed) ? ' fas' : ' far'; ?>" alt="<?= ($isListed) ? 'Video is in playlist.' : 'Video not in this playlist.'; ?>"></i></button>
+
+    <button id="playlists-dropdown-button" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Playlists
+    </button>
+    <div class="dropdown-menu playlist-buttons" aria-labelledby="playlists-dropdown-button">
+
+      <button type="button" class="dropdown-item btn btn-primary" data-toggle="modal" data-target="#newPlaylistModal"><?= Language::GetText('create_new_playlist') ?></button>
+
+      <?php
+      $playlistMapper = new PlaylistMapper();
+      $playlists = $playlistMapper->getUserPlaylists($loggedInUser->userId);
+      ?>
+
+      <?php foreach ($playlists as $playlistButton) : ?>
+        <?php if (!($playlistButton->type == 'watch_later') && !($playlistButton->type == 'favorites')) : ?>
+          <?php $isListed = isInPlaylist($video, $playlistButton); ?>
+          <a data-playlist_id="<?= $playlistButton->playlistId; ?>" data-video_id="<?= $video->videoId ?>" data-action="<?php echo $isListed ? 'remove' : 'add'; ?>" class="dropdown-item addToPlaylist customPlaylist<?php echo $isListed ? ' added' : '' ?>" role="button" href="#"><i class="playlist-icon pr-2<?= ($isListed) ? ' fas fa-check-square' : ' far fa-square'; ?>" alt="<?= ($isListed) ? 'Video is in playlist.' : 'Video not in this playlist.'; ?>"></i><?= $playlistButton->name ?></a>
+        <?php endif; ?>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</div>
+
+<!-- Modal/Dialog for Create Playlist Form -->
+<div class="modal fade" id="newPlaylistModal" tabindex="-1" role="dialog" aria-labelledby="newPlaylistModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newPlaylistTitle"><?= Language::GetText('create_new_playlist') ?></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="createNewPlaylist">
+        <div class="modal-body">
+          <div class="form-group playlist-name">
+            <label for="playlistName"><?= Language::GetText('playlist_name') ?>:</label>
+            <input type="text" class="form-control" name="playlist_name" id="playlistName" placeholder="<?= Language::GetText('playlist_name') ?>">
+          </div>
+          <div class="form-group visibility">
+            <span class="pr-2">
+              <?= Language::getText('visibility') ?>:
+            </span>
+            <div class="form-check form-check-inline">
+              <input type="radio" class="form-check-input" value="public" id="visibility-public" name="visibility" checked>
+              <label class="form-check-label pr-2" for="visibility-public"><?= Language::GetText('public') ?></label>
+              <input type="radio" class="form-check-input" value="private" id="visibility-private" name="visibility">
+              <label class="form-check-label" for="visibility-private"><?= Language::GetText('private') ?></label>
+
+            </div>
+            <input type="hidden" name="action" value="create" />
+            <input type="hidden" id="video_id" name="video_id" value="<?= $video->videoId ?>" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button class="btn btn-outline-primary" type="submit"><?= Language::GetText('create_playlist_button') ?></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

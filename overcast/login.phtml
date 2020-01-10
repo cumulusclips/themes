@@ -1,0 +1,91 @@
+
+<?php 
+if ( $message ){
+    $forgot_login_errors = false;
+    if ( $message_type == 'errors' ){
+        $message_type = 'alert-danger';
+        if( $forgot_submit ) { 
+            $forgot_login_errors = true; 
+        }
+    }
+
+    if ( $message_type == 'success' ){
+        $message_type = 'alert-success';
+    }
+}
+    
+?>
+<div class="container login">
+<div class="row py-2 justify-content-md-center">
+        <div class="col-md-5">
+            <h1 class="my-3"><?=Language::getText('login_header')?></h1>
+
+            <?php if ($message): ?>
+                <div class="alert <?=$message_type?>" role="alert"><?=$message?></div>
+            <?php endif; ?>
+
+    <form action="<?=HOST?>/login/" method="post">
+        <div class="form-group">
+            <label class="" for="username"><?=Language::getText('username')?>:</label>
+            <input type="text" class="form-control <?=($login_submit && !$username) ? 'is-invalid':''?>" id="username" name="username" value="<?=($login_submit && $username) ? $username : ''?>"  required>
+          </div>
+
+
+        <div class="form-group">
+        <label class="" for="password"><?=Language::getText('password')?>:</label>
+        <input type="password" name="password" id="password" class="form-control <?=($login_submit && !$password) ? 'is-invalid' : ''?>" value="" required />
+</div>
+
+        <input type="hidden" name="redirect" value="<?=urlencode($redirect)?>" />
+        <input type="hidden" name="submitted_login" value="TRUE" />
+        <input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
+        <button class="btn btn-primary my-2" type="submit"><?=Language::getText('login_button')?></button>
+
+    </form>
+    <?php if ($config->enableRegistrations): ?>
+        <p class="text-right"><a href="<?=HOST?>/register/"><?=Language::getText('no_account')?></a></p>
+    <?php endif; ?>
+    <p class="text-right"><a href="#login_forgot_form" data-toggle="modal"><?=Language::getText('forgot_your_login')?></a></p>
+
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="login_forgot_form" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="forgot_login_heading"><?=Language::getText('forgot_header')?></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="<?=HOST?>/login/" method="post">
+      <div class="modal-body">
+            <?php if ($forgot_login_errors): ?>
+                <div class="alert <?=$message_type?>" role="alert"><?=$message?></div>
+            <?php endif; ?>
+            <p><?=Language::getText('forgot_text')?></p>
+            <div class="form-row justify-content-start">
+                <div class="col-3 text-right">
+                <label for="email"><?=Language::getText('email')?>:</label>
+                </div>
+                <div class="col-6">
+                <input type="email" class="form-control <?=($forgot_login_errors) ? 'is-invalid' : ''?>" id="email" name="email" />
+                </div>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <input type="hidden" name="submitted_forgot" value="TRUE" />
+        <input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button class="btn btn-primary my-2" type="submit"><?=Language::getText('forgot_button')?></button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>

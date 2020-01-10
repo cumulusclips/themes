@@ -1,0 +1,50 @@
+<?php
+$columns = 3;
+$col_width = 12 / $columns;
+?>
+<div class="album py-5 bg-light">
+  <div class="container">
+
+    <div class="row pb-3">
+      <div class="col">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link" href="<?=BASE_URL?>/browse/"><?= Language::GetText('videos_header') ?></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="<?= BASE_URL ?>/members/"><?= Language::GetText('members') ?></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <?php if (count($userResults) > 0) : ?>
+      <?php $userService = $this->getService('User'); ?>
+      <?php $user_rows = array_chunk($userResults, $columns); ?>
+      <?php foreach ($user_rows as $members) : ?>
+        <div class="row pt-4">
+          <?php foreach ($members as $member) : ?>
+            <div class="col-md-<?= $col_width ?> member">
+              <div class="media border bg-white p-3">
+                <?php $avatar = $userService->getAvatarUrl($member); ?>
+                <?php if ($avatar) : ?>
+                  <img src="<?= $avatar; ?>" class="img-thumbnail" alt="">
+                <?php else : ?>
+                  <i class="fas fa-user fa-lg default-avatar pt-2" alt="" style="font-size: 64px;"></i>
+                <?php endif; ?>
+                <div class="media-body ml-2">
+                  <p class="mt-0 h5"><a href="<?= BASE_URL ?>/members/<?= $member->username ?>/"><?= $member->username ?></a></p>
+                  <p class="my-0"><?= Language::GetText('joined') ?>: <?= date('m/d/Y', strtotime($member->dateCreated)) ?></p>
+                  <p class="my-0"><?= Language::GetText('videos') ?>: <?= $userService->getVideoCount($member) ?></p>
+                </div>
+              </div>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      <?php endforeach; ?>
+    <?php else : ?>
+      <p class="alert alert-info p-4"><?= Language::GetText('no_members') ?></p>
+    <?php endif; ?>
+
+  </div>
+</div>

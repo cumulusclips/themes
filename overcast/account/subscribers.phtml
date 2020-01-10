@@ -1,0 +1,47 @@
+<?php
+$this->SetLayout ('account');
+$columns = 3;
+$col_width = 12 / $columns;
+?>
+<div class="album py-5 bg-light">
+  <div class="container">
+
+    <div class="row">
+      <div class="col">
+        <h2><?= Language::GetText('subscribers_header') ?></h2>
+        <?php (isset($message)) ? showAlertMessage($message, $message_type) : ''; ?>
+      </div>
+    </div>
+
+    <?php if (count($subscribers) > 0) : ?>
+      <?php $userService = $this->getService('User'); ?>
+      <?php $user_rows = array_chunk($subscribers, $columns); ?>
+      <?php foreach ($user_rows as $members) : ?>
+        <div class="row pt-4">
+          <?php foreach ($members as $member) : ?>
+            <div class="col-md-<?= $col_width ?> member">
+              <div class="media border bg-white p-3">
+                <?php $avatar = $userService->getAvatarUrl($member); ?>
+                <a class="text-dark" href="<?= HOST ?>/members/<?= $member->username ?>/">
+                <?php if ($avatar) : ?>
+                  <img src="<?= $avatar; ?>" class="img-thumbnail" alt="">
+                <?php else : ?>
+                  <i class="fas fa-user fa-lg default-avatar pt-2" alt="" style="font-size: 64px;"></i>
+                <?php endif; ?>
+                </a>
+                <div class="media-body ml-2">
+                  <p class="my-0 h5"><a href="<?= HOST ?>/members/<?= $member->username ?>/"><?= $member->username ?></a></p>
+                  <p class="my-0 text-sm text-muted"><?= Language::GetText('joined') ?>: <?= date('m/d/Y', strtotime($member->dateCreated)) ?></p>
+                  <p class="mt-0 text-sm text-muted"><?= Language::GetText('videos') ?>: <?= $userService->getVideoCount($member) ?></p>
+                </div>
+              </div>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      <?php endforeach; ?>
+    <?php else : ?>
+      <p class="alert alert-info p-4"><?= Language::GetText('no_subscribers') ?></p>
+    <?php endif; ?>
+
+  </div>
+</div>

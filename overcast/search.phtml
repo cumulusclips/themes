@@ -1,0 +1,40 @@
+<?php
+$columns = 3;
+$col_width = 12 / $columns ;
+?>
+<div class="album py-5 bg-light">
+  <div class="container">
+
+    <div class="row">
+      <div class="col">
+        <h2><?=Language::GetText('search_header')?></h2>
+        <p><?=Language::GetText('results_for')?>: '<em><?=$cleaned?></em>'</p>	
+      </div>
+    </div>
+
+    <?php if (!empty ($search_videos)): ?>
+    <?php $video_rows = array_chunk($search_videos, $columns); ?>
+
+    <?php foreach ($video_rows as $videos): ?>
+    <div class="row pt-4">
+      <?php foreach ($videos as $video): ?>
+      <div class="col-<?= $col_width ?> video">
+      <?php $this->repeatingBlock('video.phtml', array($video)); ?>
+      </div>
+      <?php endforeach; ?>
+    </div>
+    <?php endforeach; ?>
+
+    <div class="row">
+      <div class="col">
+        <?=$pagination->Paginate();?>
+      </div>
+    </div>
+    <?php else: ?>
+    <div class="row alert alert-info w-75">
+      <div class="col-md-6">
+        <p class="pt-3"><?=Language::GetText('no_results')?></p>
+      </div>
+    </div>
+    <?php endif; ?>
+</div>

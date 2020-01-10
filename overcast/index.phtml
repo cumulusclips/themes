@@ -1,0 +1,111 @@
+
+<main role="main">
+
+    <?php if($featured_videos): ?>
+<!-- BEGIN Carousel -->
+<div id="carouselDisplayIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselDisplayIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselDisplayIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselDisplayIndicators" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+<?php $featured = array_reverse($featured_videos);?>
+<?php $recently_featured = array_slice($featured, 0, 3);?>
+    <?php foreach ($recently_featured as $key => $featuredVideo): ?>
+    <div class="carousel-item<?= ($key==0) ? ' active' : '';?>">
+      <a class="video-url" href="<?=$this->getService('Video')->getUrl($featuredVideo)?>">
+        <img class="d-block w-100" src="<?=getVideoThumbUrl($featuredVideo);?>" alt="Click to view <?=$featuredVideo->title;?>">
+      </a>
+        <div class="carousel-caption d-none d-md-block w-100" style="left:0; right: 0; background-color: rgba(50,50, 50, 0.5);">
+      <a class="video-url text-white" href="<?=$this->getService('Video')->getUrl($featuredVideo)?>">
+        <h4><?=$featuredVideo->title;?></h4>
+        <p><?=mb_strimwidth($featuredVideo->description, 0, 200, '...');?></p>
+      </a>
+  </div>
+    </div>
+    <?php endforeach; ?>
+  </div>
+  <a class="carousel-control-prev" href="#carouselDisplayIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselDisplayIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+<!-- END Carousel -->
+
+    <?php else: ?>
+<!-- Begin Jumbotron for new install -->
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">Welcome to CumulusClips!</h1>
+      <p class="lead text-muted">This space displays a carousel of featured videos, but right now there aren't any uploaded videos marked as featured to display. Use the links below to get started!</p>
+      <p>
+        <a href="<?=BASE_URL?>/account/upload/video/" class="btn btn-primary my-2">Upload Some Videos!</a>
+        <a href="<?=BASE_URL?>/cc-admin/videos.php" class="btn btn-secondary my-2">Then feature them.</a>
+      </p>
+    </div>
+  </section>
+
+<!-- END Jumbotron for new install -->
+
+    <?php endif; ?>
+<div class="album bg-light">
+    <div class="container">
+
+      <div class="row">
+          <div class="col">
+            <h2>Featured Videos</h2>
+           </div>
+        </div>
+      <div class="row">
+<?php $more_features = array_slice($featured, 3, 3);?>
+        <?php foreach ($more_features as $featuredVideo): ?>
+
+        <div class="col-md-4">
+             <?php $this->repeatingBlock('video.phtml', array($featuredVideo)); ?>
+        </div>
+
+        <?php endforeach; ?>
+
+    </div>
+      <div class="row">
+          <div class="col">
+            <h2>Popular Videos</h2>
+           </div>
+        </div>
+
+
+    <div class="row">
+        <?php foreach (array_slice($recent_videos, 0, 3) as $recent_video): ?>
+
+        <div class="col-md-4">
+             <?php $this->repeatingBlock('video.phtml', array($recent_video)); ?>
+        </div>
+
+        <?php endforeach; ?>
+    </div>
+
+
+      <div class="row">
+          <div class="col">
+            <h2>Recent Videos</h2>
+           </div>
+        </div>
+
+
+    <div class="row">
+        <?php foreach (array_slice($recent_videos, 0, 3) as $recent_video): ?>
+
+        <div class="col-md-4">
+             <?php $this->repeatingBlock('video.phtml', array($recent_video)); ?>
+        </div>
+
+        <?php endforeach; ?>
+    </div>
+
+    </div>
+</div>

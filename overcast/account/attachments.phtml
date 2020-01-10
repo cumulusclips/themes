@@ -1,0 +1,77 @@
+<?php 
+$this->setLayout('account');
+
+// Fix for mis-named variable on line 53 in account/attachments controller
+if( isset($messageType) )
+{
+  $message_type = $messageType; 
+}
+?>
+
+<div class="row">
+  <div class="col header-secondary">
+    <h2><?=Language::getText('attachments_header')?></h2>
+    <?php ( isset($message) ) ? showAlertMessage($message, $message_type) : ''; ?>
+  </div>
+</div>
+
+<?php if (count($userAttachments) > 0): ?>
+
+    <form action="<?=HOST?>/account/attachments/" method="post">
+      <table class="table">
+        <thead>
+            <tr>
+                <td scope="col"><?php echo Language::getText('delete'); ?></td>
+                <td scope="col"><?php echo Language::getText('name'); ?></td>
+                <td scope="col"><?php echo Language::getText('filesize'); ?></td>
+                <td scope="col"><?php echo Language::getText('date'); ?></td>
+            </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($userAttachments as $attachment): ?>
+            <tr>
+                <td><input type="checkbox" name="delete[]" value="<?=$attachment->fileId?>" /></td>
+                <td><?php echo htmlspecialchars($attachment->name); ?></td>
+                <td><?php echo \Functions::formatBytes($attachment->filesize); ?></td>
+                <td><?php echo \Functions::gmtToLocal($attachment->dateCreated, 'm/d/Y')?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+      </table>
+      <div class="row_btn">
+        <input type="hidden" name="submitted" value="TRUE" />
+        <input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
+        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#confirmDelete">
+          <?php echo Language::getText('delete_attachments_button'); ?>
+        </button>
+    </div>
+<!-- Modal -->
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteHeader" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmDeleteHeader">Warning: Permanently Deleting Files</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Are you sure you want to delete the checked files?  This action is non-reversible.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+    </form>
+    <?=$pagination->paginate()?>
+
+<?php else: ?>
+    <div class="block">
+        <strong><?php echo Language::getText('no_attachments'); ?></strong>
+    </div>
+<?php endif; ?>

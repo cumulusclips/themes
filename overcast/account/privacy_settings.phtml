@@ -1,0 +1,49 @@
+<?php
+$this->SetLayout('account');
+?>
+
+<div class="row mb-4">
+  <div class="col header-secondary">
+    <h2>Privacy and Notification Settings</h2>
+    <?php (isset($message)) ? showAlertMessage($message, $message_type) : ''; ?>
+  </div>
+</div>
+<form id="privacy-settings" action="<?= BASE_URL ?>/account/privacy-settings/" method="post">
+  <div class="row">
+    <div class="col">
+      <div class="custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" value="1" id="video_comment" <?= ($privacy->videoComment) ? ' checked' : '' ?>>
+        <label class="custom-control-label" for="video_comment"><?= Language::GetText('alert_comment') ?></label>
+        <input id="video_comment_data" name="video_comment" value="<?= ($privacy->videoComment) ? '1' : '0' ?>" hidden>
+      </div>
+    </div>
+  </div>
+  <div class="custom-control custom-switch">
+    <input type="checkbox" class="custom-control-input" value="1" id="new_video" <?= ($privacy->newVideo) ? ' checked' : '' ?>>
+    <label class="custom-control-label" for="new_video"><?= Language::GetText('alert_video') ?></label>
+    <input id="new_video_data" name="new_video" value="<?= ($privacy->newVideo) ? '1' : '0' ?>" hidden>
+  </div>
+  <div class="custom-control custom-switch">
+    <input type="checkbox" class="custom-control-input" value="1" id="new_message" <?= ($privacy->newMessage) ? ' checked' : '' ?>>
+    <label class="custom-control-label" for="new_message"><?= Language::GetText('alert_message') ?></label>
+    <input id="new_message_data" name="new_message" value="<?= ($privacy->newMessage) ? '1' : '0' ?>" hidden>
+  </div>
+  <div class="custom-control custom-switch">
+    <input type="checkbox" class="custom-control-input" value="1" id="video_ready" <?= ($privacy->videoReady) ? ' checked' : '' ?>>
+    <label class="custom-control-label" for="video_ready"><?= Language::GetText('alert_video_ready') ?></label>
+    <input id="video_ready_data" name="video_ready" value="<?= ($privacy->videoReady) ? '1' : '0' ?>" hidden>
+  </div>
+  <div class="custom-control custom-switch">
+    <input type="checkbox" class="custom-control-input" value="1" id="commentReply" <?= ($privacy->commentReply) ? ' checked' : '' ?>>
+    <label class="custom-control-label" for="commentReply"><?= Language::GetText('alert_comment_reply') ?></label>
+    <input id="commentReply_data" name="commentReply" value="<?= ($privacy->commentReply) ? '1' : '0' ?>" hidden>
+  </div>
+  <div class="row mt-4">
+    <div class="col">
+      <input type="hidden" name="submitted" value="TRUE" />
+      <input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
+      <button class="btn btn-primary" type="submit" name="button" /><?= Language::GetText('privacy_settings_button') ?></button>
+    </div>
+  </div>
+
+</form>

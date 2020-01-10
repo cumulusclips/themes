@@ -1,0 +1,26 @@
+<?php
+$video = $model;
+$videoService = $this->getService('Video');
+?>
+
+
+<div class="card mb-4 shadow-sm">
+  <a class="card-thumb-link" href="<?= $videoService->getUrl($video) ?>/">
+    <div class="video-card-img-container d-flex bg-dark justify-content-center mr-2">
+      <img class="video-card-thumb" alt="" src="<?= $config->thumbUrl ?>/<?= $video->filename ?>.jpg" />
+    </div>
+    <small class="duration bg-dark text-light px-1" aria-label="<?= durationInWords($video->duration); ?>"><?= $video->duration ?></small>
+  </a>
+  <div class="card-body">
+<span class="float-right ml-1">
+    <?= watchLaterButton($video, $loggedInUser); ?>
+</span>
+    <p class="card-title mb-0 h6">
+  <a href="<?= $videoService->getUrl($video) ?>/"><?= $video->title ?></a>
+    </p>
+    <p class="video-author small">
+      <?= Language::getText('by') ?>: <a href="<?= BASE_URL ?>/members/<?= $video->username ?>/"><?= $video->username ?></a>
+    </p>
+    <p><?= mb_strimwidth($video->description, 0, 250, "..."); ?></p>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="browseByDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                My Account
+            </a>
+            <div class="dropdown-menu" aria-labelledby="browseByDropdown">
+
+
+                <a class="dropdown-item" href="<?= BASE_URL ?>/members/<?= $loggedInUser->username ?>/"><?= Language::GetText('view_my_profile') ?></a>
+
+                <a class="dropdown-item" href="<?php echo BASE_URL; ?>/account/privacy-settings/" class="nav-link"><?= Language::GetText('privacy_settings') ?></a>
+                <a class="dropdown-item" href="<?php echo BASE_URL; ?>/account/change-password/" class="nav-link"><?= Language::GetText('change_password') ?></a>
+
+                <a class="dropdown-item" href="<?php echo BASE_URL; ?>/account/subscriptions/" class="nav-link"><?= Language::GetText('my_subscriptions') ?></a>
+                <a class="dropdown-item" href="<?php echo BASE_URL; ?>/account/message/inbox/" class="nav-link"><?= Language::GetText('inbox') ?></a>
+
+                <a class="dropdown-item" href="<?php echo BASE_URL; ?>/logout/" class="nav-link"><?= Language::GetText('logout') ?></a>
+            </div>
+        </li>
