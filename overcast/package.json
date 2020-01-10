@@ -35,8 +35,8 @@
     "build:clipboardjs": "copyfiles -f node_modules/clipboard/dist/clipboard.min.js js/vendor/",
     "build:videojs-js": "copyfiles -f node_modules/video.js/dist/video.min.js js/vendor/",
     "build:fileupload": "copyfiles -f node_modules/blueimp-file-upload/js/jquery.fileupload.js js/vendor/",
-    "build:iframe-transit": "copyfiles -f node_modules/blueimp-file-upload/js/jquery.iframe-transit.js js/vendor/",
-    "build:iframe-transit": "copyfiles -f node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js js/vendor/",
+    "build:iframe-transit": "copyfiles -f node_modules/blueimp-file-upload/js/jquery.iframe-transport.js js/vendor/",
+    "build:jquery-ui-widget": "copyfiles -f node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js js/vendor/",
 
     "build:bootstrap-css": "copyfiles -f node_modules/bootstrap/dist/css/bootstrap.min.css css/vendor/",
     "build:videojs-css": "copyfiles -f node_modules/video.js/dist/video-js.css css/vendor/",
