@@ -8,8 +8,8 @@ $this->addMeta('thumbUrl', $config->thumbUrl);
 
 if (!empty($watchLaterPlaylistId)) $this->addMeta('watchLaterPlaylistId', $watchLaterPlaylistId);
 
-$this->addJs($this->options->themeUrl . '/node_modules/moment/min/moment.min.js');
-$this->addJs($this->options->themeUrl . '/node_modules/jsrender/jsrender.min.js');
+$this->addJs($this->options->themeUrl . '/js/vendor/moment.min.js');
+$this->addJs($this->options->themeUrl . '/js/vendor/jsrender.min.js');
 $this->addJs($this->options->themeUrl . '/js/profile.js');
 
 $columns = 3;
