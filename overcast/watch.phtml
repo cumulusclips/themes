@@ -11,11 +11,15 @@ if ($loggedInUser && !$video->commentsClosed) {
 }
 $this->addCss($this->options->themeUrl . '/css/vendor/video-js.css');
 $this->addJs($this->options->themeUrl . '/js/vendor/video.min.js');
+
+$this->addCss($this->options->themeUrl . '/css/vendor/videojs.theaterMode.css');
+$this->addJs($this->options->themeUrl . '/js/vendor/videojs.theaterMode.js');
 //$this->addJs($this->options->themeUrl . '/js/general.js');
 
 $this->addJs($this->options->themeUrl . '/js/vendor/moment.min.js');
 $this->addJs($this->options->themeUrl . '/js/vendor/jsrender.min.js');
 $this->addJs($this->options->themeUrl . '/js/comments.js');
+$this->addJs($this->options->themeUrl . '/js/last.js');
 ?>
 
 
@@ -23,7 +27,7 @@ $this->addJs($this->options->themeUrl . '/js/comments.js');
 
 
     <div class="row pt-5">
-        <div class="col-md-8">
+        <div id="video-col" class="col-md-8">
             <div class="header-secondary">
                 <h1 class="video-title"><?php echo htmlspecialchars($video->title); ?></h1>
                 <?php (isset($message)) ? showAlertMessage($message, $message_type) : ''; ?>

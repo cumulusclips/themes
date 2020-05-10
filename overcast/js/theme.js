@@ -283,5 +283,4 @@ $('.btn-clipboard').tooltip({
   placement: 'bottom'
 })
 
-
 $('.watch-later-mini').tooltip({ placement: 'bottom' })

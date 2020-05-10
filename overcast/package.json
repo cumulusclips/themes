@@ -13,7 +13,8 @@
     "jsrender": "^1.0.5",
     "moment": "^2.24.0",
     "popper.js": "^1.16.0",
-    "video.js": "^7.6.5"
+    "video.js": "^7.6.5",
+    "videojs-theater-mode": "^1.0.0"
   },
   "devDependencies": {
     "copyfiles": "^2.1.1",
@@ -37,11 +38,12 @@
     "build:fileupload": "copyfiles -f node_modules/blueimp-file-upload/js/jquery.fileupload.js js/vendor/",
     "build:iframe-transit": "copyfiles -f node_modules/blueimp-file-upload/js/jquery.iframe-transport.js js/vendor/",
     "build:jquery-ui-widget": "copyfiles -f node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js js/vendor/",
-
     "build:bootstrap-css": "copyfiles -f node_modules/bootstrap/dist/css/bootstrap.min.css css/vendor/",
     "build:videojs-css": "copyfiles -f node_modules/video.js/dist/video-js.css css/vendor/",
     "build:webfonts": "copyfiles -f \"node_modules/@fortawesome/fontawesome-free/webfonts/*.*\" css/vendor/fontawesome-free/webfonts/",
     "build:fontawesome": "copyfiles -f node_modules/@fortawesome/fontawesome-free/css/all.min.css css/vendor/fontawesome-free/css/",
+    "build:videojs-theatermode-js": "copyfiles -f node_modules/videojs-theater-mode/dist/videojs.theaterMode.js js/vendor",
+    "build:videojs-theatermode-css": "copyfiles -f node_modules/videojs-theater-mode/dist/videojs.theaterMode.css css/vendor/",
     "build": "npm-run-all -p build:*"
   },
   "repository": {
