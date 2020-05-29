@@ -1,0 +1,35 @@
+
+<?php
+$this->SetLayout('account');
+$message_type = setMessageType($message_type);
+?>
+
+<div class="row mb-4">
+    <div class="col">
+    <h2><?=Language::GetText('message_send_header')?></h2>
+    <?php if ($message): ?>
+      <?php ( isset($message) ) ? showAlertMessage($message, $message_type) : ''; ?>
+   <?php endif; ?>
+    </div>
+</div>
+        <form action="<?=HOST?>/account/message/send/" method="post">
+<div class="row">
+    <div class="col-md-6">
+<form>
+  <div class="form-group">
+    <label class="<?=(isset ($errors['recipient'])) ? 'is-invalid' : ''?>" for="to"><?=Language::GetText('to')?></label>
+    <input type="text" class="form-control" id="to" name="to" placeholder="<?=Language::GetText('members_username')?>" value="<?=$to?>">
+  </div>
+  <div class="form-group">
+    <label class="<?=(isset($errors['subject'])) ? 'is-invalid' : ''?>" for="subject"><?=Language::GetText('subject')?></label>
+    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" value="<?=htmlspecialchars($subject)?>">
+  </div>
+<div class="form-group">
+    <label class="<?=(isset($errors['msg'])) ? 'is-invalid' : ''?>" for="message"><?=Language::GetText('message')?></label>
+    <textarea class="form-control" id="message" name="message" rows="3"><?=htmlspecialchars($msg)?></textarea>
+  </div>
+  <input type="hidden" name="submitted" value="TRUE">
+  <input type="hidden" name="nonce" value="<?php echo $formNonce; ?>">
+  <button class="btn btn-primary" type="submit"><?=Language::GetText('message_send_button')?></button >
+
+</form>

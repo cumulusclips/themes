@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="<?=Language::getLocale()?>">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <!-- CumulusClips meta tags -->
+    <meta name="baseUrl" content="<?=HOST?>" />
+    <meta name="themeUrl" content="<?=$this->options->themeUrl?>" />
+    <?php $this->writeMeta(); ?>
+    <?php Plugin::triggerEvent('theme.head'); ?>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="<?=$this->options->themeUrl?>/css/vendor/bootstrap.min.css">
+
+    <!-- Custom styles for this template -->
+    <link href="<?=$this->options->themeUrl?>/css/default.css" rel="stylesheet">
+
+    <link rel="shortcut icon" type="image/x-icon" href="<?=$this->options->themeUrl?>/favicon.ico" />
+
+    <!-- Font Awesome -->
+    <link href="<?=$this->options->themeUrl?>/css/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+
+    <title><?=$meta->title?></title>
+  </head>
+  <body>
+    <?php Plugin::triggerEvent('theme.body'); ?>
+
+    <?php $this->block('header.phtml'); ?>
+
+    <div class="main bg-light">
+      <div class="account mx-4">
+
+        <div class="row pt-3">
+          <div class="col">
+            <h1 class="my-3">My Account</h1>
+          </div>
+        </div>
+
+        <div class="row"> 
+          <div class="col-md-2 account-nav">
+            <?php include 'account_nav.php'; ?>
+          </div>
+          <div class="col-md-10">
+            <?= $this->body(); ?>
+          </div>
+        </div>
+
+
+      </div> 
+    </div>
+
+    <?php $this->block('footer.phtml'); ?>
+
+    <!-- jQuery/Bootstrap JS -->
+    <script src="<?=$this->options->themeUrl?>/js/vendor/jquery.min.js"></script>
+    <script src="<?=$this->options->themeUrl?>/js/vendor/jquery-ui.min.js"></script>
+    <script src="<?=$this->options->themeUrl?>/js/vendor/bootstrap.bundle.min.js"></script>
+
+
+    <!-- Custom File Input -->
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+
+    <!-- Clipboard JS -->
+    <script src="<?=$this->options->themeUrl?>/js/vendor/clipboard.min.js"></script>
+    
+    <?php Plugin::triggerEvent('theme.body.bottom'); ?>
+    <?php $this->writeJs(); ?>
+    <!-- Theme Specific JS -->
+    <script src="<?=$this->options->themeUrl?>/js/theme.js"></script>
+  </body>
+</html>

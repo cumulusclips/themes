@@ -1,0 +1,155 @@
+<?php
+$this->addMeta('videos', Language::GetText('videos'));
+$this->addMeta('watch_all', Language::GetText('watch_all'));
+$this->addMeta('watch_later', Language::GetText('watch_later'));
+$this->addMeta('videoCount', $videoCount);
+$this->addMeta('playlistCount', $playlistCount);
+$this->addMeta('thumbUrl', $config->thumbUrl);
+
+if (!empty($watchLaterPlaylistId)) $this->addMeta('watchLaterPlaylistId', $watchLaterPlaylistId);
+
+$this->addJs($this->options->themeUrl . '/js/vendor/moment.min.js');
+$this->addJs($this->options->themeUrl . '/js/vendor/jsrender.min.js');
+$this->addJs($this->options->themeUrl . '/js/profile.js');
+
+$columns = 3;
+$col_width = 12 / $columns;
+?>
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-8 header-secondary pt-4">
+      <h1 class="profile-head">Member Profile</h1>
+      <?php (isset($message)) ? showAlertMessage($message, $message_type) : ''; ?>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="media bg-white p-3 border">
+        <?php $avatar = $this->getService('User')->getAvatarUrl($member); ?>
+        <?php if ($avatar) : ?>
+          <img src="<?= $avatar; ?>" class="img-thumbnail" alt="">
+        <?php else : ?>
+          <i class="fas fa-user fa-lg default-avatar" alt="" style="font-size: 64px;"></i>
+        <?php endif; ?>
+        <div class="media-body ml-2">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item h4"><?= $member->username ?></li>
+            <li class="list-group-item"><?= Language::GetText('joined') ?>: <?= date('m/d/Y', strtotime($member->dateCreated)) ?></li>
+            <li class="list-group-item"><?= Language::GetText('profile_views') ?>:</strong>&nbsp; <?= $member->views ?></li>
+            <li class="list-group-item"><?= Language::GetText('subscribers') ?>:</strong>&nbsp; <?php echo $sub_count[0]; ?></li>
+            <?php if (!empty($member->website)) : ?>
+              <li class="list-group-item"><?= Language::GetText('website') ?>: <a href="<?= $member->website ?>" target="_blank" rel="nofollow"><?= Functions::CutOff($member->website, 40); ?></a></li>
+              <p><?php echo nl2br(htmlspecialchars($member->aboutMe)); ?></p>
+            <?php endif; ?>
+            <?php if (!empty($member->aboutMe)) : ?>
+              <li class="list-group-item"><?php echo nl2br(htmlspecialchars($member->aboutMe)); ?></li>
+            <?php endif; ?>
+          </ul>
+          <div class="profile-actions pl-3 mt-3">
+            <button type="button" data-user="<?= $member->userId ?>" data-type="<?= $subscribe_text ?>" class="subscribe btn btn-outline-primary btn-sm"><?= Language::GetText($subscribe_text) ?></button>
+
+            <a class="btn btn-outline-primary btn-sm" href="<?= BASE_URL ?>/account/message/send/<?= $member->username ?>/"><?= Language::GetText('send_message') ?></a>
+
+            <?php if ($loggedInUser->userId == $member->userId) : ?>
+              <a class="btn btn-outline-primary btn-sm" href="<?php echo BASE_URL; ?>/account/profile/"><?= Language::GetText('update_profile') ?></a>
+            <?php else : ?>
+              <span class="report-abuse-container">
+                <button type="button" data-type="user" data-id="<?= $member->userId ?>" class="flag report-content btn btn-danger btn-sm"><?= Language::GetText('report_abuse') ?></button>
+              </span>
+            <?php endif; ?>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <!-- BEGIN Members Playlists -->
+      <div id="member-playlists" class="tab_block px-2">
+        <h2><?= Language::GetText('playlists') ?> <?= Language::GetText('by') ?> <?= $member->username ?></h2>
+        <?php if ($playlistCount > 0) : ?>
+          <ul class="playlist-list list-unstyled">
+            <?php $playlistService = new PlaylistService(); ?>
+            <?php foreach ($playlist_list as $playlist) : ?>
+              <li class="playlist media mt-1">
+                <?php if (!empty($playlist->entries)) : ?>
+                  <a href="<?= $playlistService->getUrl($playlist) ?>">
+                    <div class="related-thumb-container bg-dark text-center">
+                      <img class="playlist-mini-thumb" src="<?= getPlaylistThumbnail($playlist) ?>" />
+                    </div>
+                  </a>
+                  <div class="media-body ml-2">
+                    <p class="h6 my-0">
+                      <a href="<?= $playlistService->getUrl($playlist) ?>"><?php echo htmlspecialchars($playlist->name); ?></a>
+                    </p>
+                    <p class="video-count small"><?= count($playlist->entries) ?> <?= Language::GetText('videos') ?></p>
+                  </div>
+                <?php else : ?>
+                  <div class="related-thumb-container bg-dark text-center">
+                    <i class="fas fa-list-ul text-center py-4" style="font-size: 32px;" alt="Playlist thumbnail icon."></i>
+                  </div>
+                  <div class="media-body ml-2">
+                    <p class="h6 my-0">
+                      <?php echo htmlspecialchars($playlist->name); ?>
+                    </p>
+                    <p class="video-count small">0 <?= Language::GetText('videos') ?></p>
+                  </div>
+                <?php endif; ?>
+              </li>
+            <?php endforeach; ?>
+          </ul>
+          <?php if ($playlistCount > 9) : ?>
+
+            <?php readfile('templates/playlist_mini_card.html', true); ?>
+
+            <div class="loadMorePlaylists">
+              <button href="" class="btn btn-outline-primary btn-lg btn-block" data-user="<?= $member->userId ?>" data-limit="9" data-loading_text="<?= Language::getText('loading') ?>"><i class="fas fa-caret-down pr-3"></i> <?= Language::getText('load_more') ?> <i class="fas fa-caret-down pl-3"></i></button>
+            </div>
+          <?php endif; ?>
+        <?php else : ?>
+          <p class="alert alert-info"><?= Language::GetText('no_member_playlists') ?></p>
+        <?php endif; ?>
+      </div>
+      <!-- END Member Playlists -->
+    </div>
+  </div>
+
+  <!-- BEGIN Member Videos -->
+  <div id="member-videos">
+    <h2 class="pt-3"><?= Language::GetText('videos') ?> <?= Language::GetText('by') ?> <?= $member->username ?></h2>
+    <div id="videos_list">
+      <?php if ($videoCount > 0) : ?>
+        <?php $video_rows = array_chunk($videoList, $columns); ?>
+
+        <?php foreach ($video_rows as $videos) : ?>
+          <div class="row pt-4">
+            <?php foreach ($videos as $video) : ?>
+              <div class="col-md-<?= $col_width ?> video">
+                <?php $this->repeatingBlock('video.phtml', array($video)); ?>
+              </div>
+            <?php endforeach; ?>
+          </div>
+        <?php endforeach; ?>
+    </div>
+    <?php if ($videoCount > 9) : ?>
+
+      <?php readfile('templates/video_card.html', true); ?>
+
+      <div class="row">
+        <div class="col">
+          <div class="loadMoreVideos">
+            <button href="" class="btn btn-outline-primary btn-lg btn-block" data-user="<?= $member->userId ?>" data-limit="9" data-loading_text="<?= Language::getText('loading') ?>"><i class="fas fa-caret-down pr-3"></i> <?= Language::getText('load_more') ?> <i class="fas fa-caret-down pl-3"></i></button>
+          </div>
+        </div>
+      </div>
+    <?php endif; ?>
+  <?php else : ?>
+    <div class="row py-3">
+      <div class="col-md-8">
+        <p class="alert alert-info"><?= Language::GetText('no_member_videos') ?></p>
+      </div>
+    </div>
+  <?php endif; ?>
+  </div>
+  <!-- END Member Videos -->

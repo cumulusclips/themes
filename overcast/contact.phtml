@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row mt-4 justify-content-center">
+    <div class="col-md-6">
+      <h1><?= Language::GetText('contact_header') ?></h1>
+      <p><?= Language::GetText('contact_text') ?></p>
+      <?php (isset($message)) ? showAlertMessage($message, $messageType) : ''; ?>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form action="<?= HOST ?>/contact/" method="post">
+        <div class="form-group">
+          <label for="name" class="<?= (!empty($errors['name'])) ? 'is-invalid' : '' ?>"><?= Language::getText('name') ?>:</label>
+          <input type="text" name="name" class="form-control" value="<?= (!empty($errors) && !empty($name)) ? htmlspecialchars($name) : '' ?>" />
+        </div>
+        <div class="form-group">
+          <label for="email" class="<?= (!empty($errors['email'])) ? 'is-invalid' : '' ?>"><?= Language::getText('email') ?>:</label>
+          <input type="text" name="email" class="form-control" value="<?= (!empty($errors) && !empty($email)) ? $email : '' ?>" />
+        </div>
+        <div class="form-group">
+          <label for="feedback" class="<?= (!empty($errors['feedback'])) ? 'is-invalid' : '' ?>"><?= Language::getText('message') ?>:</label>
+          <textarea name="feedback" class="form-control" cols="40" rows="4"><?= (!empty($errors) && !empty($feedback)) ? htmlspecialchars($feedback) : '' ?></textarea>
+
+        </div>
+        <input type="hidden" value="TRUE" name="submitted" />
+        <input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
+        <button class="btn btn-primary float-right mt-2" type="submit" name="button"><?= Language::getText('contact_button') ?></button>
+      </form>
+    </div>
+  </div>
+</div>

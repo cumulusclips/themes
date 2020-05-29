@@ -1,0 +1,73 @@
+<?php
+$columns = 3;
+$col_width = 12 / $columns;
+?>
+<div class="album py-5 bg-light">
+  <div class="container">
+
+    <div class="row">
+      <div class="col">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" href="#"><?= Language::GetText('videos_header') ?></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= BASE_URL ?>/members/"><?= Language::GetText('members') ?></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row filters-categories pt-3 pl-2">
+      <div class="col-md-8 filter">
+        <ul class="nav nav-pills">
+          <li class="nav-item">
+            <a class="nav-link py-1<?= ($sub_header == "Most Recent") ? ' active' : '' ?>" href="<?= BASE_URL ?>/browse/most-recent/"><?= Language::GetText('most_recent') ?></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link py-1<?= ($sub_header == "Most Viewed") ? ' active' : '' ?>" href="<?= BASE_URL ?>/browse/most-viewed/"><?= Language::GetText('most_viewed') ?></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link py-1<?= ($sub_header == "Most Discussed") ? ' active' : '' ?>" href="<?= BASE_URL ?>/browse/most-discussed/"><?= Language::GetText('most_discussed') ?></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link py-1<?= ($sub_header == "Most Rated") ? ' active' : '' ?>" href="<?= BASE_URL ?>/browse/most-rated/"><?= Language::GetText('most_rated') ?></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link py-1 dropdown-toggle<?= (isset($_GET['category'])) ? ' active' : '' ?>" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Category</a>
+            <div class="dropdown-menu">
+              <?php foreach ($category_list as $category) : ?>
+                <a class="dropdown-item<?= (isset($_GET['category']) && ( $_GET['category'] == $category->slug )) ? ' active' : '' ?>" href="<?= BASE_URL ?>/browse/<?= $category->slug ?>/" title="<?= $category->name ?>"><?= $category->name ?></a>
+              <?php endforeach; ?>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <?php if (!empty($browse_videos)) : ?>
+      <?php $video_rows = array_chunk($browse_videos, $columns); ?>
+
+      <?php foreach ($video_rows as $videos) : ?>
+        <div class="row pt-4">
+          <?php foreach ($videos as $video) : ?>
+            <div class="col-<?= $col_width ?> video">
+              <?php $this->repeatingBlock('video.phtml', array($video)); ?>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      <?php endforeach; ?>
+
+      <div class="row">
+        <div class="col">
+          <?= $pagination->Paginate(); ?>
+        </div>
+      </div>
+    <?php else : ?>
+      <div class="row alert alert-info">
+        <div class="col">
+          <p><?= Language::GetText('no_videos') ?></p>
+        </div>
+      </div>
+    <?php endif; ?>
+  </div>

@@ -1,0 +1,48 @@
+<?php $this->SetLayout('account'); ?>
+
+<div class="row justify-content-center">
+  <div class="col-md-8 message-reader">
+
+    <h2><?= Language::GetText('message_read_header') ?></h2>
+    <p class="return"><a href="<?= BASE_URL ?>/account/message/inbox/" title="<?= Language::GetText('return_inbox') ?>"><?= Language::GetText('return_inbox') ?></a></p>
+
+    <div class="card">
+      <div class="card-header">
+        <p class="card-title h4 mb-0"><?= htmlspecialchars($message->subject) ?></p>
+      </div>
+      <div class="card-body">
+        <div class="message-headers border-bottom mb-3">
+          <p class="card-text mb-0"><strong><?= Language::GetText('sender') ?>: </strong> <?= $message->username ?></p>
+          <p class="card-text"><strong><?= Language::GetText('date') ?>: </strong> <?= date('m/d/Y', strtotime($message->dateCreated)) ?></p>
+        </div>
+        <p class="card-text message-body"><?= nl2br(htmlspecialchars($message->message)) ?></p>
+        <div class="actions pt-3 text-right">
+          <a class="btn btn-outline-primary" href="<?= BASE_URL ?>/account/message/reply/<?= $message->messageId ?>/"><?= Language::GetText('reply') ?></a>
+          <a class="btn btn-outline-danger" data-toggle="modal" data-target="#confirmDelete" href="<?= BASE_URL ?>/account/message/inbox/<?= $message->messageId ?>/"><?= Language::GetText('delete') ?></a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteHeader" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="modal-title h5" id="confirmDeleteHeader">Warning: Permanently Deleting Message</p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this message?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <a class="btn btn-danger" href="<?= BASE_URL ?>/account/message/inbox/<?= $message->messageId ?>/"><?= Language::GetText('delete') ?></a>
+      </div>
+    </div>
+  </div>
+</div

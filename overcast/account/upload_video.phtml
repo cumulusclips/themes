@@ -1,0 +1,41 @@
+<?php
+$this->addJs($this->options->themeUrl . '/js/vendor/jquery.ui.widget.js');
+$this->addJs($this->options->themeUrl . '/js/vendor/jquery.iframe-transport.js');
+$this->addJs($this->options->themeUrl . '/js/vendor/jquery.fileupload.js');
+$this->addJs('general.js');
+$this->addJs('fileupload.js');
+$this->setLayout('account');
+?>
+
+<div class="row">
+  <div class="col">
+    <h2><?=Language::getText('upload_video_header')?></h2>
+    <div class="message <?=$message_type?>"><?=$message?></div>
+    <?php ( isset($message) ) ? showAlertMessage($message, $message_type) : ''; ?>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-8">
+    <p><?php echo Language::getText('filesize_limit'); ?>: <?php echo \Functions::formatBytes($config->videoSizeLimit, 0); ?></p>
+    <p><?php echo Language::getText('upload_supported_formats') . ': ' . implode(', ', $config->acceptedVideoFormats); ?></p>
+
+    <form action="<?php echo BASE_URL; ?>/account/upload/video/" method="post">
+      <div class="uploader-wrapper">
+        <div class="custom-file ">
+          <input type="file" class="custom-file-input form-control uploader" id="upload" 
+                                                                             name="upload"
+                                                                             data-url="<?php echo BASE_URL; ?>/ajax/upload/"
+                                                                             data-text="<?php echo Language::getText('browse_files_button'); ?>"
+                                                                             data-limit="<?php echo $config->videoSizeLimit; ?>"
+                                                                             data-extensions="<?php echo urlencode(json_encode($config->acceptedVideoFormats)); ?>"
+                                                                             data-type="video"
+                                                                             data-auto-submit="true" />
+                                                                             <label class="custom-file-label" for="upload">Choose file</label>
+        </div>
+      </div>
+      <input type="hidden" name="submitted" value="true" />
+      <input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
+
+    </form>
+  </div>
+</div>

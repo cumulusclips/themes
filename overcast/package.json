@@ -1,0 +1,55 @@
+{
+  "name": "cumulusclips-overcast-theme",
+  "version": "0.1.0",
+  "description": "A basic bootstrap 4 theme for the CumulusClips video CMS.",
+  "main": "index.php",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.11.2",
+    "blueimp-file-upload": "^10.2.0",
+    "bootstrap": "^4.4.1",
+    "clipboard": "^2.0.4",
+    "jquery": "^3.4.1",
+    "jquery-ui-dist": "^1.12.1",
+    "jsrender": "^1.0.5",
+    "moment": "^2.24.0",
+    "popper.js": "^1.16.0",
+    "video.js": "^7.6.5",
+    "videojs-theater-mode": "^1.0.0"
+  },
+  "devDependencies": {
+    "copyfiles": "^2.1.1",
+    "eslint": "^6.6.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "npm-run-all": "^4.1.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:jquery": "copyfiles -f node_modules/jquery/dist/jquery.min.js js/vendor/",
+    "build:jquery-ui": "copyfiles -f node_modules/jquery-ui-dist/jquery-ui.min.js js/vendor/",
+    "build:bootstrap-js": "copyfiles -f node_modules/bootstrap/dist/js/bootstrap.bundle.min.js js/vendor/",
+    "build:moment": "copyfiles -f node_modules/moment/min/moment.min.js js/vendor/",
+    "build:jsrender": "copyfiles -f node_modules/jsrender/jsrender.min.js js/vendor/",
+    "build:clipboardjs": "copyfiles -f node_modules/clipboard/dist/clipboard.min.js js/vendor/",
+    "build:videojs-js": "copyfiles -f node_modules/video.js/dist/video.min.js js/vendor/",
+    "build:fileupload": "copyfiles -f node_modules/blueimp-file-upload/js/jquery.fileupload.js js/vendor/",
+    "build:iframe-transit": "copyfiles -f node_modules/blueimp-file-upload/js/jquery.iframe-transport.js js/vendor/",
+    "build:jquery-ui-widget": "copyfiles -f node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js js/vendor/",
+    "build:bootstrap-css": "copyfiles -f node_modules/bootstrap/dist/css/bootstrap.min.css css/vendor/",
+    "build:videojs-css": "copyfiles -f node_modules/video.js/dist/video-js.css css/vendor/",
+    "build:webfonts": "copyfiles -f \"node_modules/@fortawesome/fontawesome-free/webfonts/*.*\" css/vendor/fontawesome-free/webfonts/",
+    "build:fontawesome": "copyfiles -f node_modules/@fortawesome/fontawesome-free/css/all.min.css css/vendor/fontawesome-free/css/",
+    "build:videojs-theatermode-js": "copyfiles -f node_modules/videojs-theater-mode/dist/videojs.theaterMode.js js/vendor",
+    "build:videojs-theatermode-css": "copyfiles -f node_modules/videojs-theater-mode/dist/videojs.theaterMode.css css/vendor/",
+    "build": "npm-run-all -p build:*"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Justin D. Henry",
+  "license": "GPL-2.0-only"
+}

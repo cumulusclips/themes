@@ -1,0 +1,113 @@
+<?php 
+$this->setLayout('account');
+$playlistService = $this->getService('Playlist'); 
+$columns = 3;
+$col_width = 12 / $columns ;
+?>
+
+<div class="row">
+  <div class="col header-secondary">
+    <h2><?=Language::GetText('playlists_edit_header')?>: <?=$playlistService->getPlaylistName($playlist)?></h2>
+    <p><a href="<?=HOST?>/account/playlists/"><?=Language::GetText('back_to_playlists')?></a></p>
+    <?php ( isset($message) ) ? showAlertMessage($message, $message_type) : ''; ?>
+  </div>
+</div>
+<?php if ($playlist->type == 'playlist'): ?>
+<!-- BEGIN UPDATE PLAYLIST FORM -->
+<div class="row">
+	<div class="col-md-4">
+<h2><?=Language::GetText('update_playlist_header')?></h2>
+<form method="POST">
+			<div class="form-group playlist-name">
+				<label for="playlistName"><?=Language::GetText('playlist_name')?>:</label>
+				<input type="text" class="form-control" name="name" id="playlistName" value="<?php echo htmlspecialchars($playlist->name); ?>">
+			</div>
+			<div class="form-group visibility">
+				<span class="pr-2">
+					<?=Language::getText('visibility')?>:
+				</span>
+				<div class="form-check form-check-inline">
+					<input type="radio" class="form-check-input" value="public" id="visibility-public" name="visibility" <?=($playlist->public) ? 'checked' : ''?>>
+					<label class="form-check-label pr-2" for="visibility-public"><?=Language::GetText('public')?></label> 
+					<input type="radio" class="form-check-input" value="private" id="visibility-private" name="visibility" <?=(!$playlist->public) ? 'checked' : ''?>>
+					<label class="form-check-label" for="visibility-private"><?=Language::GetText('private')?></label> 
+
+				</div>
+				<input type="hidden" name="submitted" value="true" />
+				<input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
+			</div>
+			<p class="text-right">
+				<button class="btn btn-outline-primary" type="submit"><?=Language::GetText('update_playlist_button')?></button>
+			</p>
+</form>
+
+  </div>
+</div>
+<!-- END UPDATE PLAYLIST FORM -->
+<?php endif; ?>
+
+<h2><?=Language::GetText('playlist_videos')?></h2>
+<?php if (count($playlist->entries) > 0): ?>
+
+<?php
+$video_rows = array_chunk($videoList, $columns);
+?>
+
+<?php foreach ($video_rows as $videos): ?>
+<div class="row">
+  <?php foreach ($videos as $video): ?>
+  <div class="col-md-<?= $col_width ?> video">
+    <div class="card mb-4 shadow-sm">
+      <?php if (isVideoPending($video->status)): ?>
+      <i class="far fa-file-video text-center py-5" style="font-size: 128px;"  alt="<?=Language::getText($video->status)?>"></i> 
+      <?php else: ?>
+      <a href="<?=$this->getService('Video')->getUrl($video)?>/"><img alt="<?=$video->title?>" width="100%" height="225" src="<?=getVideoThumbnail($video);?>" /></a>
+      <?php endif; ?>
+			<div class="card-body">
+				<p class="card-text"><strong><a href="<?=$this->getService('Video')->getUrl($video)?>/"><?=htmlspecialchars($video->title)?></a></strong>
+					<?php if (!isVideoPending($video->status)): ?>
+					<small class="float-right text-muted"><?=$video->duration?></small>
+					<?php endif; ?>
+					<br><?=$video->description?></p>
+				<div class="text-right">
+						<button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#confirmDeletion-<?=$video->videoId?>">
+							<?=Language::getText('remove_playlist_video')?>
+						</button>
+				</div>
+				<!-- Begin Confirm Delete Modal -->
+				<div class="modal fade" id="confirmDeletion-<?=$video->videoId?>" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteHeader-<?=$video->videoId?>" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="confirmDeleteHeader-<?=$video->videoId?>">Warning: Removing item from playlist</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<p class="text-left">Are you sure you want to remove this item?  This action is permanent and cannot be undone. </p>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+								<a class="btn btn-danger" data-node="confirm_remove_playlist_video" href="<?=HOST?>/account/playlists/edit/<?=$playlist->playlistId?>/?remove=<?=$video->videoId?>"><?=Language::getText('remove_playlist_video')?></a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- END Confirm Delete Modal -->
+			</div>
+    </div>
+  </div>
+  <?php endforeach; ?>
+</div>
+<?php endforeach; ?>
+
+<?php else: ?>
+<div class="row mt-5 ml-1 no-playlists">
+	<div class="col-7 alert alert-info">
+		<p class="text-center pt-2"><?=Language::GetText('no_videos_playlist')?></p>
+	</div>
+</div>
+<?php endif; ?>
+

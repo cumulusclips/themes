@@ -1,0 +1,174 @@
+<?php
+$this->addMeta('videoId', $video->videoId);
+$this->addMeta('theme', $this->options->themeUrl);
+$this->addMeta('loggedIn', (bool) $loggedInUser);
+
+$this->addMeta('reply_to', Language::getText('reply_to'));
+$this->addMeta('report_abuse', Language::getText('report_abuse'));
+
+if ($loggedInUser && !$video->commentsClosed) {
+    $this->addMeta('reply', Language::getText('reply'));
+}
+$this->addCss($this->options->themeUrl . '/css/vendor/video-js.css');
+$this->addJs($this->options->themeUrl . '/js/vendor/video.min.js');
+
+$this->addCss($this->options->themeUrl . '/css/vendor/videojs.theaterMode.css');
+$this->addJs($this->options->themeUrl . '/js/vendor/videojs.theaterMode.js');
+//$this->addJs($this->options->themeUrl . '/js/general.js');
+
+$this->addJs($this->options->themeUrl . '/js/vendor/moment.min.js');
+$this->addJs($this->options->themeUrl . '/js/vendor/jsrender.min.js');
+$this->addJs($this->options->themeUrl . '/js/comments.js');
+$this->addJs($this->options->themeUrl . '/js/last.js');
+?>
+
+
+<div class="container-fluid">
+
+
+    <div class="row pt-5">
+        <div id="video-col" class="col-md-8">
+            <div class="header-secondary">
+                <h1 class="video-title"><?php echo htmlspecialchars($video->title); ?></h1>
+                <?php (isset($message)) ? showAlertMessage($message, $message_type) : ''; ?>
+            </div>
+            <?php if ($video->gated && !$loggedInUser) : ?>
+                <div id="player-gated">
+                    <img width="100%" height="auto" src="<?= getVideoThumbUrl($video) ?>" alt="<?= htmlspecialchars($video->title); ?>" />
+                    <div>
+                        <p><?= Language::getText('gated_video') ?></p>
+                        <a href="<?= HOST ?>/login/?redirect=<?= urlencode($this->getService('Video')->getUrl($video)) ?>" class="button_small"><?= Language::getText('login') ?></a>
+                        <?php if ($config->enableRegistrations) : ?>
+                            <a href="<?= HOST ?>/register/" class="button_small"><?= Language::getText('register') ?></a>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+            <?php else : ?>
+                <!-- BEGIN VIDEO -->
+                <div id="player" class="mb-1">
+                    <video class="video-js vjs-big-play-centered" controls preload="auto" data-setup='{ "autoplay": false, "fluid": true, "aspectRatio": "16:9"}' poster="<?= getVideoThumbUrl($video) ?>">
+                        <source src="<?= $config->h264Url ?>/<?= $video->filename ?>.mp4" type="video/mp4" />
+                        <?php if ($webmEncodingEnabled) : ?>
+                            <source src="<?= $config->webmUrl ?>/<?= $video->filename ?>.webm" type="video/webm" />
+                        <?php endif; ?>
+                        <?php if ($theoraEncodingEnabled) : ?>
+                            <source src="<?= $config->theoraUrl ?>/<?= $video->filename ?>.ogg" type="video/ogg" />
+                        <?php endif; ?>
+                    </video>
+                </div>
+                <!-- END VIDEO -->
+            <?php endif; ?>
+
+            <!-- BEGIN ACTIONS -->
+            <div class="row actions">
+                <div class="col-md-6">
+                    <p class="large">Viewed <?= $video->views ?> times.</p>
+                </div>
+                <div class="col-md-6">
+                    <div class="btn-toolbar float-right" role="toolbar" aria-label="Video actions.">
+                        <div class="btn-group mr-2" role="group" aria-label="Like/Rating buttons.">
+                            <?php if (isRated($video, $loggedInUser)) : ?>
+                                <a id="liked" class="like rating btn btn-sm btn-outline-primary disabled" href="#" data-rating="0" data-video_id=<?= $video->videoId; ?> role="button"><i class="fas fa-heart like-icon" alt="Click to like this video."></i> <span class="likes badge badge-light"><?= $rating->likes ?></span> <span class="sr-only"> likes for this video.</span> </a>
+                            <?php else : ?>
+                                <a id="like" class="like rating btn btn-sm btn-outline-primary" href="" data-rating="1" data-video_id=<?= $video->videoId; ?> role="button"><i class="far fa-heart like-icon" alt="Click to like this video."></i> <span class="likes badge badge-light"><?= $rating->likes ?></span> <span class="sr-only"> likes for this video.</span> </a>
+                            <?php endif; ?>
+                        </div>
+                    <?php if ($loggedInUser) : ?>
+                        <div class="btn-group button-actions" role="group" aria-label="Playlist Actions.">
+                            <?php include $this->getFallbackPath("blocks/playlist-buttons.phtml"); ?>
+                        </div>
+                    <?php endif; ?>
+                    </div>
+
+                </div>
+            </div>
+            <!-- END ACTIONS -->
+
+            <!-- BEGIN TABS -->
+            <div class="row actions">
+                <div class="col">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="true"><?= Language::getText('about') ?></a>
+                            <a class="nav-item nav-link" id="nav-share-tab" data-toggle="tab" href="#nav-share" role="tab" aria-controls="nav-share" aria-selected="false">Embed/Share</a>
+                            <a class="nav-item nav-link" id="nav-flag-tab" data-toggle="tab" href="#nav-flag" role="tab" aria-controls="nav-flag" aria-selected="false">Report</a>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            <!-- END TABS -->
+
+            <!-- BEGIN TAB CONTENT -->
+            <div class="row">
+                <div class="col">
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+                            <?php include 'blocks/watch/about.php'; ?>
+                        </div>
+                        <div class="tab-pane fade show" id="nav-share" role="tabpanel" aria-labelledby="nav-share-tab">
+                            <?php include 'blocks/watch/share.php'; ?>
+                        </div>
+
+                        <div class="tab-pane fade show" id="nav-flag" role="tabpanel" aria-labelledby="nav-flag-tab">
+                            <?php include 'blocks/watch/report.php'; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END TAB CONTENT -->
+
+            <!-- BEGIN COMMENTS SECTION -->
+            <?php if ($video->commentsClosed) : ?>
+                <div id="comments-closed" class="row">
+                    <div class="col alert alert-info">
+                        <p class="commentMessage"><?= Language::getText('comments_closed') ?></p>
+                    </div>
+                </div>
+            <?php else : ?>
+
+                <div id="comments" class="row comments-form-block comments-actionable">
+                    <div class="col commentForm">
+
+                        <div class="comment-form-head">
+                            <h3 class="d-inline-block"><?= Language::getText('comments_header') ?> </h3>
+                            <span id="comment-count" class="badge badge-info align-top "><?= $commentCount ?></span> <span class="sr-only"><?= Language::getText('comments_total') ?></span>
+                        </div>
+
+                        <?php include 'blocks/watch/comments_form.php'; ?>
+                        <div class="comment-alerts"></div>
+                    </div>
+                </div>
+                <div class="row comment-stream mt-4">
+                    <div id="comments-list-block" class="col comments-actionable report-abuse-container">
+                        <?php include 'blocks/watch/comments_list.php'; ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <?php if ($commentCount > 5) : ?>
+                            <div class="loadMoreComments">
+                                <button href="" class="btn btn-outline-primary btn-lg btn-block" data-loading_text="<?= Language::getText('loading') ?>"><i class="fas fa-caret-down pr-3"></i> <?= Language::getText('load_more') ?> <i class="fas fa-caret-down pl-3"></i></button>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <?php readfile('templates/comment_card.html', true); ?>
+        </div>
+        <!-- END COMMENTS SECTION -->
+        <aside class="col-md-4 pt-3">
+            <!-- BEGIN RELATED VIDEOS -->
+            <?php if ($playlist) : ?>
+                <?php include 'blocks/watch/playlist.php'; ?>
+            <?php endif; ?>
+            <!-- BEGIN RELATED VIDEOS -->
+            <?php include 'blocks/watch/related.php'; ?>
+            <!-- END RELATED VIDEOS -->
+
+
+        </aside>
+    </div>
+
+
+</div>

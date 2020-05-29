@@ -1,0 +1,50 @@
+<!-- FOOTER -->
+<footer class="pb-2 pt-4 bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand text-secondary" href="<?=BASE_URL?>/"><i class="fas fa-cloud cc-icon" alt="CumulusClips cloud icon - click to go home."></i></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#footer-nav" aria-controls="footer-nav" aria-expanded="false" aria-label="Toggle footer navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="footer-nav">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="<?=HOST?>/browse/"><?=Language::GetText('videos')?></a> 
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?=HOST?>/members/"><?=Language::GetText('members')?></a>
+        </li>
+        <?php if ($loggedInUser): ?>
+        <li class="nav-item">
+          <a class="nav-link" href="<?=BASE_URL?>/members/<?=$loggedInUser->username?>/"><?=Language::GetText('view_my_profile')?></a>
+        </li>
+        <?php if ($config->enableUserUploads): ?>
+        <li class="nav-item">
+          <a class="nav-link" href="<?=BASE_URL?>/account/upload/video/"><?=Language::GetText('upload')?></a> 
+        </li>
+        <?php endif; ?>
+
+        <?php if ($this->getService('User')->checkPermissions('admin_panel', $loggedInUser)): ?>
+        <li class="nav-item">
+          <a class="nav-link" href="<?=BASE_URL?>/cc-admin/"><?=Language::GetText('admin_panel')?></a> 
+        </li>
+        <?php endif; ?>
+
+        <?php endif; ?>
+      </ul>
+
+      <ul class="navbar-nav mr-0">
+        <li class="nav-item">
+          <a class="nav-link" href="<?=HOST?>/contact/"><?=Language::GetText('contact')?></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?=HOST?>/video-sitemap.xml"><?=Language::GetText('sitemap')?></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Back to top</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+</footer>

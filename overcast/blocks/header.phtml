@@ -1,0 +1,48 @@
+<header>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="<?= BASE_URL ?>/"><i class="fas fa-cloud cc-icon"></i> CumulusClips</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+
+        <li class="nav-item">
+          <a class="nav-link" href="<?= BASE_URL ?>/browse/">Explore</a>
+        </li>
+        <?php if ($loggedInUser) : ?>
+
+          <?php if ($config->enableUserUploads) : ?>
+            <li class="nav-item">
+              <a class="nav-link" href="<?= BASE_URL ?>/account/upload/video/"><?= Language::GetText('upload') ?></a>
+            </li>
+          <?php endif; ?>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= BASE_URL ?>/account/playlists"><?= Language::GetText('my_playlists') ?></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= BASE_URL ?>/account/videos"><?= Language::GetText('my_videos') ?></a>
+          </li>
+
+          <?php include $this->getFallbackPath("layouts/loggedin_nav.phtml"); ?>
+
+        <?php else : ?>
+
+          <li class="nav-item">
+            <a class="nav-link" href="<?= BASE_URL ?>/login/"><?= Language::GetText('login') ?></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= BASE_URL ?>/register/"><?= Language::GetText('register') ?></a>
+          </li>
+
+        <?php endif; ?>
+
+      </ul>
+      <form class="form-inline mt-2 mt-md-0" action="<?= BASE_URL ?>/search/" method="post">
+        <input class="form-control mr-sm-2" type="text" name="keyword" placeholder="Search" aria-label="Search">
+        <input type="hidden" name="submitted_search" value="TRUE" />
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+</header>

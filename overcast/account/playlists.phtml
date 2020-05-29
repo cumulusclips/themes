@@ -1,0 +1,159 @@
+<?php 
+$this->setLayout('account');
+$playlistService = $this->getService('Playlist'); 
+$columns = 3;
+$col_width = 12 / $columns ;
+?>
+
+<div class="row">
+  <div class="col header-secondary">
+    <h2><?=Language::getText('playlists_header')?></h2>
+    <?php ( isset($message) ) ? showAlertMessage($message, $message_type) : ''; ?>
+  </div>
+</div>
+<div class="row">
+	<!-- Begin Favorites -->
+	<div class="col-md-4 mb-4">
+		<div class="card">
+			<div class="playlist-count-badge text-right p-2">
+				<span class="badge badge-info"><?=count($favoritesList->entries)?> <?=Language::GetText('videos')?></span>
+			</div>
+			<?php if (!empty($favoritesList->entries)): ?>
+			<img src="<?=getPlaylistThumbnail($favoritesList)?>" class="playlist-card-thumb" alt="Playlist thumbnail image."/>
+			<?php else: ?>
+			<i class="fas fa-list-ul text-center pt-5 empty-playlist-lg" alt=""></i>
+			<?php endif; ?>
+			<div class="card-body border-top">
+				<h5 class="card-title"><i class="far fa-star text-center text-warning pr-1" alt="Playlist thumbnail icon."></i> <?=Language::GetText('favorites')?>  </h5>
+				<div class="actions text-right pt-3">
+					<?php if (!empty($favoritesList->entries)): ?>
+					<a href="<?=$playlistService->getUrl($favoritesList)?>" class="btn btn-sm btn-outline-secondary px-2">Watch All</a>
+					<?php endif; ?>
+					<a href="<?=HOST?>/account/playlists/edit/<?=$favoritesList->playlistId?>/" class="btn btn-sm btn-outline-primary"><?=Language::GetText('edit_playlist')?></a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Begin Watch Later -->
+	<div class="col-md-4 mb-4">
+		<div class="card">
+			<div class="playlist-count-badge text-right p-2">
+				<span class="badge badge-info"><?=count($watchLaterList->entries)?> <?=Language::GetText('videos')?></span>
+			</div>
+			<?php if (!empty($watchLaterList->entries)): ?>
+			<img src="<?=getPlaylistThumbnail($watchLaterList)?>" class="playlist-card-thumb" alt="Playlist thumbnail image."/>
+			<?php else: ?>
+			<i class="fas fa-list-ul text-center pt-5 empty-playlist-lg" alt=""></i>
+			<?php endif; ?>
+			<div class="card-body border-top">
+				<h5 class="card-title"><i class="far fa-bookmark text-center text-success pr-1" alt="Playlist thumbnail icon."></i> <?=Language::GetText('watch_later')?>  </h5>
+				<div class="actions text-right pt-3">
+					<?php if (!empty($watchLaterList->entries)): ?>
+					<a href="<?=$playlistService->getUrl($watchLaterList)?>" class="btn btn-sm btn-outline-secondary px-2">Watch All</a>
+					<?php endif; ?>
+					<a href="<?=HOST?>/account/playlists/edit/<?=$watchLaterList->playlistId?>/" class="btn btn-sm btn-outline-primary"><?=Language::GetText('edit_playlist')?></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Begin New Playlist Form -->
+	<div class="col-md-4 mb-4 pt-3 border">
+		<h4><?=Language::GetText('create_new_playlist')?></h4>
+		<form method="POST">
+			<div class="form-group playlist-name">
+				<label for="playlistName"><?=Language::GetText('playlist_name')?>:</label>
+				<input type="text" class="form-control" name="name" id="playlistName" placeholder="<?=Language::GetText('playlist_name')?>">
+			</div>
+			<div class="form-group visibility">
+				<span class="pr-2">
+					<?=Language::getText('visibility')?>:
+				</span>
+				<div class="form-check form-check-inline">
+					<input type="radio" class="form-check-input" value="public" id="visibility-public" name="visibility" checked>
+					<label class="form-check-label pr-2" for="visibility-public"><?=Language::GetText('public')?></label> 
+					<input type="radio" class="form-check-input" value="private" id="visibility-private" name="visibility">
+					<label class="form-check-label" for="visibility-private"><?=Language::GetText('private')?></label> 
+
+				</div>
+				<input type="hidden" name="submitted" value="true" />
+				<input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
+			</div>
+			<p class="text-right">
+				<button class="btn btn-outline-primary" type="submit"><?=Language::GetText('create_playlist_button')?></button>
+			</p>
+		</form>
+<!-- END CREATE PLAYLIST FORM -->
+	</div>
+</div>
+
+<?php if (count($userPlaylists) > 0): ?>
+<?php $playlist_rows = array_chunk($userPlaylists, $columns); ?>
+<?php foreach ($playlist_rows as $playlists): ?>
+<div class="row">
+    <?php foreach ($playlists as $playlist): ?>
+      <div class="col-md-<?= $col_width ?> video mb-4">
+		<div class="card">
+			<div class="playlist-count-badge text-right p-2">
+				<span class="badge badge-info"><?=count($playlist->entries)?> <?=Language::GetText('videos')?></span>
+			</div>
+			<?php if (!empty($playlist->entries)): ?>
+			<img src="<?=getPlaylistThumbnail($playlist)?>" class="playlist-card-thumb" alt="Playlist thumbnail image."/>
+			<?php else: ?>
+			<i class="fas fa-list-ul text-center pt-5 empty-playlist-lg" alt=""></i>
+			<?php endif; ?>
+			<div class="card-body border-top">
+        <h5 class="card-title"><?php echo htmlspecialchars($playlist->name); ?></h5>
+			 	<?php if (!$playlist->public): ?>
+        <p class="card-text text-danger"><i class="fas fa-lock" alt="Private/lock icon"></i> Private playlist.</p>
+				<?php else: ?>
+        <p class="card-text text-success"><i class="fas fa-lock-open" alt="Public/unlocked icon"></i> Public playlist.</p>
+				<?php endif; ?>
+				<div class="action-buttons text-right pt-3">
+          <button type="button" class="float-left btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#confirmDeletion-<?=$playlist->playlistId?>">
+							<?=Language::getText('delete_playlist')?>
+						</button>
+					<?php if (!empty($playlist->entries)): ?>
+					<a href="<?=$playlistService->getUrl($playlist)?>" class="btn btn-sm btn-outline-secondary px-2">Watch All</a>
+					<?php endif; ?>
+					<a href="<?=HOST?>/account/playlists/edit/<?=$playlist->playlistId?>/" class="btn btn-sm btn-outline-primary"><?=Language::GetText('edit_playlist')?></a>
+				</div>
+			</div>
+
+<!-- Begin Confirm Delete Modal -->
+				<div class="modal fade" id="confirmDeletion-<?=$playlist->playlistId?>" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteHeader-<?=$playlist->playlistId?>" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="confirmDeleteHeader-<?=$playlist->playlistId?>">Delete <?php echo htmlspecialchars($playlist->name); ?>?</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<p class="text-left">Are you sure you want to delete this playlist?  This action is permanent and cannot be undone. </p>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-danger" role="button" data-node="confirm_delete_playlist" href="<?=HOST?>/account/playlists/?remove=<?=$playlist->playlistId?>"><?=Language::getText('delete_playlist')?></a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- END Confirm Delete Modal -->
+
+		</div>
+	
+			</div>
+			<?php endforeach; ?>
+</div>
+<?php endforeach; ?>
+<?php else: ?>
+<div class="row mt-5 ml-1 no-playlists">
+	<div class="col-7 alert alert-info">
+		<p class="text-center pt-2"><?=Language::GetText('no_playlists')?></p>
+	</div>
+</div>
+<?php endif; ?>

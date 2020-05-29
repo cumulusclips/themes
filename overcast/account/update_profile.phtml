@@ -1,0 +1,124 @@
+<?php
+$this->addJs($this->options->themeUrl . '/js/vendor/jquery.iframe-transport.js');
+$this->addJs($this->options->themeUrl . '/js/vendor/jquery.fileupload.js');
+$this->addJs('general.js');
+$this->addJs('fileupload.js');
+$this->SetLayout('account');
+?>
+
+<div class="row">
+  <div class="col header-secondary">
+    <h2><?=Language::getText('profile_header')?></h2>
+    <p class="large"><?=Language::getText('personal_header')?></p>
+    <p><?=Language::getText('asterisk')?></p>
+    <?php ( isset($message) ) ? showAlertMessage($message, $message_type) : ''; ?>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-8">
+    <form action="<?php echo BASE_URL; ?>/account/profile/" method="post">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="first-name"><?=Language::getText('first_name')?></label>
+          <input type="text" class="form-control <?=(isset ($Errors['first_name'])) ? ' is-invalid' : ''?>" name="first_name" id="first-name" placeholder="First Name" value="<?=htmlspecialchars($loggedInUser->firstName)?>">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="last-name"><?=Language::getText('last_name')?></label>
+          <input type="text" class="form-control <?=(isset ($Errors['last_name'])) ? ' is-invalid' : ''?>" name="last_name" id="last-name" placeholder="Last Name" value="<?=htmlspecialchars($loggedInUser->lastName)?>">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="email"><?=Language::getText('email')?></label>
+          <input type="email" class="form-control <?=(isset ($Errors['email'])) ? ' is-invalid' : ''?>" name="email" id="email" placeholder="email" value="<?=htmlspecialchars($loggedInUser->email)?>">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="website"><?=Language::getText('website')?></label>
+          <input type="website" class="form-control <?=(isset ($Errors['website'])) ? ' is-invalid' : ''?>" name="website" id="website" placeholder="website" value="<?=htmlspecialchars($loggedInUser->website)?>">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col">
+          <label for="about-me"><?=Language::getText('about_me')?></label>
+          <textarea name="about"class="form-control" id="about" rows="3" cols="100"><?=htmlspecialchars($loggedInUser->about_me)?></textarea>
+        </div>
+      </div>
+      <input type="hidden" value="yes" name="submitted" />
+      <input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
+      <button class="btn btn-primary" type="submit" name="button" /><?=Language::getText('profile_button')?></button>
+    </form>
+  </div>
+</div>
+<div class="row my-5">
+  <div class="col">
+    <h2 id="update_avatar"><?=Language::getText('update_avatar_header')?></h2>
+    <div class="message <?=$message_type?>"><?=$message?></div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-8">
+    <div class="card mb-3">
+      <div class="row no-gutters">
+        <div class="col-md-4 pt-4">
+          <?php $avatar = $this->getService('User')->getAvatarUrl($loggedInUser); ?>
+          <p class="text-center py-4">
+            <?php if($avatar): ?> 
+            <img alt="<?php echo Language::getText('current_avatar'); ?>" src="<?=$avatar?>">
+            <?php else: ?> 
+            <i class="fas fa-user fa-lg" alt="<?php echo Language::getText('current_avatar'); ?>" style="font-size: 128px;"></i></p>
+          <?php endif; ?> 
+          <p class="text-center"><a role="button"  data-toggle="modal" data-target="#confirmReset" href="" class="btn btn-outline-danger"><?php echo Language::getText('reset_avatar'); ?></a></p>
+        </div>
+        <!-- Begin Confirm Delete Modal -->
+        <div class="modal fade" id="confirmReset" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteHeader" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteHeader">Warning: <?php echo Language::getText('reset_avatar'); ?>?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p class="text-left">Are you sure you want to delete your avatar?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-danger" role="button" data-node="confirm_reset_avatar" href="<?= BASE_URL; ?>/account/profile/?action=reset"><?=Language::getText('reset_avatar')?></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- END Confirm Delete Modal -->
+        <div class="col-md-8">
+          <div class="card-body">
+            <p class="card-text"><?php echo Language::getText('update_avatar_text'); ?></p>
+            <form action="<?php echo BASE_URL; ?>/account/profile/" method="post" enctype="multipart/form-data">
+              <div class="input-group mb-3">
+                <div class="custom-file">
+                  <input
+                    type="file"
+                    name="upload"
+                    id="avatarUploader"
+                    class="uploader custom-file-input"
+                    data-text="<?php echo Language::getText('browse_files_button'); ?>"
+                    data-url="<?php echo BASE_URL; ?>/ajax/upload/"
+                    data-type="image"
+                    data-limit="<?php echo $config->fileSizeLimit; ?>"
+                    data-extensions="<?php echo urlencode(json_encode($config->acceptedImageFormats)); ?>"
+                    data-auto-submit="true"
+                    />
+
+                    <input type="hidden" name="submitted_avatar" value="true" />
+                    <input type="hidden" name="nonce" value="<?php echo $formNonce; ?>" />
+                    <label class="custom-file-label" for="avatarUploader">Choose file</label>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

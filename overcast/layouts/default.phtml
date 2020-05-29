@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="<?= Language::getLocale() ?>">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+  <!-- CumulusClips meta tags -->
+  <meta name="baseUrl" content="<?= HOST ?>" />
+  <meta name="themeUrl" content="<?= $this->options->themeUrl ?>" />
+  <?php $this->writeMeta(); ?>
+  <?php Plugin::triggerEvent('theme.head'); ?>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="<?= $this->options->themeUrl ?>/css/vendor/bootstrap.min.css">
+
+
+  <!-- Custom styles for this template -->
+  <link href="<?= $this->options->themeUrl ?>/css/default.css" rel="stylesheet">
+
+  <link rel="shortcut icon" type="image/x-icon" href="<?= $this->options->themeUrl ?>/favicon.ico" />
+
+  <!-- Font Awesome -->
+  <link href="<?= $this->options->themeUrl ?>/css/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <?php $this->writeCSS(); ?>
+  <title><?= $meta->title ?></title>
+</head>
+
+<body>
+  <?php Plugin::triggerEvent('theme.body'); ?>
+
+  <?php $this->block('header.phtml'); ?>
+
+  <div class="main bg-light">
+    <?= $this->body(); ?>
+  </div>
+
+  <?php $this->block('footer.phtml'); ?>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery/Bootstrap JS -->
+  <script src="<?= $this->options->themeUrl ?>/js/vendor/jquery.min.js"></script>
+  <script src="<?= $this->options->themeUrl ?>/js/vendor/jquery-ui.min.js"></script>
+  <script src="<?= $this->options->themeUrl ?>/js/vendor/bootstrap.bundle.min.js"></script>
+
+  <!-- Clipboard JS -->
+  <script src="<?= $this->options->themeUrl ?>/js/vendor/clipboard.min.js"></script>
+
+
+  <!-- Theme-specific JS -->
+  <script src="<?= $this->options->themeUrl ?>/js/theme.js"></script>
+  <?php $this->writeJs(); ?>
+  <?php Plugin::triggerEvent('theme.body.bottom'); ?>
+</body>
+
+</html>

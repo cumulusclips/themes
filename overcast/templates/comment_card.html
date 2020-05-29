@@ -1,0 +1,27 @@
+<script id="comment-card-template" type="text/x-jsrender">
+<div class="card mb-3 comment{{:indent}}" data-comment="{{:comment.commentId}}">
+  <div class="row no-gutters">
+    <div class="col-md-3 text-center">
+      {{if author.avatar}}
+      <img src="{{:avatar}}" class="authorAvatar p-2 my-3 img-thumbnail" alt="">
+      {{else}}
+      <i class="default-avatar fas fa-user fa-lg py-3 mt-3" alt="" style="font-size: 64px;"></i>
+      {{/if}}
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <p class="card-text comment-meta font-weight-light font-italic">Posted by <span class="commentAuthor"><a class="authorUrl" href="{{:memberUrl}}{{:author.username}}">{{:author.username}}</a></span> on <span class="commentDate">{{:datePosted}}</span>
+          {{if comment.parentId !== 0}} 
+          <span class="commentReply reply_to">{{:replyToText}}</span> <span class="parentAuthor"><a href="{{:memberUrl}}{{:parentAuthor.username}}">{{:parentAuthor.username}}</a></span>
+          {{/if}}
+        </p>
+        <p class="card-text comment-text">{{:comment.comments}}</p>
+        <div class="commentAction text-right">
+          <button type="button" class="reply btn btn-sm btn-outline-secondary">{{:replyText}}</button>
+          <button type="button" class="flag report_abuse report-content btn btn-sm btn-outline-danger" data-type="comment" data-id="{{comment.commentId}}">{{:reportAbuseText}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</script>

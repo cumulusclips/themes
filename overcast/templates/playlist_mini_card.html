@@ -1,0 +1,25 @@
+<script id="playlist-mini-card-template" type="text/x-jsrender">
+<li class="playlist media mt-1">
+    {{if videoThumbId}}
+    <a data-playlistId="{{:playlistId}}" class="playlist-link video-url-{{:videoThumbId}}" href="{{:url}}">
+      <div class="related-thumb-container bg-dark text-center">
+        <img class="playlist-mini-thumb thumb-{{:videoThumbId}}" src="{{:thumbUrl}}" />
+      </div>
+    </a>
+    {{else}}
+      <div class="related-thumb-container bg-dark text-center">
+        <i class="empty-playlist-icon fas fa-list-ul text-center py-4" style="font-size: 32px;" alt="Playlist thumbnail icon."></i>
+      </div>
+    {{/if}}
+    <div class="media-body ml-2">
+      <p class="h6 my-0">
+        {{if videoThumbId}}
+          <a data-playlistId="{{:playlistId}}" class="playlist-link video-url-{{:videoThumbId}}" href="{{:url}}">{{:name}}</a>
+        {{else}}
+          {{:name}}
+        {{/if}}
+      </p>
+      <p class="video-count small">{{:videoCount}} {{:videosText}}</p>
+    </div>
+</li>
+</script>
